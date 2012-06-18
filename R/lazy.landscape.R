@@ -1,0 +1,1 @@
+lazy.landscape <- function(begin=TRUE) if (begin) "\\begin{landscape}\n" else "\\end{landscape}"

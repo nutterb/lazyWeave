@@ -1,0 +1,1 @@
+lazy.label <- function(label) paste("\\label{", label, "}", sep="")
