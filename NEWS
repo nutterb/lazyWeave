@@ -1,0 +1,10 @@
+Following the UseR presentation, I've decided to change my plans for this package a little. 
+Instead of uploading a second package (referred to as lazyHTML), I will add the HTML functionality 
+to lazyWeave.  An option will be set when the package loads to determine if the output is LaTeX 
+or HTML.  This way, I only need to change the output option in options() in order to change the 
+format of my reports.
+
+Also, based on a number of requests, I will move the functions cattable, conttable, catconttable, 
+and write.ctable into lazyWeave.  These were the functions that produced the summary table that
+a number of people expressed interest in.  This move may only be temporary.  I may move them back
+into CCFmisc when I get that package ready for CRAN (that could take a little while though).
