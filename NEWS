@@ -1,3 +1,5 @@
+=== 18 June 2012 ===
+
 Following the UseR presentation, I've decided to change my plans for this package a little. 
 Instead of uploading a second package (referred to as lazyHTML), I will add the HTML functionality 
 to lazyWeave.  An option will be set when the package loads to determine if the output is LaTeX 
