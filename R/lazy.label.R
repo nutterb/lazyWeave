@@ -1,1 +1,17 @@
-lazy.label <- function(label) paste("\\label{", label, "}", sep="")
+lazy.label <- function(label){
+  #*** retrieve the report format
+  reportFormat <- getOption("lazyReportFormat")
+  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  
+  
+  #*** Construct the comment with the function call
+  comment.char <- if (reportFormat == "latex") c("%%", "")
+  else if (reportFormat == "html") c("<!--", "-->")
+  
+  fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
+  
+  
+  if (reportFormat == "latex") return(paste("\\label{", label, "}", sep=""))
+  
+  if (reportFormat == "html") return(paste(fncall, "<a name='", label, "'></a>\n", sep=""))
+}
