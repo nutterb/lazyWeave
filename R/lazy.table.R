@@ -272,13 +272,3 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
   }
 
 }
-
-lazy.options("latex")
-lazy.write(
-  lazy.file.start(),
-  lazy.table(mtcars, rborder=c(0, 3, 9, nrow(mtcars), nrow(mtcars))),
-  lazy.file.end(),
-  OutFile="C:/Users/nutterb/Desktop/table.tex")
-lazy.build("C:/Users/nutterb/Desktop/table.tex")
-lazy.options("html")
-write(lazy.table(mtcars, rborder=c(0, 3, 9, nrow(mtcars), nrow(mtcars))), "C:/Users/nutterb/Desktop/test.html")
