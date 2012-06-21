@@ -1,7 +1,7 @@
 lazy.file.start <-
 function(docClass="article", packages=NULL, 
     counters=NULL, layout="", page="arabic", ligatures=TRUE,
-    title=NULL, author=NULL, date=""){
+    title=NULL, author=NULL, date="", initialize=TRUE){
     
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -42,6 +42,7 @@ function(docClass="article", packages=NULL,
                   "\\usepackage{Sweave}\n",
                   "\\usepackage{lscape}\n",
                   "\\usepackage{microtype}\n",
+                  "\\usepackage{hyperref}\n",
                   packages, "\n",
                   if (!ligatures) "\\DisableLigatures{encoding=*, family=*}\n" else "",
                   if (layout %in% "") "%% layout commands may be written here" else layout, "\n",
@@ -55,6 +56,11 @@ function(docClass="article", packages=NULL,
   #*** Yes, it does seem really lame, in comparison. But the HTML options
   #*** can be set using lazy.options.
   if (reportFormat == "html"){
+    if (initialize){
+      lazy.options(reportFormat, table=1, figure=1, footnote=1, chapter=1, section=1, subsection=1, 
+                   font.family="serif", font="helvetica", font.size=11)
+      options(html.footnotes = NULL)
+    }
     code <- "<html>\n"
   }
   

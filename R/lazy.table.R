@@ -115,6 +115,7 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
       nline <- paste(rep("\\hline", sum(rborder %in% 0)), collapse="")
       rborder <- rborder[rborder != 0] #*** needs to be removed for a paste operation later
     }
+    else nline <- ""
   }
   if (reportFormat == "html"){
     if (length(rborder.thick ==1) && !is.null(rborder)) rborder.thick <- rep(rborder.thick, length(rborder))
@@ -131,7 +132,7 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
 
     if (!is.null(rborder)){
       if (0 %in% rborder) btop[1, ] <- rborder.style
-      bbot[rborder != 0, ] <- rborder.style
+      bbot[rborder[rborder != 0], ] <- rborder.style
     }
   }
   

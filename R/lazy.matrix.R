@@ -3,7 +3,15 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
     caption=NULL, footnote=NULL, placement="!H", translate=TRUE, ...){
     
      
-  fncall <- paste("%%", paste(deparse(match.call()), collapse=""), "\n")
+  #*** retrieve the report format
+  reportFormat <- getOption("lazyReportFormat")
+  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  
+  #*** Construct the comment with the function call
+  comment.char <- if (reportFormat == "latex") c("%%", "")
+  else if (reportFormat == "html") c("<!--", "-->")
+  
+  fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
 
 #*** Coerce x to a matrix
   if (!is.matrix(x)) x <- as.matrix(x)
@@ -46,7 +54,7 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
   else{
     header <- ""
     body <- lazy.table(x, align=align, cspan=1,
-                        justify=justify, rborder=c(0, 0, nrow(x)),
+                        justify=justify, rborder=c(0, nrow(x)),
                         open=TRUE, close=TRUE, 
                         rcol=rcol, usecol=usecol,
                         caption=caption, footnote=footnote,

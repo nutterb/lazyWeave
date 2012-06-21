@@ -8,6 +8,14 @@ function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
   #*** Stop Function if no OutFile is given
   if (missing(OutFile))
     stop("'OutFile' must be explicitly specfied using 'OutFile=[filename]'")
+  
+  file <- unlist(strsplit(OutFile, "[.]"))
+  file.ext <- tail(file, 1)
+  if (reportFormat == "latex" && file.ext %in% c("html", "htm")) 
+    OutFile <- paste(file[-length(file)], ".tex", sep="")
+  if (reportFormat == "html" && file.ext == "tex")
+    OutFile <- paste(file[-length(file)], "html", sep=".")
+  
 
   #*** As awful as this sounds, I have no idea what this does.  It is a relic
   #*** from html.write in my earlier version of CCFmisc, but I never documented

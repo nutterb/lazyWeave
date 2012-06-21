@@ -1,27 +1,128 @@
-lazy.build <- function(tex, pdf=NULL, quiet=TRUE, clean=TRUE, replace=TRUE, ...){
-  path.comp <- unlist(strsplit(tex, .Platform$file.sep))
-  path <- paste(path.comp[-length(path.comp)], collapse=.Platform$file.sep)
-  if (path == "") path <- getwd()
+lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE, replace=TRUE, ...){
+  #*** retrieve the report format
+  reportFormat <- getOption("lazyReportFormat")
+  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  
+  #*** the following block changes the extension of 'filename' to match options("lazyReportFormat")
+  file <- unlist(strsplit(filename, "[.]"))
+  fileout <- if (!is.null(pdf.zip)) unlist(strsplit(pdf.zip, "[.]")) else NULL
+  file.ext <- tail(file, 1)
+  if (reportFormat == "latex" && file.ext %in% c("html", "htm")){ 
+    filename <- paste(c(file[-length(file)], "tex"), collapse=".")
+    pdf.zip <- if (!is.null(pdf.zip)) paste(c(fileout[-length(fileout)], "pdf"), collapse=".") else NULL
+  }
+  if (reportFormat == "html" && file.ext == "tex"){
+    filename <- paste(c(file[-length(file)], "html"), collapse=".")
+    pdf.zip <- if (!is.null(pdf.zip)) paste(c(fileout[-length(fileout)], "zip"), collapse=".") else NULL
+  }
+  
 
-  outfile <- gsub("[.]tex", ".pdf", path.comp[length(path.comp)])
-  outfile <- paste(getwd(), outfile, sep=.Platform$file.sep)
-                                  
-  if (is.null(pdf)) pdf <- gsub("[.]tex", ".pdf", tex)
-  path.pdf <- unlist(strsplit(pdf, .Platform$file.sep))
-  path.pdf <- paste(path.pdf[-length(path.pdf)], collapse=.Platform$file.sep)
-  if (path.pdf == "") path.pdf <- getwd()
+  #*** Build the PDF and copy to new location if requested.
+  if (reportFormat == "latex"){
+    #*** The next three blocks generate objects for the file paths of the .tex file and the .pdf file
+    path.comp <- unlist(strsplit(filename, .Platform$file.sep))
+    path <- paste(path.comp[-length(path.comp)], collapse=.Platform$file.sep)
+    if (path == "") path <- getwd()
+
+    outfile <- gsub("[.]tex", ".pdf", path.comp[length(path.comp)])
+    outfile <- paste(getwd(), outfile, sep=.Platform$file.sep)
+                                
+  
+    if (is.null(pdf.zip)) pdf.zip <- gsub("[.]tex", ".pdf", filename)
+    path.pdf <- unlist(strsplit(pdf.zip, .Platform$file.sep))
+    path.pdf <- paste(path.pdf[-length(path.pdf)], collapse=.Platform$file.sep)
+    if (path.pdf == "") path.pdf <- getwd()
     
-  #*** Used when I was using system() to build the pdf.
-  #quiet <- if (quiet) "--quiet" else ""
-  #system(paste("texi2dvi --pdf --clean", quiet, shQuote(tex)))
-  
-  tools::texi2dvi(tex, pdf=TRUE, quiet=quiet, clean=clean, ...)
-  
-  if (!(pdf %in% path)){
-    if(path.pdf != getwd()){
-      file.copy(outfile, pdf, overwrite=replace)
-      file.remove(outfile)
+    tools::texi2dvi(filename, pdf=TRUE, quiet=quiet, clean=clean, ...)
+   
+    if (!(pdf.zip %in% path)){
+      if(path.pdf != getwd()){
+        file.copy(outfile, pdf.zip, overwrite=replace)
+        file.remove(outfile)
+      }
     }
+  }
+  
+  
+  if (reportFormat == "html"){
+    if (is.null(pdf.zip)){ 
+      pdf.zip <- unlist(strsplit(filename, "[.]"))
+      pdf.zip <- paste(c(pdf.zip[-length(pdf.zip)], "zip"), collapse=".")
+    }
+    
+    #*** Remove extension from pdf.zip
+    pdf.zip <- gsub("[.]zip", "", pdf.zip)
+    
+    #*** designate the filename for the HTML file
+    filename.to <- sapply(strsplit(filename, .Platform$file.sep), tail, 1)
+    
+    #*** read the HTML code and identify rows with figures.
+    code <- readLines(filename)
+    figure.pos <- grep("[<]img src", code)
+    
+    #*** identify figure files
+    figures <- code[figure.pos]
+    figures <- gsub("[[:print:]]+[<]img src='", "", figures)
+    figures <- gsub("' height[[:print:]]+", "", figures)
+    
+    #*** create file paths for copies of figures
+    weblinks <- grep("http[://]", figures)
+    #igures.to <- figures
+    figures.to <- sapply(strsplit(figures, .Platform$file.sep), tail, 1)  
+    
+    if (length(weblinks) > 0) figures.to[weblinks] <- figures
+    
+    if (length(figure.pos) > 0)
+      for(i in 1:length(figure.pos)) code[figure.pos[i]] <- gsub(figures[i], figures.to[i], code[figure.pos[i]])
+    
+    #*** if the HTML file exists in the working directory, copy the file to prevent deletion
+    if (file.exists(filename.to)){
+      rename <- TRUE
+      file.rename(filename, "Temporary_Name_Change.html")
+    }
+    else rename <- FALSE
+    
+    #*** Rewrite the HTML with abbreviated figure file paths
+    write(code, file.path(getwd(), filename.to))
+    
+    #*** Copy files to the working directory
+    if (length(weblinks) > 0) 
+      if (length(figures.to[-weblinks]) > 0) file.copy(figures[-weblinks], file.path(getwd(), figures.to[-weblinks]))
+    else file.copy(figures, file.path(getwd(), figures.to))
+    
+    #*** Troubleshoot file
+    write(paste("Depending on your system, you may need to unzip/extract all of the",
+                "files in the .zip folder in order to view images and figures.",
+                "",
+                "",
+                "This HTML file may not display as intended in some versions of Internet Explorer.",
+                "If available, it is recommend that you open the HTML files in Mozilla Firefox or Google Chrome.",
+                "If these are not available, you may right-click on the file and open in MS Word.", sep="\n"),
+          "00_Troubleshooting.txt")
+    
+    #*** Zip the files and clean up
+    if (length(figures.to) > 0)
+      zip(pdf.zip, c(if (length(weblinks) > 0) figures.to[-weblinks] else figures.to, filename.to, "00_Troubleshooting.txt"))
+    else 
+      zip(pdf.zip, c(filename.to, "00_Troubleshooting.txt"))
+    unlink(c(filename.to, figures.to, "00_Troubleshooting.txt"))
+    if (rename) file.rename("Temporary_Name_Change.html", filename)  
   }
 }
 
+
+lazy.options("latex")
+#lazy.options("html")
+lazy.write(
+  lazy.file.start(),
+  lazy.section("try the link"),
+  lazy.text("The cars data are shown in Table ", lazy.ref("cars", link=TRUE), " on page ",
+            lazy.ref("cars", page=TRUE), ".  Click the link to see them"),
+  lazy.link("google.com"),
+  lazy.link("google.com", "Go to Google"),
+  lazy.page.break(),
+  lazy.matrix(mtcars, label="cars", caption="Cars Data"),
+  lazy.insert.code("H:/nutterb/R_Projects/CCFmisc Package/lazyWeave/R/lazy.table.R"),
+  lazy.file.end(),
+  OutFile="C:/Users/nutterb/Desktop/table.html")
+lazy.build("C:/Users/nutterb/Desktop/table.html")
