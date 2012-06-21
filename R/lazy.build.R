@@ -109,20 +109,3 @@ lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE, replace=T
     if (rename) file.rename("Temporary_Name_Change.html", filename)  
   }
 }
-
-
-lazy.options("latex")
-#lazy.options("html")
-lazy.write(
-  lazy.file.start(),
-  lazy.section("try the link"),
-  lazy.text("The cars data are shown in Table ", lazy.ref("cars", link=TRUE), " on page ",
-            lazy.ref("cars", page=TRUE), ".  Click the link to see them"),
-  lazy.link("google.com"),
-  lazy.link("google.com", "Go to Google"),
-  lazy.page.break(),
-  lazy.matrix(mtcars, label="cars", caption="Cars Data"),
-  lazy.insert.code("H:/nutterb/R_Projects/CCFmisc Package/lazyWeave/R/lazy.table.R"),
-  lazy.file.end(),
-  OutFile="C:/Users/nutterb/Desktop/table.html")
-lazy.build("C:/Users/nutterb/Desktop/table.html")
