@@ -1,10 +1,9 @@
 \name{lazy.counter}
 \alias{lazy.counter}
 \title{Create and Manage Counters for LaTeX Documents}
-\description{Provides the code to create, manipulate, or extract values of counters in a LaTeX document.}
+\description{Provides the code to create, manipulate, or extract values of counters in a LaTeX or HTML document.}
 \usage{
-lazy.counter(counter, value, oldcounter, 
-    fn=c("new", "addto", "set", "use", "value"))
+lazy.counter(counter, value, oldcounter, fn=c("new", "addto", "set", "use", "value"))
 }
 
 
@@ -36,6 +35,23 @@ argument.
 
 \code{fn="value"} returns the value of \code{counter}.  This value isn't printed, but can be useful for doing arithmetic with 
 counter values.
+
+The HTML counters in \code{counter} are the defaults and will reference global counters 
+  \tabular{l}{
+    \code{options("html.counter.table")}\cr
+    \code{options("html.counter.table"}\cr
+    \code{options("html.counter.table"}\cr
+    \code{options("html.counter.table"}\cr
+    \code{options("html.counter.table"}\cr
+    \code{options("html.counter.table"}\cr
+    \code{options("html.counter.table"}
+  }
+  
+  Additional and custom counters may be defined if desired, in which case a new option will be defined as
+  \code{options("html.custom.[countername]")}.
+  
+  Extracting a current value does not increment the counter--this must be done manually (and is done manually when used in \code{lazy.table}, \code{lazy.figure},\
+  \code{lazy.footnote}, and \code{lazy.section}.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

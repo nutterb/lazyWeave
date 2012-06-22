@@ -1,21 +1,31 @@
 \name{lazy.footnote}
 \alias{lazy.footnote}
 \title{Add a Footnote}
-\description{Adds a footnote to the text in a .tex file.}
+\description{Adds a footnote to the text in a .tex file.  In HTML files, an endnote is produced.  Links are 
+  established between the text and the endnote for user convenience.}
 
 \usage{
-lazy.footnote(text, number=NULL, translate=FALSE)
+lazy.footnote(text, number=NULL, translate=FALSE,
+              name, ref, counter="footnote", size=8)
 }
 
 \arguments{
   \item{text}{Text for the footnote.}
   \item{number}{Footnote number.}
   \item{translate}{Determines if \code{\link{latexTranslate}} is applied to \code{text}.}
+  \item{name}{For HTML, a reference name to the endnote.}
+  \item{ref}{For HTML, a reference name to go back to the text (from the endnote).}
+  \item{counter}{For HTML, counter to use for numbering the endnotes.}
+  \item{size}{For HTML, the text size to use for the endnote}.
 }
 \details{
-  Be warned that this is not a perfect function.  If you use special characters that require that \code{latexTranslate} be turned off, 
+  Be warned that this is not a perfect function on the LaTeX side.  If you use special characters that require that \code{latexTranslate} be turned off, 
   you'll also need to turn of \code{latexTranslate} in \code{lazy.write}.  I'm including this as is for ease of use, but it does
   have some kinks to work out.
+  
+  \code{name} and \code{ref} are used to create links between the footnote marking in the text and the actual footnote.  Clinking
+  on the links created will allow the reader to go back and forth between them.  The names may be similar, but exact matches may
+  confuse the browser.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

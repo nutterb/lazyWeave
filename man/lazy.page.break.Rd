@@ -1,9 +1,13 @@
 \name{lazy.page.break}
 \alias{lazy.page.break}
 \title{Start New Page in LaTeX}
-\description{Insert code to start a new page in a LaTeX document.}
+\description{Insert code to start a new page in a document.}
 \usage{
 lazy.page.break()
+}
+
+\details{
+    For HTML documents, page breaks will not show up in the browser, but will show up when printed.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

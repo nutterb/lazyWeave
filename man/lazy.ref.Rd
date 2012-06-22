@@ -5,13 +5,16 @@
 \description{Provides the code to label and reference objects that have a label statement with them.}
 \usage{
 lazy.label(label)
-lazy.ref(label, page=FALSE)
+lazy.ref(label, text, page=FALSE, link=TRUE)
 }
 
 
 \arguments{
   \item{label}{A character(1) giving the name of the to be created or referenced.}
-  \item{page}{Indicates if the page number on which the label lies should be returned or the object number.}
+  \item{text}{For HTML, the text to be hyperlinked for the reference.  If missing, this is set to \code{"(link)"}.}
+  \item{page}{Indicates if the page number on which the label lies should be returned or the object number.  This
+     only applies to LaTeX files.}
+  \item{link}{for LaTeX files, should the reference link to the object.}
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

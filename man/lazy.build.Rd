@@ -1,24 +1,29 @@
 \name{lazy.build}
 \alias{lazy.build}
-\title{Build PDF Documents for TEX Files}
-\description{Calls \code{texi2dvi} to convert tex code to a pdf.}
+\title{Finalize Reports in LaTeX and HTML Formats}
+\description{Calls \code{texi2dvi} to convert tex code to a pdf.
+
+HTML documents may references figures and images from several different locations. These images and figures will only be viewable by others if they have access to the paths on which they are stored. For instance, if an HTML report is e-mailed to a client, the client may not be able to view the images because if those files are not stored locally or on a server to which the client has access. html_zip searches the HTML code for links to images, collects the files, and gathers them all into a zip file with the HTML document. Image references are changed, if necessary, to reflect that images can be found in the same folder as the HTML file. In this manner, complete reports can be sent to clients with all of the images and figures viewable.}
 
 \usage{
-lazy.build(tex, pdf=NULL, quiet=TRUE, clean=TRUE, 
-    replace=TRUE, ...)
+lazy.build(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE, replace=TRUE, ...)
 }
 
 \arguments{
-  \item{tex}{Character string giving the location of the TEX code to be built.}
-  \item{pdf}{Optional character vector in which to store the built file.  If
-    \code{NULL}, the pdf will be placed in the same directory as \code{tex}.}
+  \item{filename}{Character string giving the location of the TeX or HTML.}
+  \item{pdf.zip}{Optional character vector in which to store the built file.  If
+    \code{NULL}, the pdf/zip file will be placed in the same directory as \code{filename}.}
   \item{quiet}{Suppresses the output from \code{texi2dvi}.  When the build
     is successful, it's just a bunch of noise.  When the build is not
-    successful, it will give useful error messages.}
+    successful, it may give useful error messages.  This argument only applies when 
+    \code{options("lazyReportFormat")} is set to \code{"latex"}}
   \item{clean}{Passed to \code{tools::texi2dvi}.   If TRUE, all auxiliary 
-    files are removed (texi2dvi command line option --clean). May not work on some platforms.}
-  \item{replace}{Should the current build replace a previous build.}
-  \item{...}{Additional arguments to be passed to \code{texi2dvi}.}
+    files are removed (texi2dvi command line option --clean). May not work on some platforms.
+    This argument only applies when 
+    \code{options("lazyReportFormat")} is set to \code{"latex"}}
+  \item{replace}{Should the current build replace a previous build.  This argument only applies when 
+    \code{options("lazyReportFormat")} is set to \code{"latex"}}
+  \item{...}{Additional arguments to be passed to \code{texi2dvi} or \code{zip}.}
 }
 \details{
   Building with \code{texi2dvi} seems to recognize jpeg formats for figures,
@@ -54,6 +59,13 @@ lazy.build(tex, pdf=NULL, quiet=TRUE, clean=TRUE,
   
   One common problem with \code{lazy.table} is using a \code{cwidth} argument that has a length not equal to the number of columns in 
   the table.
+  
+  
+  
+  For HTML files, to identify figure files, html_zip searches code for lines containing "<img src='". In these lines, the content between "<img src=" and "' height" is assumed to be the filename. If any other attribute is defined after src and before height, the function will fail. This won't be a problem when all figures references are created by html_figure, but user defined references are likely to create problems if this issue is not carefully observed.
+
+In some systems, the contents of a .zip folder are only visible after a local copy has been made by opening a file. The consequence of this behavior is that images in a zip folder are not viewable from the HTML docment until all of the images are opened independently. In order to alert the user of this behavior, an additional file titled "00_Troubleshooting.txt" is placed in the zip folder with an explanation. Unzipping folders will allow the user to view the images from the HTML file as expected.
+  
 
 }
 

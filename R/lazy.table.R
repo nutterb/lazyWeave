@@ -1,13 +1,13 @@
-lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("html.font.family"), 
-                       size=getOption("html.font.size"),
+lazy.table <- function(x, 
                        align="center", cspan=1, cwidth=NULL, cwidth.units="in", 
                        cborder=NULL, cborder.thick=1, cborder.style="solid black",
                        rborder=NULL, rbspan=NULL, rborder.thick=1, rborder.style="solid black", 
                        rcol=NULL, usecol="lightgray",
-                       justify="center", placement="!H",
+                       font, family, size,
+                       justify="center", placement="h",
                        open=TRUE, close=TRUE, 
                        caption=NULL, footnote=NULL, label=NULL,
-                       counter="table", counterSet=NULL,
+                       counter=NULL, counterSet=NULL,
                        translate=TRUE, textsize=NULL){
   
   #*** retrieve the report format
@@ -24,6 +24,10 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
     if (length(cwidth != 1) && ((ncol(x)) != length(cwidth)))
       stop("'cwidth' must have length 1 or equal to ncol(x)")
   }
+  
+  if (missing(font)) font <- get(".HTML.FONT.FONT.", envir=.GlobalEnv)
+  if (missing(family)) family <- get(".HTML.FONT.FAMILY.", envir=.GlobalEnv)
+  if (missing(size)) size <- get(".HTML.FONT.SIZE.", envir=.GlobalEnv)
   
   if (!is.null(textsize)){
     size <- textsize
@@ -89,16 +93,16 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
     
     blft <- matrix("none", nrow=nrow(x), ncol=ncol(x))
     bord.thick.lft <- matrix("", nrow=nrow(x), ncol=ncol(x))
-    if (0 %in% cborder) bord.thick.lft[, 1] <- cborder.thick[which(rborder == 0)]
+    if (0 %in% cborder) bord.thick.lft[, 1] <- cborder.thick[which(rborder == 0)][1]
     
     brht <- matrix("none", nrow=nrow(x), ncol=ncol(x))
     bord.thick.rht <- matrix("", nrow=nrow(x), ncol=ncol(x))
     if (!is.null(cborder))
-      bord.thick.rht[, cborder] <- cbord.thick[if (length(cborder) > 0) which (cborder != 0) else 1]
+      bord.thick.rht[, cborder] <- cborder.thick[if (length(cborder) > 0) which (cborder != 0) else 1]
     
     if (!is.null(cborder)){
-      if (0 %in% cborder) blft[, 1] <- cbord.style
-      brht[, cborder[cborder != 0]] <- cbord.style
+      if (0 %in% cborder) blft[, 1] <- cborder.style
+      brht[, cborder[cborder != 0]] <- cborder.style
     }
   }
   
@@ -123,7 +127,7 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
     
     btop <- matrix("none", nrow=nrow(x), ncol=ncol(x))
     bord.thick.top <- matrix("", nrow=nrow(x), ncol=ncol(x))
-    if (0 %in% rborder) bord.thick.top[1, ] <- rborder.thick[which(rborder==0)]
+    if (0 %in% rborder) bord.thick.top[1, ] <- rborder.thick[which(rborder==0)][1]
     
     bbot <- matrix("none", nrow=nrow(x), ncol=ncol(x))
     bord.thick.bot <- matrix("", nrow=nrow(x), ncol=ncol(x))
@@ -171,6 +175,7 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
   if (reportFormat == "html"){
     if (is.null(caption)) caption <- ""
     else{ 
+      if (is.null(counter)) counter <- "table"
       if (!is.null(counterSet)) lazy.counter(counter, counterSet, fn="set")
       count.val <- lazy.counter(counter, fn="value")
       caption <- paste("Table ", lazy.counter(counter, fn="value"), ": ", caption, sep="")
@@ -187,8 +192,10 @@ lazy.table <- function(x, font=getOption("html.font.font"), family=getOption("ht
   
   #*** counter manipulation (this was handled in the caption for html reports)
   if (reportFormat == "latex"){
-    counterStr <- if (!is.null(counter)) paste(lazy.counter(counter, fn="use"), "\n", sep="") else "%% \\usecounter{}\n"
-    if (!is.null(counterSet)) counterStr <- paste(counterStr, lazy.counter(counter, value=counterSet - 1, fn="set"), "\n", sep="")
+     counterStr <- if (!is.null(counter)) paste(lazy.counter(counter, fn="use"), "\n", sep="") else "%% \\usecounter{}\n"
+    if (!is.null(counterSet) & !is.null(counter)) 
+      counterStr <- paste(counterStr, lazy.counter(counter, value=counterSet - 1, fn="set"), "\n", sep="")
+
   }
 
    

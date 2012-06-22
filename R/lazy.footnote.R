@@ -12,16 +12,16 @@ lazy.footnote <- function(text, number=NULL, translate=FALSE,
   if (reportFormat == "html"){
     if (!is.null(number)){
       if (!is.numeric(number)) stop("'number' must be numeric")
-      lazy.counter(paste("html.counter.", counter, sep=""), number, fn="set")
+      lazy.counter(counter, number, fn="set")
     } 
     
-    end.value <- lazy.counter(paste("html.counter.", counter, sep=""), fn="value")
-    lazy.counter(paste("html.counter.", counter, sep=""), end.value + 1, "set")
+    end.value <- lazy.counter(counter, fn="value")
+    lazy.counter(counter, end.value + 1, "set")
     
     code <- paste("<sup>[<a name='", name, "' href='#", ref, "'>", end.value, "</a>]</sup>", sep="")
     
     to.add <- lazy.text(paste("<sup>[<a name='", ref, "' href='#", name, "'>", end.value, "</a>]</sup>", sep=""), text, size=size)
-    options(html.footnotes = paste(getOption("html.footnotes"), to.add, sep="\n")) 
+    assign(".HTML.FOOTNOTES.", paste(get(".HTML.FOOTNOTES.", envir=.GlobalEnv), to.add, sep="\n"), envir=.GlobalEnv) 
   }
   
   return(code)

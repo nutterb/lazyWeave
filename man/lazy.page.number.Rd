@@ -15,6 +15,8 @@ lazy.page.number(num_style = c("arabic", "roman", "Roman", "alph", "Alph"))
 \details{
   Each time the page numbering is changed, the page counter is reset to 0 (meaning the next page will be numbered 1).  If the number
   needs to be preserved, this can be done using \code{lazy.counter} with \code{counter="page"}.
+  
+  This function has no effect on HTML files.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

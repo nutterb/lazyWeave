@@ -6,7 +6,7 @@
 lazy.file.end()
 }
 
-\value{ Returns the string "\\n\\end{document}"}
+\value{ Returns a string denoting the end of the document}
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 

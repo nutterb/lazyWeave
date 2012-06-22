@@ -3,10 +3,11 @@
 \title{Lists in LaTeX}
 \description{Produce code for lists in LaTeX documents.}
 \usage{
-lazy.list(item, ordered = TRUE, 
-    counter = NULL, counterSet=1, 
-    title = NULL, style = "arabic", 
-    symbol = "$\\\\bullet$")
+lazy.list(item, ordered=TRUE, counter=NULL, counterSet=1,
+          title=NULL, 
+          style=c("arabic", "Roman", "roman", "Alph", "alph"), 
+          symbol=c("bullet", "circ", "blacksquare"),
+          font, family, size)
 }
 
 \arguments{
@@ -19,9 +20,12 @@ lazy.list(item, ordered = TRUE,
   \item{style}{A character string denoting how the ordered list should be
     numbered.  Options are \code{"arabic", "roman", "Roman", "alph", "Alph"}.}
   \item{symbol}{A symbol for bulleted lists to be used as the bullet.}
+  \item{font}{Font to be used in HTML documents.  Defaults to the font set in the options.}
+  \item{family}{Font family to be used in HTML documents.  Defaults to the font family in the options.}
+  \item{size}{Font size to be used in HTML documents.  Defaults to the font family in the options.}
 }
 \details{
-  With \code{style}, the options produce the following:
+  With \code{style}, the options produce the following and apply to both LaTeX and HTML:
   \tabular{ll}{
     arabic \tab Arabic numbers\cr
     roman  \tab Lower case roman numerals (i, ii, iii, ...)\cr
@@ -29,6 +33,10 @@ lazy.list(item, ordered = TRUE,
     alph   \tab Lower case alphabetic ordering (a, b, c, ...)\cr
     Alph   \tab Upper case alphabetic ordering (A, B, C, ...)\cr
   }
+  
+  The given options for \code{symbol} follow the HTML conventions, but when 
+  \code{options("lazyReportFormat")} is \code{"latex"}, these options are translated into the appropriate 
+  equivalent.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

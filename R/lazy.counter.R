@@ -43,34 +43,28 @@ lazy.counter <- function(counter, value, oldcounter, fn=c("new", "addto", "set",
   #*** HTML counters
   if (reportFormat == "html"){
     if ("set" %in% fn){
-      if ("table" %in% counter)         options("html.counter.table" = value)
-      else if ("figure" %in% counter)   options("html.counter.figure" = value)
-      else if ("footnote" %in% counter) options("html.counter.footnote" = value)
-      else if ("chapter" %in% counter)  options("html.counter.chapter" = value)
-      else if ("section" %in% counter)  options("html.counter.section" = value)
-      else if ("sub" %in% counter)      options("html.counter.subsection" = value)
-      else if ("sub2" %in% counter || "subsub" %in% counter)    options("html.counter.subsubsection" = value)
-      else {
-        opt.name <- paste("html.counter.", counter, sep="")
-        options(opt.name = value)
-      }
+      if ("table" %in% counter)         assign(".HTML.COUNTER.TABLE.", value, envir=.GlobalEnv)
+      else if ("figure" %in% counter)   assign(".HTML.COUNTER.FIGURE.", value, envir=.GlobalEnv)
+      else if ("footnote" %in% counter) assign(".HTML.COUNTER.FOOTNOTE.", value, envir=.GlobalEnv)
+      else if ("chapter" %in% counter)  assign(".HTML.COUNTER.CHAPTER.", value, envir=.GlobalEnv)
+      else if ("section" %in% counter)  assign(".HTML.COUNTER.SECTION.", value, envir=.GlobalEnv)
+      else if ("sub" %in% counter)      assign(".HTML.COUNTER.SUBSECTION.", value, envir=.GlobalEnv)
+      else if ("sub2" %in% counter || "subsub" %in% counter)    assign(".HTML.COUNTER.SUBSUBSECTION.", value, envir=.GlobalEnv)
+      else assign(paste(".HTML.COUNTER.", counter, ".", sep=""), value, envir=.GlobalEnv)
     }
     else if ("new" %in% fn){
-      opt.name <- paste("html.counter.", counter, sep="")
-      options(opt.name = value)
+      assign(paste(".HTML.COUNTER.", counter, ".", sep=""), value, envir=.GlobalEnv)
     }
     else if ("value" %in% fn){
-      if (counter %in% "table")    return(getOption("html.counter.table"))
-      else if (counter %in% "figure")   return(getOption("html.counter.figure"))
-      else if (counter %in% "footnote") return(getOption("html.counter.footnote"))
-      else if (counter %in% "chapter")  return(getOption("html.counter.chapter"))
-      else if (counter %in% "section")  return(getOption("html.counter.section"))
-      else if (counter %in% "sub")      return(getOption("html.counter.subsection"))
-      else if (counter %in% "sub2")     return(getOption("html.counter.subsubsection"))
-      else {
-        opt.name <- paste("html.counter.", counter, sep="")
-        return(getOption(opt.name))
-      }
+      if (counter %in% "table")    return(get(".HTML.COUNTER.TABLE.", envir=.GlobalEnv))
+      else if (counter %in% "figure")   return(get(".HTML.COUNTER.FIGURE.", envir=.GlobalEnv))
+      else if (counter %in% "footnote") return(get(".HTML.COUNTER.FOOTNOTE.", envir=.GlobalEnv))
+      else if (counter %in% "chapter")  return(get(".HTML.COUNTER.CHAPTER.", envir=.GlobalEnv))
+      else if (counter %in% "section")  return(get(".HTML.COUNTER.SECTION.", envir=.GlobalEnv))
+      else if (counter %in% "sub")      return(get(".HTML.COUNTER.SUBSECTION.", envir=.GlobalEnv))
+      else if (counter %in% "sub2")     return(get(".HTML.COUNTER.SUBSUBSECTION.", envir=.GlobalEnv))
+      else get(paste(".HTML.COUNTER.", counter, ".", sep=""), envir=.GlobalEnv)
+
     }
     else message("The functions 'addto' and 'use' are not defined for HTML format.  No action is taken.")
   }

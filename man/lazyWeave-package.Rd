@@ -2,9 +2,9 @@
 \alias{lazyWeave-package}
 \alias{lazyWeave}
 \docType{package}
-\title{Generate Latex code from R}
+\title{Generate Latex or HTML reports from R}
 \description{Arguments passed to functions are embedded in Latex code and can
-  be output to a file.  Allows the use of Latex to write reports, functions
+  be output to a file.  Allows the use of Latex and HTML to write reports, functions
   for building tables, etc.  
 }
 \details{
@@ -18,7 +18,7 @@ the directory in the "Start in:" box.
 If these packages are not available, the package most likely will not function properly. 
 
 It should be noted that \code{lazyWeave} is a rather inefficient way to go 
-about writing reports with LaTeX.  It's only real advantage is it reduces the
+about writing reports with LaTeX or HTML.  It's only real advantage is it reduces the
 amount of knowledge a user needs to have about LaTeX (and it could be 
 debated if that's really an advantage). 
 
@@ -34,6 +34,9 @@ of LaTeX, and I have no plans of extending it much further than what is
 available already.  If what is in the package now is not sufficient enough 
 to satisfy your needs, then I strongly suggest you look into using 
 \code{Sweave}.
+
+All of the functions can be used for LaTeX and HTML reports, but the functionality and appearance
+may not be identical between formats.  
 }
 
 \author{Benjamin Nutter <nutterb@ccf.org>}

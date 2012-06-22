@@ -4,15 +4,15 @@
 \description{Generates the code to place a figure in a Latex document}
 
 \usage{
-lazy.figure(filename, caption = NULL, 
-  align = "center", height = 3, width = 3, units = "in", 
-  counter, counterSet = NULL, 
-  label = NULL, placement = "!H")
+lazy.figure(filename, caption=NULL, align="center",
+            height=3, width=3, units="in", 
+            counter, counterSet=NULL,
+            label=NULL, placement="!H",
+            alt="Image Not Found")
 }
 
 \arguments{
-  \item{filename}{Character string giving the location of the file to be 
-    included.}
+  \item{filename}{Character string giving the location of the file to be included.}
   \item{caption}{Text giving the caption for the figure}
   \item{align}{Character string stating the alignment.  Valid options are
     \code{"left"}, \code{"right"}, or \code{"center"}.}
@@ -25,9 +25,11 @@ lazy.figure(filename, caption = NULL,
   \item{placement}{Controls the placement of the figure.  Options are
     \code{"ht", "t", "b", "p", "H"} and can be supplemented with 
     \code{"!"}. See "Details" for more explanation.}
+  \item{alt}{For HTML documents only--when \code{filename} cannot be found, this text is printed in the figure's
+             place.}
 }
 \details{
-  \code{placement} options are used as follows:
+  For LaTeX files, \code{placement} options are used as follows:
     \tabular{ll}{
       ht \tab Place the float here, i.e., 
               approximately at the same point it occurs \cr
@@ -40,6 +42,8 @@ lazy.figure(filename, caption = NULL,
   The \code{"!"} may be used after any of these in order to override 
   LaTeX float rules and force your selection.  More can be learned by 
   reading about floats in a LaTeX manual.
+  
+  For HTML files, the file can be any type supported by the browser.  JPEGs and PNGs seem to work well.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

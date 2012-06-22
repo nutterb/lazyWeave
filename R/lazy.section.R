@@ -1,7 +1,7 @@
 lazy.section <- function(heading, type=c("section", "sub", "subsub", "chapter", "sub2"),
     ordered=FALSE, counter, counterSet=NULL, label=NULL,
     font=getOption("html.font.font"), family=getOption("html.font.family"),
-    size=getOption("html.font.size"), leadspace=TRUE){
+    size=getOption("html.font.size"), leadspace=TRUE, floatBarrier=TRUE){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -28,7 +28,8 @@ lazy.section <- function(heading, type=c("section", "sub", "subsub", "chapter", 
   
     star <- if(ordered) "" else "*"
   
-    code <- paste(fncall, counterStr, "\n\\", type, star, "{", heading, "}\n", label, "\n\n", sep="")
+    code <- paste(fncall, counterStr, "\n", if (floatBarrier) "\\FloatBarrier\n" else "", 
+                  "\\", type, star, "{", heading, "}\n", label, "\n\n", sep="")
   }
   
   

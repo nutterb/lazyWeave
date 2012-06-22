@@ -1,8 +1,7 @@
 lazy.text <-
 function(..., title=NULL, align="left",
     italic=FALSE, bold=FALSE, underline=FALSE, sep="",
-    translate=TRUE, font=getOption("html.font.font"),
-    family=getOption("html.font.family"), size=getOption("html.font.size")){
+    translate=TRUE, font, family, size){
     
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -12,6 +11,10 @@ function(..., title=NULL, align="left",
   comment.char <- if (reportFormat == "latex") c("%%", "")
   else if (reportFormat == "html") c("<!--", "-->")
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
+  
+  if (missing(font)) font <- get(".HTML.FONT.FONT.", envir=.GlobalEnv)
+  if (missing(family)) family <- get(".HTML.FONT.FAMILY.", envir=.GlobalEnv)
+  if (missing(size)) size <- get(".HTML.FONT.SIZE.", envir=.GlobalEnv)
   
   
   if (reportFormat == "latex"){

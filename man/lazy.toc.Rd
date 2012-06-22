@@ -24,7 +24,7 @@ The level of detail a table of contents maintains is determined by the counter \
 \code{lazy.counter("tocdepth", value=4, fn="set")}.  Use \code{value=5} to include paragraphs, and so forth.
 }
 
-\value{ Returns a string that designating that the table of contents is to be written, or an item to be added to a list.}
+\value{ Returns a string that designating that the table of contents is to be written, or an item to be added to a list.  This has no effect for HTML documents.}
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 

@@ -38,11 +38,13 @@ function(docClass="article", packages=NULL,
                   "\\usepackage{graphicx}\n",
                   "\\usepackage{xcolor}\n", 
                   "\\usepackage{colortbl}\n",
+                  "\\usepackage{float}\n",
                   "\\usepackage{soul}\n",
                   "\\usepackage{Sweave}\n",
                   "\\usepackage{lscape}\n",
                   "\\usepackage{microtype}\n",
                   "\\usepackage{hyperref}\n",
+                  "\\usepackage[section]{placeins}\n",
                   packages, "\n",
                   if (!ligatures) "\\DisableLigatures{encoding=*, family=*}\n" else "",
                   if (layout %in% "") "%% layout commands may be written here" else layout, "\n",
@@ -57,9 +59,9 @@ function(docClass="article", packages=NULL,
   #*** can be set using lazy.options.
   if (reportFormat == "html"){
     if (initialize){
-      lazy.options(reportFormat, table=1, figure=1, footnote=1, chapter=1, section=1, subsection=1, 
-                   font.family="serif", font="helvetica", font.size=11)
-      options(html.footnotes = NULL)
+      setHtmlOptions(table=1, figure=1, footnote=1, chapter=1, section=1, subsection=1, 
+                     font.family="serif", font="helvetica", font.size=11)
+      assign(".HTML.FOOTNOTES.", NULL, envir=.GlobalEnv)
     }
     code <- "<html>\n"
   }

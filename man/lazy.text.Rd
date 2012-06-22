@@ -3,15 +3,13 @@
 \title{Paragraphs in LaTeX}
 \description{Write paragraphs in LaTeX code.}
 \usage{
-lazy.text(..., title = NULL, 
-    size = "normalsize", align = "left", 
-    italic = FALSE, bold = FALSE, underline = FALSE, 
-    sep = "", translate=TRUE)
+lazy.text(..., title=NULL, align="left",
+    italic=FALSE, bold=FALSE, underline=FALSE, sep="",
+    translate=TRUE, font, family, size)
 }
 \arguments{
   \item{\dots}{Text and other objects to be included in the paragraph.}
   \item{title}{A title for the paragraph}
-  \item{size}{Text size of the paragraph.  See "Details" for options.}
   \item{align}{alignment of the paragraph.  Options are \code{"left", 
     "center", "right"}.}
   \item{italic}{Logical.  Indicates if the text should be italicized.}
@@ -22,6 +20,11 @@ lazy.text(..., title = NULL,
   \item{translate}{Toggles if inputs in \code{x} should be passed through 
     \code{latexTranslate}.  This should be set to \code{FALSE} if writing
     custom code.}
+  \item{font}{HTML font for the paragraph. Defaults to the HTML option (see \code{\link{setHtmlOptions}}).}
+  \item{family}{HTML font family for the paragraph. Defaults to the HTML option (see \code{\link{setHtmlOptions}}).}
+  \item{size}{Text size of the paragraph.   Defaults to the HTML option (see \code{\link{setHtmlOptions}}).
+     May be an integer or a LaTeX size descriptor. See "Details" for options.}
+ 
 }
 
 \details{
@@ -39,8 +42,12 @@ lazy.text(..., title = NULL,
     Huge \tab BIGGEST\cr
   }
   
+  When size is denoted as an integer, as necessary for HTML, it is mapped to a LaTeX size using 
+  \code{map.size}.  Likewise, the LaTeX descriptors can be mapped to integers using \code{map.size}.
+  
   Additional formatting may be applied using commands such as \code{textbf\{\}} for bold text, \code{emph\{\}} for italics, and
-  \code{ul\{\}} for underlined text (assuming the \code{soul} package is available).   
+  \code{ul\{\}} for underlined text (assuming the \code{soul} package is available), but doing so is probably
+  easier using \code{lazy.text.format}.   
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

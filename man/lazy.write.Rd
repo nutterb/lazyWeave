@@ -3,7 +3,7 @@
 \title{Output LaTeX Code to a File}
 \description{Output text and LaTeX code to a file for building.}
 \usage{
-lazy.write(..., OutFile, append = FALSE, collapse="\n")
+lazy.write(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE)
 }
 
 \arguments{
@@ -13,6 +13,8 @@ lazy.write(..., OutFile, append = FALSE, collapse="\n")
   \item{append}{logical.  Indicates if the code should be appended to 
     and existing file.}
   \item{collapse}{Sets the character string that is placed between elements in \code{\dots}}
+  \item{footnotes}{logical.  For HTML only, when \code{TRUE}, the footnotes stored in 
+     \code{options("lazy.footnotes")} will be appended to the end of the HTML document.}
 }
 \details{The contents of \code{\dots} will be pasted together.}
 

@@ -1,4 +1,4 @@
-lazy.link <- function(url, text, secure=FALSE){
+lazy.link <- function(url, text, web=TRUE, secure=FALSE){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -11,9 +11,11 @@ lazy.link <- function(url, text, secure=FALSE){
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   
   #*** append http (or https) if not on url
-  first.seven <- substr(url, 1, if(secure) 8 else 7)
-  if (!first.seven %in% if (secure) "https://" else "http://") 
-    url <- paste(if (secure) "https://" else "http://", url, sep="")
+  if (web){
+    first.seven <- substr(url, 1, if(secure) 8 else 7)
+    if (!first.seven %in% if (secure) "https://" else "http://") 
+      url <- paste(if (secure) "https://" else "http://", url, sep="")
+  }
   
   if (reportFormat == "latex"){
     code <- if (missing(text)) paste("\\url{", url, "}\n", sep="") else paste("\\href{", url, "}{", text, "}\n", sep="")

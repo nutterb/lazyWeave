@@ -4,9 +4,9 @@
 \description{Write code to open a new LaTeX document with packages, classes,
   a title, and page settings.}
 \usage{
-lazy.file.start(docClass = "article", packages = NULL, 
-  counters = NULL, layout="", page = "arabic", 
-  ligatures = TRUE, title = NULL, author = NULL, date="")
+lazy.file.start(docClass="article", packages=NULL, 
+                counters=NULL, layout="", page="arabic", ligatures=TRUE,
+                title=NULL, author=NULL, date="", initialize=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,13 +21,15 @@ lazy.file.start(docClass = "article", packages = NULL,
   \item{title}{A title for the document.}
   \item{author}{Author of the document.}
   \item{date}{Date to be printed on the title page}
+  \item{initialize}{For HTML files and when \code{TRUE}, the function \code{lazy.options} is called and 
+    all of the counters are reset to 1.  Font, family, and size defaults are also reset.}
 }
 
 \details{Titles are only made when either \code{title} or \code{author} are 
   not \code{NULL}.  
   
-  Packages automatically included are "xcolor", "graphicx", "colortbl", 
-  "soul", and "Sweave".  Any user 
+  Packages automatically included are "xcolor", "graphicx", "colortbl", "float",
+  "soul", "hyperref", and "Sweave".  Any user 
   defined templates made in conjuction with \code{lazyWeave} must include these
   packages in order to use figures and underlined text.
 

@@ -1,10 +1,8 @@
 lazy.list <-
-function(item, ordered=TRUE, counter=NULL, counterSet=1,
-                       title=NULL, 
+function(item, ordered=TRUE, counter=NULL, counterSet=1, title=NULL, 
          style=c("arabic", "Roman", "roman", "Alph", "alph"), 
          symbol=c("bullet", "circ", "blacksquare"),
-         font=getOption("html.font.font"), family=getOption("html.font.family"),
-         size=getOption("html.font.size")){
+         font, family, size){
   #$\\bullet$, $\\circ$, $\\blacksquare$,
   
   #*** retrieve the report format
@@ -17,6 +15,10 @@ function(item, ordered=TRUE, counter=NULL, counterSet=1,
   symbol.ref <- data.frame(latex=c("bullet", "circ", "blacksquare"),
                            html =c("circle", "disc", "square"),
                            stringsAsFactors=FALSE)
+  
+  if (missing(font)) font <- get(".HTML.FONT.FONT.", envir=.GlobalEnv)
+  if (missing(family)) family <- get(".HTML.FONT.FAMILY.", envir=.GlobalEnv)
+  if (missing(size)) size <- get(".HTML.FONT.SIZE.", envir=.GlobalEnv)
   
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
@@ -78,7 +80,7 @@ function(item, ordered=TRUE, counter=NULL, counterSet=1,
     symbol <- symbol.ref[symbol.ref$latex == symbol, "html"]
     if (length(symbol) == 0) symbol <- "circle"
     
-    if (is.null(counter)) lazy.counter("html.counter.list", fn="set", value=1)
+    #if (is.null(counter)) lazy.counter("html.counter.list", fn="set", value=1)
 
     #*** Print the title of the list in bold face (currently there is no way 
     #*** to turn off boldface type
@@ -92,7 +94,7 @@ function(item, ordered=TRUE, counter=NULL, counterSet=1,
     if (type %in% "arabic") type <- ""
     
     code <- paste("<", tag, 
-                  " start='", if (is.null(counter)) 1 else lazy.counter(list.counter, fn="value"), 
+                  " start='", if (is.null(counter)) 1 else lazy.counter(counter, fn="value"), 
                   "' type='", type, "' ",
                   "style='font-family:", font, ", ", family, "; font-size:", size, "pt;'>", title, sep="")
     lst <- paste("  <li>", item)

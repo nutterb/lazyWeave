@@ -3,20 +3,37 @@
 \title{Open Sections in LaTeX Documents}
 \description{Provides the code to start a new section.}
 \usage{
-lazy.section(heading, type=c("section", "sub", "sub2", "chapter"), 
-    ordered=FALSE, counter, counterSet=NULL, label=NULL)
+lazy.section(heading, type=c("section", "sub", "subsub", "chapter", "sub2"),
+             ordered=FALSE, counter, counterSet=NULL, label=NULL,
+             font=getOption("html.font.font"), family=getOption("html.font.family"),
+             size=getOption("html.font.size"), leadspace=TRUE)
 }
 
 
 \arguments{
   \item{heading}{The name of the section or subsection.}
   \item{type}{Type of section.  \code{"section"} for section; 
-    \code{"sub"} for subsection; and \code{"sub2"} for subsubsection.}
+    \code{"sub"} for subsection; and \code{"subsub"} for subsubsection.  The option \code{"sub2"} is a relic 
+     of me trying to avoid typing two extra characters.  I decided it would be better to keep true to the
+     LaTeX descriptors.  Thus, \code{"sub2"} is available for back-compatibility, but I recommend against its use.}
   \item{ordered}{Logical.  Determines if the section is numbered.}
   \item{counter}{Name of a the counter to be used for this section.  When \code{NULL}, the value defaults to the counter corresponding
     to the type of section.  See \code{\link{lazy.counter}} for more details about counters.}
   \item{counterSet}{Value to which \code{counter} should be set.  In other words, the number for this section (or similar division).}
   \item{label}{The label to be used with \code{lazy.ref}.}
+  \item{font}{Font to be used in HTML files.}
+  \item{family}{Font family to be used in HTML files.}
+  \item{size}{Font size.  I'm pretty sure this doesn't actually get used, but haven't gotten around to 
+              verifying this.  Heading sizes are set using the HTML <H ... > tags.}
+  \item{leadspace}{For HTML reports, should several lines of white space be placed before the section header.  This helps to create a visual
+       break between sections.}
+  
+}
+
+\details{
+  For HTML, Sections titles are printed using the \code{<Hx ...>} tags, where \code{x} is the heading number.  \code{H1} is the largest heading
+  size and \code{H6} is the smallest.  Chapter headings use \code{<H2>}; sections use \code{<H3>}; subsections use \code{<H4>}; and
+  subsubsections use \code{<H5>}.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

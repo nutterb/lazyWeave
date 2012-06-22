@@ -3,13 +3,17 @@
 \title{Tables in LaTeX}
 \description{Generate code for custom LaTeX tables}
 \usage{
-lazy.table(x, align = "center", justify="center", placement="!H", 
-  cspan = 1, cborder = NULL, cwidth = NULL, 
-  rborder = NULL, rbspan = NULL, rheight = NULL, 
-  rcol = NULL, usecol = "lightgray", 
-  caption = NULL, footnote = NULL, textsize="\\\\normalsize",
-  counter, counterSet=NULL, label=NULL, 
-  open = TRUE, close = TRUE, translate=TRUE)
+lazy.table(x, 
+              align="center", cspan=1, cwidth=NULL, cwidth.units="in", 
+              cborder=NULL, cborder.thick=1, cborder.style="solid black",
+              rborder=NULL, rbspan=NULL, rborder.thick=1, rborder.style="solid black", 
+              rcol=NULL, usecol="lightgray",
+              font, family, size,
+              justify="center", placement="!H",
+              open=TRUE, close=TRUE, 
+              caption=NULL, footnote=NULL, label=NULL,
+              counter="table", counterSet=NULL,
+              translate=TRUE, textsize=NULL)
 }
 
 \arguments{
@@ -17,43 +21,50 @@ lazy.table(x, align = "center", justify="center", placement="!H",
     matrices.  Vectors are coerced to a row vector.}
   \item{align}{Character vector or string giving the alignment for each 
     column.  Options are \code{"left", "center", "right"}.}
-  \item{justify}{Character string giving the alignment for the table on the
-    page.  Options are \code{"left", "center", "right"}.}
-  \item{placement}{Controls the placement of the figure.  Options are
-    \code{"ht", "t", "b", "p", "H"} and can be supplemented with 
-    \code{"!"}. See "Details" for more explanation.}
   \item{cspan}{A vector specifying how many columns of the table each 
     column of \code{x} should span.  This is used when using successive
     calls to \code{latex.table} to build tables with complex headers.}
+  \item{cwidth}{specify the width of each column.}
+  \item{cwidth.units}{Units of measure for the column width.  For example, "in", "cm", or "mm"}
   \item{cborder}{A vector denoting vertical border positions.  Borders are
     placed to the right of the given columns.  See "Details".}
-  \item{cwidth}{Currently not in use.  Will be used to specify the width
-    of each column.}
+  \item{cborder.thick}{For HTML, column border thickness denoted in pixels.}
+  \item{cborder.style}{A valid HTML descriptor for the color of the column border.}
   \item{rborder}{A vector denoting horizontal border positions.  Borders 
     are placed at the bottom of the given rows.  See "Details".}
   \item{rbspan}{A vector or list giving the start and stop positions of the
     horizontal borders.  Use a list when borders should go from columns 
     1 - 3 and 5 - 7, but not at column 4.}
-  \item{rheight}{Currently not in use.  Will be used to specify the width
-    of each row.}
+  \item{rborder.thick}{For HTML, row border thickness denoted in pixels.}
+  \item{rborder.style}{A valid HTML descriptor for the color of the row border.}
   \item{rcol}{A vector denoting which rows should be colored.}
   \item{usecol}{A character vector or string giving the color to be used for
     the rows in \code{rcol}.  The color must be a recognized LaTeX color.}
-  \item{caption}{Caption for the table.  Currently, captions are placed
-    above tables.}
-  \item{footnote}{Additional footnotes to be placed below tables.}
-  \item{textsize}{A character string giving the text size for the table.  This
-    must be valid LaTeX code.  Remember to use two backslashes.}
-  \item{counter}{The name of the counter to be used for this table}
-  \item{counterSet}{The value to which \code{counter} should be set.  In other words, the number of this table.}
-  \item{label}{The label to be used by \code{lazy.ref}.}
+  \item{font}{HTML font for the paragraph. Defaults to the HTML option (see \code{\link{setHtmlOptions}}).}
+  \item{family}{HTML font family for the paragraph. Defaults to the HTML option (see \code{\link{setHtmlOptions}}).}
+  \item{size}{Text size of the paragraph.   Defaults to the HTML option (see \code{\link{setHtmlOptions}}).
+     May be an integer or a LaTeX size descriptor. See "Details" for options.}
+  \item{justify}{Character string giving the alignment for the table on the
+    page.  Options are \code{"left", "center", "right"}.}
+  \item{placement}{Controls the placement of the figure.  Options are
+    \code{"ht", "t", "b", "p", "H"} and can be supplemented with 
+    \code{"!"}. See "Details" for more explanation.}
   \item{open}{Logical.  Indicates if a new table environment should be 
     opened.}
   \item{close}{Logical.  Indicates if the current table environment should
     be closed.}
+  \item{caption}{Caption for the table.  Currently, captions are placed
+    above tables.}
+  \item{footnote}{Additional footnotes to be placed below tables.}
+  \item{label}{The label to be used by \code{lazy.ref}.}
+  \item{counter}{The name of the counter to be used for this table}
+  \item{counterSet}{The value to which \code{counter} should be set.  In other words, the number of this table.}
   \item{translate}{Toggles if inputs in \code{x} should be passed through 
     \code{latexTranslate}.  This should be set to \code{FALSE} if writing
     custom code.}
+  \item{textsize}{A character string giving the text size for the table.  This is provided for back
+      compatibility with older versions of \code{lazyWeave}.  It is mapped to the \code{size} argument, and I 
+      recommend using that argument instead.}
 }
 
 \details{

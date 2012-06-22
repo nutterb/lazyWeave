@@ -10,6 +10,10 @@ lazy.landscape(begin=TRUE)
   \item{begin}{If \code{TRUE}, begins the landscape environment.  Otherwise, the environment is closed.}
 }
 
+\details{
+  This function has no effect on HTML files.  The page orientation is determined by the browser.
+}
+
 \value{ Returns a string that either begins or ends a landscape environment.}
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

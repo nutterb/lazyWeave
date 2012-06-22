@@ -1,6 +1,6 @@
 lazy.matrix <-
 function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
-    caption=NULL, footnote=NULL, placement="!H", translate=TRUE, ...){
+    caption=NULL, footnote=NULL, placement="h", translate=TRUE, ...){
     
      
   #*** retrieve the report format

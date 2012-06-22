@@ -1,7 +1,8 @@
 \name{lazy.insert.code}
 \alias{lazy.insert.code}
-\title{Insert Code to a TeX Document}
-\description{Places TeX code from a file into a TeX document.  Text is placed within a verbatim environment}
+\title{Insert Code to a TeX or HTML document}
+\description{Places TeX code from a file into a TeX document.  Text is placed within a verbatim environment.  FOr
+  HTML documents, a verbatim-like environment is created.}
 
 \usage{
   lazy.insert.code(file, prompt.symbol=options()$prompt, lines)
@@ -17,6 +18,9 @@
   Text is inserted in a verbatim environment to preserve whitespace.  This function is performed 
   better by \code{Sweave} and \code{knitr}.  Those packages will also display any result printed by the
   code.  This function will not display results.
+  
+  With HTML, the font family is set to monospace, and the font is set to courier.  All of the spaces are 
+  replaced with a non-breaking space to preserve the white space in the code.
 }
 
 \author{Benjamin Nutter \email{nutterb@ccf.org}}

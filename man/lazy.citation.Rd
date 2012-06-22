@@ -5,7 +5,7 @@
 
 \usage{
 lazy.citation(pkg=NULL, author=TRUE, title=TRUE, org=TRUE, 
-    address=TRUE, volume=TRUE, year=TRUE, note=TRUE)
+              address=TRUE, volume=TRUE, year=TRUE, note=TRUE)
 }
 
 \arguments{
