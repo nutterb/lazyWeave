@@ -11,7 +11,7 @@
 write.ctable(x, round = 2, percent = TRUE,
              quartile=TRUE, cwidth=NULL,
              caption=NULL, footnote = NULL, 
-             byVarN=FALSE, textsize="\\\\normalsize",
+             byVarN=FALSE, size="\\\\normalsize",
              descripCombine = TRUE,
              oddsCombine = TRUE, markSignificant = FALSE, statHeader="Statistics",
              name = FALSE, var.label = TRUE, level = TRUE,
@@ -34,7 +34,7 @@ write.ctable(x, round = 2, percent = TRUE,
   \item{footnote}{A footnote for the table.}
   \item{byVarN}{Toggles if the N per group in \code{byVar} are printed in the
     column headings.}
-  \item{textsize}{A character string denoting the size of the text for the 
+  \item{size}{A character string denoting the size of the text for the 
     table.  This must be latex code, for example "\\normalsize" or "\\small."
     Remember to use to backslashes!}
   \item{descripCombine}{Toggles if descriptive statistics are combined.  
