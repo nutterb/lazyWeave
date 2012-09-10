@@ -29,7 +29,7 @@ lazy.file.start(docClass="article", packages=NULL,
   not \code{NULL}.  
   
   Packages automatically included are "xcolor", "graphicx", "colortbl", "float",
-  "soul", "hyperref", and "Sweave".  Any user 
+  "soul", "hyperref", "placeins", and "Sweave".  Any user 
   defined templates made in conjuction with \code{lazyWeave} must include these
   packages in order to use figures and underlined text.
 

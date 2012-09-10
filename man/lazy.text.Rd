@@ -53,6 +53,7 @@ lazy.text(..., title=NULL, align="left",
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 lazy.write(
   lazy.file.start(),
   lazy.text("Typically we want our paragraphs to be left 
@@ -66,6 +67,7 @@ lazy.write(
   OutFile="Example 1.tex")
   
 unlink("Example 1.tex")
+}
 }
 
 \keyword{ methods }

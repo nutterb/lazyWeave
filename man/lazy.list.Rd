@@ -42,6 +42,7 @@ lazy.list(item, ordered=TRUE, counter=NULL, counterSet=1,
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 lazy.write(
   lazy.file.start(),
   lazy.text("In Boy Scouts, participants can earn several 
@@ -53,6 +54,7 @@ lazy.write(
   OutFile="Example 1.tex")
   
 unlink("Example 1.tex")
+}
 }
 
 \keyword{ methods }

@@ -4,7 +4,7 @@
 \description{An example of using \code{lazyWeave} to produce tables.}
 \usage{
 lazy.matrix(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
-            caption=NULL, footnote=NULL, placement="!H", translate=TRUE, ...)
+            caption=NULL, footnote=NULL, placement="h", translate=TRUE, ...)
 }
 
 \arguments{
@@ -52,6 +52,7 @@ lazy.matrix(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 lazy.write(
   lazy.file.start(),
   lazy.text("The mtcars dataset describes a number of vehicles.  
@@ -61,6 +62,7 @@ lazy.write(
   OutFile="Example 1.tex")
   
 unlink("Example 1.tex")
+}
 }
 
 \keyword{ methods }

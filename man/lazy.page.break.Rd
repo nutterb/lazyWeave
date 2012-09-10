@@ -13,6 +13,7 @@ lazy.page.break()
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 lazy.write(
   lazy.file.start(),
   lazy.text("First we type something on the first page"),
@@ -22,6 +23,7 @@ lazy.write(
   OutFile="Example 1.tex")
   
 unlink("Example 1.tex")
+}
 }
   
 

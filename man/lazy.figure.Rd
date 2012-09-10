@@ -7,7 +7,7 @@
 lazy.figure(filename, caption=NULL, align="center",
             height=3, width=3, units="in", 
             counter, counterSet=NULL,
-            label=NULL, placement="!H",
+            label=NULL, placement="h",
             alt="Image Not Found")
 }
 
@@ -49,6 +49,7 @@ lazy.figure(filename, caption=NULL, align="center",
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 pdf("MPG.pdf", height=4, width=4)
   hist(mtcars$mpg)
 dev.off()
@@ -66,6 +67,7 @@ lazy.write(
 unlink("MPG.pdf")
 unlink("Example-1.tex")
 unlink("Example-1.pdf")
+}
 }
 
 \keyword{ methods }

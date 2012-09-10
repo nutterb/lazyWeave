@@ -6,7 +6,7 @@
 lazy.section(heading, type=c("section", "sub", "subsub", "chapter", "sub2"),
              ordered=FALSE, counter, counterSet=NULL, label=NULL,
              font=getOption("html.font.font"), family=getOption("html.font.family"),
-             size=getOption("html.font.size"), leadspace=TRUE)
+             size=getOption("html.font.size"), leadspace=TRUE, floatBarrier=TRUE)
 }
 
 
@@ -27,6 +27,9 @@ lazy.section(heading, type=c("section", "sub", "subsub", "chapter", "sub2"),
               verifying this.  Heading sizes are set using the HTML <H ... > tags.}
   \item{leadspace}{For HTML reports, should several lines of white space be placed before the section header.  This helps to create a visual
        break between sections.}
+  \item{floatBarrier}{Figures and tables in LaTeX are floating objects that LaTeX may choose to place somewhere other than where specified in 
+      order to optimize appearance.  This is not always desirable.  \code{floatBarrier} prevents floats from overlapping a section break.  This 
+      may be turned of if placement of figures and tables is of little consequence.}
   
 }
 
@@ -39,6 +42,7 @@ lazy.section(heading, type=c("section", "sub", "subsub", "chapter", "sub2"),
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 lazy.write(
   lazy.file.start(),
   lazy.section("Section A", ordered=TRUE),
@@ -49,6 +53,7 @@ lazy.write(
   OutFile="Example-1.tex")
   
 unlink("Example-1.tex")
+}
 }
 
 \keyword{ methods }

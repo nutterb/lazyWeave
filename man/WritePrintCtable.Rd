@@ -1,0 +1,75 @@
+\name{WritePrintCtable}
+\alias{print.ctable}
+\alias{write.ctable}
+
+\title{Write and Print Comparison Tables}
+\description{Print Comparisons to the console or write the table to a file.}
+
+\usage{
+\method{print}{ctable}(x, ...)
+
+write.ctable(x, round = 2, percent = TRUE,
+             quartile=TRUE, cwidth=NULL,
+             caption=NULL, footnote = NULL, 
+             byVarN=FALSE, textsize="\\\\normalsize",
+             descripCombine = TRUE,
+             oddsCombine = TRUE, markSignificant = FALSE, statHeader="Statistics",
+             name = FALSE, var.label = TRUE, level = TRUE,
+             total = TRUE, descriptive = TRUE, missing=FALSE, missing.perc=FALSE, testStat = TRUE,
+             odds = FALSE, pval = TRUE, oneLine = FALSE, ...)
+}
+
+\arguments{
+  \item{x}{A ctable object to be printed or written}
+  \item{round}{The number of decimal places to be displayed for numeric values.}
+  \item{percent}{Toggles if percentages or proportions are printed for 
+    categorical values}
+  \item{quartile}{Toggles if quartiles or min and max are printed for numeric
+    values associated with the \code{median} argument in \code{conttable}}
+  \item{cwidth}{A vector giving the width of each column in the body of the 
+    table.  The number of columns is not always obvious, and this vector is
+    not recycled.  If the length is inappropriate, a warning message will
+    be printed indicating the correct number of columns.}
+  \item{caption}{The name of the table.}
+  \item{footnote}{A footnote for the table.}
+  \item{byVarN}{Toggles if the N per group in \code{byVar} are printed in the
+    column headings.}
+  \item{textsize}{A character string denoting the size of the text for the 
+    table.  This must be latex code, for example "\\normalsize" or "\\small."
+    Remember to use to backslashes!}
+  \item{descripCombine}{Toggles if descriptive statistics are combined.  
+    It is strongly recommended that this be left \code{TRUE} as the appearance
+    is much better.}
+  \item{oddsCombine}{Toggles if odds ratios are combined with the lower up
+    upper confidence limits.}
+  \item{markSignificant}{Toggles if significant results are printed in bold
+    text.}
+  \item{statHeader}{Character string giving the column heading for statistical summaries.}
+  \item{name}{Toggles if the variable name is printed in the table.}
+  \item{var.label}{Toggles if the variable label is printed in the table.}
+  \item{level}{Toggles if the variable levels are printed in the table.  This
+    column is usually needed for categorical variables, and never needed for
+    numeric variables.}
+  \item{total}{Toggles if the totals column is printed in the table}
+  \item{descriptive}{Toggles if descriptive statistics are printed.}
+  \item{missing}{Toggles if the number of missing values are printed in the table.}
+  \item{missing.perc}{Toggles if the percentage of missing values is printed in the table.}
+  \item{testStat}{Toggles if the test statistics are printed.}
+  \item{odds}{Toggles if odds ratios are printed.  Only relevant to numeric
+    variables.}
+  \item{pval}{Toggles if the pvalue column is printed.}
+  \item{oneLine}{When true, binary variables are printed with only one line per variable.  This does not affect the printing of 
+    numeric variable or variables with more than two levels.}
+  \item{...}{Other arguments to be passed to \code{print} (for \code{print.ctable}
+    or \code{lazy.table} (for \code{write.ctable}).  Currently none
+    are implemented for \code{print}.}
+}
+
+\details{
+  Tables are printed to files using the \code{lazyWeave} package.
+}
+
+\author{
+	Benjamin Nutter (Maintenance)\email{nutterb@ccf.org}}
+	
+\keyword{ methods }

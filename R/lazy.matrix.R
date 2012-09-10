@@ -17,7 +17,7 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
   if (!is.matrix(x)) x <- as.matrix(x)
   
   if ("cwidth" %in% names(list(...))){
-    cw <- list(...)$cw
+    cw <- list(...)$cwidth
     if (!is.null(rownames(x))){
       if (length(cw) != 1 && ((ncol(x) + 1) != length(cw)))
         stop("'cwidth' must have length 1 or equal to ncol(x)--remember your row names")
@@ -34,6 +34,7 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
     rownames(x) <- NULL
     align = c("left", align)
   }
+ 
 
 #*** Table if colnames are present
   if (!is.null(colnames(x))){
@@ -49,7 +50,7 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
                         footnote=footnote,
                         translate=translate, ...)
   }
-
+  
 #*** Table if colnames are not present
   else{
     header <- ""

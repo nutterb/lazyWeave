@@ -20,11 +20,17 @@ lazy.table <- function(x,
   
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   
+  #*** Enforce that x is a matrix
+  if (is.null(dim(x))) x <- matrix(x, nrow=1)
+  if (!is.matrix(x)) x <- as.matrix(x)
+  if (is.table(x)) x <- matrix(x, nrow=nrow(x), ncol=ncol(x), byrow=FALSE, dimnames=list(rownames(x), colnames(x)))
+  xdim <- dim(x)
+  
   if (!is.null(cwidth)){
     if (length(cwidth != 1) && ((ncol(x)) != length(cwidth)))
       stop("'cwidth' must have length 1 or equal to ncol(x)")
   }
-  
+
   if (missing(font)) font <- get(".HTML.FONT.FONT.", envir=.GlobalEnv)
   if (missing(family)) family <- get(".HTML.FONT.FAMILY.", envir=.GlobalEnv)
   if (missing(size)) size <- get(".HTML.FONT.SIZE.", envir=.GlobalEnv)
@@ -34,14 +40,9 @@ lazy.table <- function(x,
     warning("The argument 'textsize' is scheduled for deletion in 2013.  Please use the 'size' argument instead")
   }
   
+  x[is.na(x)] <- ""
   if (reportFormat == "latex" && translate) x <- latexTranslate(x)
-  
-  #*** Enforce that x is a matrix
-  if (is.null(dim(x))) x <- matrix(x, nrow=1)
-  if (!is.matrix(x)) x <- as.matrix(x)
-  if (is.table(x)) x <- matrix(x, nrow=nrow(x), ncol=ncol(x), byrow=FALSE, dimnames=list(rownames(x), colnames(x)))
-  xdim <- dim(x)
-  
+
   #****************************************************************************************************************************
   #* Arguments will be processed into their respective formats in the order they are listed in the function call
   #* This might not be the most efficient way to do this, but I expect it will make it easier for me to troubleshoot problems.
@@ -222,7 +223,7 @@ lazy.table <- function(x,
             caption,
             label,
             "\\begin{", justify, "}", size, "\n",
-            "\\begin{tabular}{", paste(rep("c", ncol(x)), collapse=""), "}", nline, "\n", sep="")
+            "\\begin{tabular}{", paste(rep("c", sum(cspan)), collapse=""), "}", nline, "\n", sep="")
       else ""
     
     code.close <- if (close)

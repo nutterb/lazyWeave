@@ -42,6 +42,7 @@ may not be identical between formats.
 \author{Benjamin Nutter <nutterb@ccf.org>}
 
 \examples{
+\dontrun{
 require(survival)
 data(Scout)
 
@@ -209,6 +210,7 @@ unlink("TimeToEagle.pdf")
 unlink("TimeToEagleByFirst.pdf")
 unlink("Scout.tex")
 unlink("Scout.pdf")
+}
 }
 
 \keyword{ package }

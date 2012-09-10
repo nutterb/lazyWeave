@@ -9,10 +9,10 @@ lazy.table(x,
               rborder=NULL, rbspan=NULL, rborder.thick=1, rborder.style="solid black", 
               rcol=NULL, usecol="lightgray",
               font, family, size,
-              justify="center", placement="!H",
+              justify="center", placement="h",
               open=TRUE, close=TRUE, 
               caption=NULL, footnote=NULL, label=NULL,
-              counter="table", counterSet=NULL,
+              counter=NULL, counterSet=NULL,
               translate=TRUE, textsize=NULL)
 }
 
@@ -101,6 +101,7 @@ lazy.table(x,
 \author{Benjamin Nutter \email{nutterb@ccf.org}}
 
 \examples{
+\dontrun{
 #*** Example 1: Simple Table
 tab.text <- lazy.table(mtcars[, c(1, 2, 4, 6)], align="right", 
     cborder=c(0, 4), rborder=c(0, nrow(mtcars)))
@@ -146,6 +147,7 @@ lazy.write(
   OutFile="Example 2.tex")
   
 unlink("Example 2.tex")
+}
 }
 
 \keyword{ methods }
