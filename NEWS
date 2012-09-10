@@ -1,3 +1,16 @@
+=== 10 Sept 2012 ===
+
+The HTML output is now complete.  You can toggle between LaTeX and HTML output by using the command
+> options(lazyReportFormat="latex") 
+or 
+> options(lazyReportFormat="html")
+
+The default setting when the package is loaded is "latex"
+
+The other addition to this update is the functions cattable, conttable, catconttable (all can be written to a 
+report with write.ctable) and univ (write to a report with write.univ).  I got more comments on my summary tables
+at UseR than I did on the package itself.  So now they're available to anyone who wants them.
+
 === 18 June 2012 ===
 
 Following the UseR presentation, I've decided to change my plans for this package a little. 
