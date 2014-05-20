@@ -1,8 +1,14 @@
-cattable <- function(data, vars, byVar, fisher=NULL,
+cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
                      cmh=NULL, row.score=NULL, col.score=NULL,
                      mcnemar=NULL, correct=NULL,
+                     none=NULL,
                      odds=NULL, row.p=TRUE, alpha=0.05, minl=5){
-                     
+                 
+  if (missing(byVar)){
+    byVar <- "PlAcE_hOlDeR_fOr_CaTcOnTtAbLe"
+    data[, byVar] <- factor("")
+  }
+  
   withWarnings <- function(expr) {
   	myWarnings <- NULL
 	  wHandler <- function(w) {
@@ -11,6 +17,19 @@ cattable <- function(data, vars, byVar, fisher=NULL,
   	}
 	  val <- withCallingHandlers(expr, warning = wHandler)
   	list(value = val, warnings = myWarnings)
+  }
+  
+  if (!all(vars %in% names(data))){
+    bad.vars <- c(vars, byVar)[!c(vars, byVar) %in% names(data)]
+    bad.vars.msg <- paste("The following variables are not found in 'data':", paste(bad.vars, collapse=", "))
+    stop(bad.vars.msg)
+  }
+  
+  all.missing <- sapply(data[, c(vars, byVar)], function(x) all(is.na(x)))
+  if (any(all.missing)){
+    miss.vars <- c(vars, byVar)[all.missing]
+    miss.vars.msg <- paste("The following variables contain only missing values:", paste(miss.vars, collapse=", "))
+    stop(miss.vars.msg)
   }
 
   var.info <- function(v){
@@ -76,7 +95,7 @@ cattable <- function(data, vars, byVar, fisher=NULL,
       warning(paste(v, ": 'x' and 'y' must have at least 2 levels.  No comparison will be performed'", sep=""))
     
 #*** 4. Hypothesis Test and Subsequent Info
-    if (nlev == 1 || nlev.v==1 || nlev.effective==1 || nlev.v.effective == 1){
+    if (nlev == 1 || nlev.v==1 || nlev.effective==1 || nlev.v.effective == 1 || v %in% none){
       test.obj <- NULL
       .test.method <- NA
       .test.stat <- NA
@@ -85,8 +104,9 @@ cattable <- function(data, vars, byVar, fisher=NULL,
     }
     else{
       if (v %in% fisher){
-        test.obj <- fisher.test(data[, v], data[, byVar],
-                                conf.level = 1 - alpha)
+        test.obj <- do.call("fisher.test", append(list(x=data[, v], y=data[, byVar], conf.level=1-alpha), fisher.arg))
+#           fisher.test(data[, v], data[, byVar],
+#                                 conf.level = 1 - alpha)
         .test.method <- c(test.obj$method, rep(NA, nlev.v))
         .test.mark <- c("F", rep(NA, nlev.v))
         .test.stat <- ifelse(is.null(test.obj$estimate), NA, test.obj$estimate)
@@ -179,7 +199,6 @@ cattable <- function(data, vars, byVar, fisher=NULL,
     return(.df)
   }
 
-  require(Hmisc)
   if (missing(byVar)){
     byVar <- "PlAcE_hOlDeR_fOr_CaTtAbLe"
     data[, byVar] <- factor("")
@@ -199,5 +218,3 @@ cattable <- function(data, vars, byVar, fisher=NULL,
   return(ctable)
   
 }
-
-
