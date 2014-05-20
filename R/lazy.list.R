@@ -16,9 +16,9 @@ function(item, ordered=TRUE, counter=NULL, counterSet=1, title=NULL,
                            html =c("circle", "disc", "square"),
                            stringsAsFactors=FALSE)
   
-  if (missing(font)) font <- get(".HTML.FONT.FONT.", envir=.GlobalEnv)
-  if (missing(family)) family <- get(".HTML.FONT.FAMILY.", envir=.GlobalEnv)
-  if (missing(size)) size <- get(".HTML.FONT.SIZE.", envir=.GlobalEnv)
+  if (missing(font)) font <- get("HTML.FONT.FONT", envir=options()$htmlCounters)
+  if (missing(family)) family <- get("HTML.FONT.FAMILY", envir=options()$htmlCounters)
+  if (missing(size)) size <- get("HTML.FONT.SIZE", envir=options()$htmlCounters)
   
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
