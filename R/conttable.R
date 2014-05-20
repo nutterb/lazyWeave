@@ -1,9 +1,15 @@
 'conttable' <- function(data, vars, byVar,
                  normal = NULL, var.equal = NULL, 
                  median = NULL,  
+                 none = NULL,
                  odds = NULL, odds.scale=NULL, odds.unit=NULL,
                  alpha = 0.05, B=1000, seed=NULL){
-                 
+                
+  if (missing(byVar)){
+    byVar <- "PlAcE_hOlDeR_fOr_CaTcOnTtAbLe"
+    data[, byVar] <- factor("")
+  }
+  
   withWarnings <- function(expr) {
   	myWarnings <- NULL
 	  wHandler <- function(w) {
@@ -12,6 +18,19 @@
   	}
 	  val <- withCallingHandlers(expr, warning = wHandler)
   	list(value = val, warnings = myWarnings)
+  }
+  
+  if (!all(vars %in% names(data))){
+    bad.vars <- vars[!vars %in% names(data)]
+    bad.vars.msg <- paste("The following variables are not found in 'data':", paste(bad.vars, collapse=", "))
+    stop(bad.vars.msg)
+  }
+  
+  all.missing <- sapply(data[, c(vars, byVar)], function(x) all(is.na(x)))
+  if (any(all.missing)){
+    miss.vars <- c(vars, byVar)[all.missing]
+    miss.vars.msg <- paste("The following variables contain only missing values:", paste(miss.vars, collapse=", "))
+    stop(miss.vars.msg)
   }
 
 #******************************************************************************
@@ -81,7 +100,7 @@
       warning(paste(v, ": grouping factor must have at least two levels.  No comparison is performed", sep=""))
     
 #*** 4. Hypothesis Test and Subsequent Info
-    if (nlev == 1 || nlev.effective %in% 1){
+    if (nlev == 1 || nlev.effective %in% 1 || v %in% none){
       test.obj <- NULL
       test.obj$method <- NA
       test.obj$statistic <- NA
@@ -151,7 +170,6 @@
 #* Send variables through var.info subroutine
 #* Change class and return
 #*****************************************************************************
-  require(Hmisc)
   if (missing(byVar)){
     byVar <- "PlAcE_hOlDeR_fOr_CoNtTabLe"
     data[, byVar] <- factor("")
