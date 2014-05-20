@@ -1,6 +1,6 @@
 .onLoad <- function(libname, pkgname){
-  options(lazyReportFormat = "latex")
-  options(lazyReportCounters = list(HTML.COUNTER.TABLE = 1,
+  options('lazyReportFormat' = "latex")
+  options('lazyReportCounters' = list(HTML.COUNTER.TABLE = 1,
                                       HTML.COUNTER.FIGURE = 1,
                                       HTML.COUNTER.FOOTNOTE = 1,
                                       HTML.COUNTER.CHAPTER = 1, 
@@ -14,6 +14,6 @@
 }
 
 .onUnload <- function(libname, pkgname){
-  options(lazyReportFormat = NULL)
-  options(lazyReportCounters = NULL)
+  options('lazyReportFormat' = NULL)
+  options('lazyReportCounters' = NULL)
 }
