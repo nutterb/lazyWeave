@@ -35,9 +35,9 @@ function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
   code <- paste(code, collapse = collapse)
   
   
-  if (reportFormat == "html" & footnotes & !is.null(get(".HTML.FOOTNOTES.", envir=.GlobalEnv))){
-    code <- gsub("</html>", paste("\n\n\n", get(".HTML.FOOTNOTES.", envir=.GlobalEnv), "\n</html>"), code)
-    assign(".HTML.FOOTNOTES.", NULL, envir=.GlobalEnv)
+  if (reportFormat == "html" & footnotes & !is.null(get("HTML.FOOTNOTES", envir=htmlCounters))){
+    code <- gsub("</html>", paste("\n\n\n", get("HTML.FOOTNOTES", envir=htmlCounters), "\n</html>"), code)
+    assign("HTML.FOOTNOTES", NULL, envir=htmlCounters)
   }
   
   write(code, OutFile, append = append)
