@@ -1,6 +1,7 @@
 \name{WritePrintCtable}
 \alias{print.ctable}
 \alias{write.ctable}
+\alias{split_ctable}
 
 \title{Write and Print Comparison Tables}
 \description{Print Comparisons to the console or write the table to a file.}
@@ -15,12 +16,16 @@ write.ctable(x, round = 2, percent = TRUE,
              descripCombine = TRUE,
              oddsCombine = TRUE, markSignificant = FALSE, statHeader="Statistics",
              name = FALSE, var.label = TRUE, level = TRUE,
-             total = TRUE, descriptive = TRUE, missing=FALSE, missing.perc=FALSE, testStat = TRUE,
+             total = TRUE, descriptive = TRUE, 
+             missing=FALSE, missing.perc=FALSE, testStat = TRUE,
              odds = FALSE, pval = TRUE, oneLine = FALSE, ...)
+             
+split_ctable(x, max.rows=35, ...)
 }
 
 \arguments{
   \item{x}{A ctable object to be printed or written}
+  \item{max.rows}{The maximum number of rows to be displayed on a page.  Variable groups are forced to be kept together.}
   \item{round}{The number of decimal places to be displayed for numeric values.}
   \item{percent}{Toggles if percentages or proportions are printed for 
     categorical values}
@@ -62,7 +67,7 @@ write.ctable(x, round = 2, percent = TRUE,
     numeric variable or variables with more than two levels.}
   \item{...}{Other arguments to be passed to \code{print} (for \code{print.ctable}
     or \code{lazy.table} (for \code{write.ctable}).  Currently none
-    are implemented for \code{print}.}
+    are implemented for \code{print}.  In \code{split_ctable}, any options in \code{write.ctable} may also be included.}
 }
 
 \details{
