@@ -35,15 +35,8 @@ function(docClass="article", packages=NULL,
     #*** Paste all the elements together to open the LATEX file.
     code <- paste(fncall, "\n",
                   "\\documentclass{", docClass, "}\n",
-                  "\\usepackage{graphicx}\n",
-                  "\\usepackage{xcolor}\n", 
-                  "\\usepackage{colortbl}\n",
-                  "\\usepackage{float}\n",
-                  "\\usepackage{soul}\n",
-                  "\\usepackage{Sweave}\n",
-                  "\\usepackage{lscape}\n",
-                  "\\usepackage{microtype}\n",
-                  "\\usepackage{hyperref}\n",
+                  "\\usepackage{breakurl, colortbl, fancyhdr, float, graphicx,\n", 
+                  "             lastpage, lscape, microtype, soul, Sweave, url, xcolor}\n",
                   "\\usepackage[section]{placeins}\n",
                   packages, "\n",
                   if (!ligatures) "\\DisableLigatures{encoding=*, family=*}\n" else "",
@@ -61,7 +54,7 @@ function(docClass="article", packages=NULL,
     if (initialize){
       setHtmlOptions(table=1, figure=1, footnote=1, chapter=1, section=1, subsection=1, 
                      font.family="serif", font="helvetica", font.size=11)
-      assign(".HTML.FOOTNOTES.", NULL, envir=.GlobalEnv)
+      assign("HTML.FOOTNOTES", NULL, envir=htmlCounters)
     }
     code <- "<html>\n"
   }
