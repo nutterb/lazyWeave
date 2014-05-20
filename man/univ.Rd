@@ -6,7 +6,9 @@
   summary of numerical variables.}
 
 \usage{
-univ(data, vars, byVar, alpha=0.05)
+univ(data, vars, byVar, alpha=0.05,
+     test=c("t.test", "aov"),
+     test.args=NULL)
 }
 
 \arguments{
@@ -16,6 +18,8 @@ univ(data, vars, byVar, alpha=0.05)
     summarized.}
   \item{byVar}{A categorical variables giving groups by which statistics should be computed.}
   \item{alpha}{significance level for determining the confidence limits.}
+  \item{test}{The test to use for comparing between groups.  Currently limited to t-test and ANOVA (parametric tests).}
+  \item{test.args}{a list of additional arguments to pass to the function in \code{test}.}
 }
 
 \details{
