@@ -21,7 +21,7 @@ lazy.footnote <- function(text, number=NULL, translate=FALSE,
     code <- paste("<sup>[<a name='", name, "' href='#", ref, "'>", end.value, "</a>]</sup>", sep="")
     
     to.add <- lazy.text(paste("<sup>[<a name='", ref, "' href='#", name, "'>", end.value, "</a>]</sup>", sep=""), text, size=size)
-    assign(".HTML.FOOTNOTES.", paste(get("HTML.FOOTNOTES", envir=htmlCounters), to.add, sep="\n"), envir=htmlCounters) 
+    assign(".HTML.FOOTNOTES.", paste(get("HTML.FOOTNOTES", envir=options()$htmlCounters), to.add, sep="\n"), envir=options()$htmlCounters) 
   }
   
   return(code)
