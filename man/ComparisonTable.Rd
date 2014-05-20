@@ -7,21 +7,23 @@
 \description{Produce a table of comparisons for reports and manuscripts.}
 
 \usage{
-cattable(data, vars, byVar, fisher=NULL,
+cattable(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
    cmh=NULL, row.score=NULL, col.score=NULL,
    mcnemar=NULL, correct=NULL,
+   none=NULL,
    odds=NULL, row.p=TRUE, alpha=0.05, minl=5)
    
 conttable(data, vars, byVar,
    normal = NULL, var.equal = NULL,
-   median = NULL,
+   median = NULL, none=NULL,
    odds = NULL, odds.scale=NULL, odds.unit=NULL,
    alpha = 0.05, B=1000, seed=NULL)
    
-catconttable(data, vars, byVar, vars.cat=NULL, fisher=NULL,
+catconttable(data, vars, byVar, vars.cat=NULL, fisher=NULL, fisher.arg=NULL,
    cmh=NULL, row.score=NULL, col.score=NULL,
    normal = NULL, var.equal = NULL,
    median=NULL, odds=NULL, odds.scale=NULL, odds.unit=NULL,
+   none=NULL, 
    row.p=TRUE, alpha=0.05, B=1000, seed=NULL)
 }
 
@@ -36,6 +38,7 @@ catconttable(data, vars, byVar, vars.cat=NULL, fisher=NULL,
   \item{fisher}{A character vector giving the names of variables that should
     be compared with Fisher's Exact test.  Currently, there is no
     implementation to determine this automatically.}
+  \item{fisher.arg}{A list of additional arguments to pass to \code{fisher.test}}
   \item{cmh}{A character vector giving the names of variables that should
     be compared with Manthel-Haenszel's Test for Linear Trend.  This is 
     not yet written and will be ignored.}
@@ -57,6 +60,7 @@ catconttable(data, vars, byVar, vars.cat=NULL, fisher=NULL,
     that gives the units on which the odds ratio should be presented.  For
     example, if the odds of variable \code{x} should be presented in 5 year
     increments, we would use \code{odds.unit=list(x="years")}.}
+  \item{none}{A character vector naming variables in \code{vars} for which no comparison should be made.}
   \item{row.p}{Toggles if row or column proportions are calculated.}
   \item{normal}{A character vector that assigns variables in \code{vars} as
     normally distributed.}
@@ -98,7 +102,8 @@ catconttable(data, vars, byVar, vars.cat=NULL, fisher=NULL,
 }
 	
 \examples{
-#Read in the delivery dataset from the CCFmisc library
+require(lazyWeave)
+#Read in the delivery dataset from the lazyWeave package
 data(Delivery)
 
 #Use conttable to summarize maternal age, ga weeks, weight (grams) 
