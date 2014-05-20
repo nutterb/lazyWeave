@@ -31,9 +31,9 @@ lazy.table <- function(x,
       stop("'cwidth' must have length 1 or equal to ncol(x)")
   }
 
-  if (missing(font)) font <- get(".HTML.FONT.FONT.", envir=.GlobalEnv)
-  if (missing(family)) family <- get(".HTML.FONT.FAMILY.", envir=.GlobalEnv)
-  if (missing(size)) size <- get(".HTML.FONT.SIZE.", envir=.GlobalEnv)
+  if (missing(font)) font <- get("HTML.FONT.FONT", envir=options()$htmlCounters)
+  if (missing(family)) family <- get("HTML.FONT.FAMILY", envir=options()$htmlCounters)
+  if (missing(size)) size <- get("HTML.FONT.SIZE", envir=options()$htmlCounters)
   
   if (!is.null(textsize)){
     size <- textsize
