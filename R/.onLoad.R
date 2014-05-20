@@ -1,14 +1,19 @@
 .onLoad <- function(libname, pkgname){
   options("lazyReportFormat" = "latex")
-  options("html.counter.table" = 1)
-  options("html.counter.figure" = 1)
-  options("html.counter.footnote" = 1)
-  options("html.counter.chapter" = 1)
-  options("html.counter.section" = 1)
-  options("html.counter.subsection" = 1)
-  options("html.counter.subsubsection" = 1)
-  options("html.footnotes" = NULL)
-  options("html.font.family" = "serif")
-  options("html.font.font" = "helvetica")
-  options("html.font.size" = 11)
+  htmlCounters <- new.env()
+  assign("HTML.COUNTER.TABLE", 1, envir=htmlCounters)
+  assign("HTML.COUNTER.FIGURE", 1, envir=htmlCounters)
+  assign("HTML.COUNTER.FOOTNOTE", 1, envir=htmlCounters)
+  assign("HTML.COUNTER.CHAPTER", 1, envir=htmlCounters)
+  assign("HTML.COUNTER.SECTION", 1, envir=htmlCounters)
+  assign("HTML.COUNTER.SUBSECTION", 1, envir=htmlCounters)
+  assign("HTML.COUNTER.SUBSUBSECTION", 1, envir=htmlCounters)
+  assign("HTML.FOOTNOTES", NULL, envir=htmlCounters)
+  assign("HTML.FONT.FAMILY", "serif", envir=htmlCounters)
+  assign("HTML.FONT.FONT", "helvetica", envir=htmlCounters)
+  assign("HTML.FONT.SIZE", 11, envir=htmlCounters)
+}
+
+.onUnload <- function(libname, pkgname){
+  rm(htmlCounters)
 }
