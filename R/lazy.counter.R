@@ -50,8 +50,8 @@ lazy.counter <- function(counter, value, oldcounter, fn=c("new", "addto", "set",
       else if ("section" %in% counter)  assign("HTML.COUNTER.SECTION", value, envir=options()$htmlCounters)
       else if ("sub" %in% counter)      assign("HTML.COUNTER.SUBSECTION", value, envir=options()$htmlCounters)
       else if ("sub2" %in% counter || "subsub" %in% counter)    assign("HTML.COUNTER.SUBSUBSECTION", value, envir=options()$htmlCounters)
-      else assign(paste("HTML.COUNTER.", counter, sep=""), value, envir=htmlCounters)
-    }options()$
+      else assign(paste("HTML.COUNTER.", counter, sep=""), value, envir=options()$htmlCounters)
+    }
     else if ("new" %in% fn){
       assign(paste("HTML.COUNTER", counter, ".", sep=""), value, envir=options()$htmlCounters)
     }
