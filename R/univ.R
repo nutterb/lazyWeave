@@ -1,4 +1,5 @@
-'univ' <- function(data, vars, byVar, alpha=0.05){
+'univ' <- function(data, vars, byVar, alpha=0.05,
+                   test=c("t.test", "aov"), test.args=NULL){
 
 #********************************************************************
 #* 3. Provide dummy byVar if necessary
@@ -16,6 +17,8 @@
   if(!is.factor(data[,byVar])){
     data[,byVar] <- factor(data[,byVar])
     warning(paste(expression(byVar),"was coerced to a factor variable"))  }
+  
+  test <- match.arg(test, c("t.test", "aov"))
 
 #********************************************************************
 #* 1. Generic function to obtain statistics
@@ -56,6 +59,13 @@
   P75 <- as.vector(sapply(vars,stat.func,func="quantile",probs=0.75))
   MAX <- as.vector(sapply(vars,stat.func,func="max"))
   CV <- SD/MEAN
+ 
+  if (nlevels(data[, byVar]) > 1){  
+    PVAL <- lapply(vars, function(v) do.call(test, c(list(data[, v] ~ data[, byVar]), test.args))) 
+    PVAL <- if (test == "t.test") unlist(lapply(PVAL, function(x) c(x$p.value, rep(NA, nlevels(data[, byVar]) - 1))))
+            else if (test == "aov") unlist(lapply(PVAL, function(x) c(anova(x)[1, 5], rep(NA, nlevels(data[, byVar]) - 1))))
+  }
+  else PVAL <- NA
 
 #********************************************************************
 #* 1. Prepare Output Data Frame
@@ -68,10 +78,10 @@
   output <- data.frame(Factor=Factor, Group=Group, N=N, MISSING=MISSING,
                        MEAN=MEAN, SD=SD, LCL=LCL, UCL=UCL,
                        MIN=MIN, P25=P25, MEDIAN=MEDIAN, P75=P75,
-                       MAX=MAX, CV=CV,
+                       MAX=MAX, CV=CV, PVAL=PVAL, 
                        stringsAsFactors=FALSE)
   names(output) <- c("Factor", "Group", "N", "Missing", "Mean", "SD", "LCL",
-                     "UCL", "Min", "P25", "MEDIAN", "P75", "MAX", "CV")
+                     "UCL", "Min", "P25", "MEDIAN", "P75", "MAX", "CV", "PVAL")
 
   rownames(output) <- NULL
   class(output) <- c("univ", "data.frame")
