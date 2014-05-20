@@ -5,7 +5,8 @@
   manually edit the contents of these lists.}
 \usage{
 lazy.toc(type=c("contents", "figures", "tables"), add=FALSE, desc="",
-    withPage=TRUE, sec_unit=c("chapter", "section", "subsection", "subsubsection", "part"))
+    withPage=TRUE, 
+    sec_unit=c("chapter", "section", "subsection", "subsubsection", "part"))
 }
 
 \arguments{
