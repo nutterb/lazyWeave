@@ -1,6 +1,6 @@
 .onLoad <- function(libname, pkgname){
   options("lazyReportFormat" = "latex")
-  htmlCounters <- new.env(parent=.GlobalEnv)
+  htmlCounters <- new.env(parent=globalenv())
   assign("HTML.COUNTER.TABLE", 1, envir=htmlCounters)
   assign("HTML.COUNTER.FIGURE", 1, envir=htmlCounters)
   assign("HTML.COUNTER.FOOTNOTE", 1, envir=htmlCounters)
