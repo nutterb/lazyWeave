@@ -27,10 +27,7 @@ function(filename, caption=NULL, align="center",
     width  <- paste("width=",  width, units, sep="")
    
     #*** Specify and set counter
-    if (!missing(counter)){ 
-      counter <- "figure"
-      counterStr <- paste("  ", lazy.counter(counter, fn="use"), sep="")
-    } else counterStr <- "%% \\usecounter{}\n"
+    counterStr <- if (!missing(counter)) paste("  ", lazy.counter("figure", fn="use"), sep="") else "%% \\usecounter{}\n"
     if (!is.null(counterSet)) counterStr <- paste(counterStr, "\n  ", lazy.counter(counter, value=counterSet - 1, fn="set"), sep="")
 
     #*** Set caption and label strings
@@ -56,6 +53,7 @@ function(filename, caption=NULL, align="center",
   #*** HTML format
   if (reportFormat == "html"){
     
+    if (missing(counter)) counter <- "figure"
     #*** Caption
     if (is.null(caption)) caption <- ""
     else{
@@ -75,4 +73,3 @@ function(filename, caption=NULL, align="center",
 
   return(code)
 }
-
