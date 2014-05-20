@@ -12,6 +12,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   pm <- if (reportFormat %in% "latex") "$\\pm$" else "&plusmn"
   ln.break <- if (reportFormat %in% "latex") "\\\\" else "<br>"
   prc <- if (reportFormat %in% "latex") "\\%" else "%"
+  na.char <- if (reportFormat %in% "latex") "" else "&nbsp "
 
   if (!is.factor(attributes(x)$byVar))
     attributes(x)$byVar <- factor(attributes(x)$byVar)
@@ -89,13 +90,13 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   odd.var <- c("odds", "odds.lower", "odds.upper", "odds.scale")
   x[, odd.var] <- lapply(x[, odd.var], round, round)
 
-  x$pvalue <- ifelse(is.na(x$pvalue), "", pvalue.QHS(round(x$pvalue, 8)))
+  x$pvalue <- ifelse(is.na(x$pvalue), na.char, pvalue.QHS(round(x$pvalue, 8)))
   if (reportFormat %in% "latex") x$pvalue <- latexTranslate(x$pvalue)
   x$test.stat <- round(x$test.stat, round)
   x$missing.perc <- ifelse(!is.na(x$missing.perc), format(x$missing.perc, digits=1), x$missing.perc)
-  x[is.na(x)] <- ""
-  descrip[is.na(descrip)] <- ""
-  combine[is.na(combine)] <- ""
+  x[is.na(x)] <- na.char
+  descrip[is.na(descrip)] <- na.char
+  combine[is.na(combine)] <- na.char
 
   descrip$type <- NULL
   
@@ -142,7 +143,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                    x$type, NA)
   denote <- ifelse(denote %in% c("Chi-Square", "Fisher", "Logistic", "CMH"),
                    "Proportion", denote)
-
+  
   s.type <- unique(denote[!is.na(denote)])
   
   type.mark <- if (reportFormat %in% "latex") paste("$^", letters[1:length(s.type)], "$", sep="")
@@ -167,7 +168,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   }
   
   tmark <- paste(x$test.mark, ": ", x$test, sep="")
-  tmark <- sort(tmark[!duplicated(x$test.mark) & x$test.mark != ""])
+  tmark <- sort(tmark[!duplicated(x$test.mark) & x$test.mark != na.char])
   tmark <- paste(tmark, collapse=ln.break)
   
   fnote <- paste(type.note, tmark, sep=ln.break)
@@ -184,7 +185,8 @@ write.ctable <- function(x, round = 2, percent = TRUE,
     x$significant[is.na(x$significant)] <- FALSE
     output[x$significant, ] <- 
       lapply(output[x$significant, ], 
-              function(x) paste("\\textbf{", x, "}", sep="")) 
+              function(x){ if (reportFormat == "latex") paste("\\textbf{", x, "}", sep="") 
+                           else if (reportFormat == "html") paste("<b>", x, "</b>", sep="")})
   }
   
 
@@ -205,26 +207,29 @@ write.ctable <- function(x, round = 2, percent = TRUE,
     align <- c( rep("l", name + var.label),                
                 rep("c", total + nlev + missing + missing.perc + testStat + odds ),
                 rep("r", pval))
-    head <- c( if(name) "",
-               if(var.label) "",
-               if(total) "",
+    head <- c( if(name) na.char,
+               if(var.label) na.char,
+               if(total) na.char,
                lev,
-               if(missing) "",
-               if(missing.perc) "",
-               if(testStat) "",
-               if(odds) "",
-               if(pval) "")
-    head <- latexTranslate(head)
+               if(missing) na.char,
+               if(missing.perc) na.char,
+               if(testStat) na.char,
+               if(odds) na.char,
+               if(pval) na.char)
+    if (options("lazyReportFormat") == "latex") head <- latexTranslate(head)
 
+#    return(name + var.label + total + 1 + nlev)
     part1 <- lazy.table(head, align=align, justify="left", 
                         cspan=cspan, cwidth=cwidth1,
                         rborder=if(!byVarN) c(0, 0, 1) else c(0, 0), 
-                        rbspan=c(name+var.label+total+1, 
-                                 name+var.label+total+2 * nlev + missing + missing.perc +
-                                     (1 + (nlev - 1) * 3)* !descripCombine),
+                        rbspan=if (options("lazyReportFormat") == "latex"){ 
+                                   c(name+var.label+total+1,
+                                     name+var.label+total+2 * nlev + missing + missing.perc + (1 + (nlev - 1) * 3)* !descripCombine)
+                                  }
+                               else c((name + var.label + total + 1) : (name + var.label + total + nlev)),
                         caption=caption, size=size, 
                         close=FALSE, translate=FALSE, cborder=NULL, ...)
-  
+#     return(part1)
     if(byVarN){ 
       Nline <-   head <- c( if(name) "",
                if(var.label) "",
@@ -238,9 +243,11 @@ write.ctable <- function(x, round = 2, percent = TRUE,
       Nline <- lazy.table(Nline, align=align, justify="left",
                           cspan=cspan, cwidth=cwidth1,
                           rborder=1, 
-                          rbspan=c(name+var.label+total+1, 
-                                 name+var.label+total+2 * nlev + missing + missing.perc +
-                                     (1 + (nlev - 1) * 3)* !descripCombine),
+                          rbspan=if (options("lazyReportFormat") == "latex"){ 
+                            c(name+var.label+total+1,
+                              name+var.label+total+2 * nlev + missing + missing.perc + (1 + (nlev - 1) * 3)* !descripCombine)
+                          }
+                          else c(name + var.label + total + 1, name + var.label + total + 1 + nlev),
                           open=FALSE, close=FALSE, translate=FALSE, cborder=NULL)
       part1 <- paste(part1, Nline)
     }
@@ -275,8 +282,10 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                if(odds) "Odds Ratio",
                if(testStat) "Test Statistic",
                if(pval) "p-value")
+  
     part2 <- lazy.table(head, align=align, cspan=cspan, 
                         cwidth=cwidth, open=FALSE, close=FALSE, translate=FALSE, rborder=1, ...)
+  
                             
 #******************************************************************************
 #*** Part 3
@@ -286,113 +295,12 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                         testStat + (odds + 1*odds + (2 * !oddsCombine))),
                rep("r", pval))
 
-             
     part3 <- lazy.table(output, align=align, open=FALSE, justify="left",
                         cwidth=c(cwidth, rep("", odds)),
                         rborder=c(0, nrow(output)),
-                        footnote=paste(fnote, footnote, sep="\\\\"),
+                        footnote=paste(fnote, footnote, sep=if (reportFormat=="latex") "\\\\" else "<br>"),
                         translate=FALSE, ...)
-#   }
-#                       
-#                       
-# #******************************************************************************
-# #* For HTML Output
-# #* a. Part 1
-# #* b. Part 2
-# #* c. Part 3
-# #******************************************************************************
-#   else if (reportFormat %in% "html"){
-#     
-#     cspan <- c( rep(1, name), rep(1, var.label), rep(1, total),
-#                 {if (descripCombine) rep(2, nlev) else rep(4, nlev)},
-#                 rep(1, missing), rep(1, missing.perc), rep(1, testStat),
-#                 if (odds){ if (oddsCombine) 2 else if(oddsCombine) 4},
-#                 rep(1, pval))
-#     cwidth1 <- rep("", length(cspan))
-#     align <- c( rep("left", name + var.label),                
-#                 rep("center", total + nlev + missing + missing.perc + testStat + odds ),
-#                 rep("right", pval))
-#     head <- c( if(name) "",
-#                if(var.label) "",
-#                if(total) "",
-#                lev,
-#                if(missing) "",
-#                if(missing.perc) "",
-#                if(testStat) "",
-#                if(odds) "",
-#                if(pval) "")
-#     part1 <- lazy.table(head, halign=align, justify="left", 
-#                         colspan=cspan, width=cwidth1,
-#                         rborder=if(!byVarN) c(0, 1) else c(0), 
-#                         #rbspan=which(head != ""),
-#                         caption=caption, #size=htmlsize, 
-#                         close=FALSE, ...)
-#     
-#     if(byVarN){ 
-#       Nline <-   head <- c( if(name) "",
-#                if(var.label) "",
-#                if(total) "",
-#                paste("(N = ", table(attributes(x)$byVar), ")", sep=""),
-#                if(testStat) "",
-#                if(odds) "",
-#                if(pval) "")
-#       Nline <- lazy.table(Nline, halign=align, justify="left",
-#                           colspan=cspan, width=cwidth1,
-#                           rborder=1, 
-#                           #rbspan=c(name+var.label+total+1, 
-#                           #       name+var.label+total+2 * nlev + missing + missing.perc +
-#                           #           (1 + (nlev - 1) * 3)* !descripCombine),
-#                           open=FALSE, close=FALSE, ...)
-#       part1 <- paste(part1, Nline)
-#     }
-# 
-# #******************************************************************************
-# #*** Part 2
-# 
-#     cspan <- c( rep(1, name), rep(1, var.label), rep(1, total),
-#                 {if (descripCombine) rep(c(1, 1), nlev) else rep(c(1, 3), nlev)},
-#                 rep(1, missing), rep(1, missing.perc),
-#                 if (odds){ if (oddsCombine) 2 else if(oddsCombine) 4},
-#                 rep(1, testStat),
-#                 rep(1, pval))
-# 
-#     align <- c( rep("left", name + var.label),
-#                 rep("center", total + 2 * nlev + missing + missing.perc + testStat + odds ),
-#                 rep("right", pval))
-# 
-#     if (is.null(cwidth)){
-#       cwidth <- rep("", length(cspan))
-#       if (var.label) cwidth[name + var.label] <- 1.5
-#     }
-#     if (length(cspan) != length(cwidth)) 
-#       stop(paste("With specified arguments, cwidth must have length",
-#                  length(cspan)))
-#     head <- c( if(name) "Factor",
-#                if(var.label) "Factor",
-#                if(total) "Total",
-#                rep(c("N", statHeader), nlev),
-#                if(missing) "Missing",
-#                if(missing.perc) latexTranslate("% Missing"),
-#                if(odds) "Odds Ratio",
-#                if(testStat) "Test Statistic",
-#                if(pval) "p-value")
-#     part2 <- html_table(head, halign=align, colspan=cspan, 
-#                         width=cwidth, open=FALSE, close=FALSE, ...)
-#                             
-# #******************************************************************************
-# #*** Part 3
-# 
-#     align <- c(rep("left", name + var.label),
-#                rep("center", total + (2 * nlev + (nlev * 2 * !descripCombine)) + missing + missing.perc +
-#                         testStat + (odds + 1*odds + (2 * !oddsCombine))),
-#                rep("right", pval))
-# 
-#              
-#     part3 <- html_table(output, halign=align, open=FALSE, justify="left",
-#                         width=c(cwidth, rep("", odds)),
-#                         rborder=c(0, nrow(output)), footnote=fnote, ...)
-#   }
-#   
+
  paste(part1, part2, part3, sep="\n")
 }
 
