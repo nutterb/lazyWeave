@@ -14,7 +14,3 @@
   assign("HTML.FONT.SIZE", 11, envir=options()$htmlCounters)
 }
 
-.onUnload <- function(libname, pkgname){
-  options('lazyReportFormat') = NULL
-  options('htmlCounters') = NULL
-}
