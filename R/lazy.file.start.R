@@ -54,7 +54,7 @@ function(docClass="article", packages=NULL,
     if (initialize){
       setHtmlOptions(table=1, figure=1, footnote=1, chapter=1, section=1, subsection=1, 
                      font.family="serif", font="helvetica", font.size=11)
-      assign("HTML.FOOTNOTES", NULL, envir=htmlCounters)
+      assign("HTML.FOOTNOTES", NULL, envir=options()$htmlCounters)
     }
     code <- "<html>\n"
   }
