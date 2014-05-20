@@ -15,5 +15,5 @@
 
 .onUnload <- function(libname, pkgname){
   options(lazyReportFormat = NULL)
-  options(lazyReportCounter = NULL)
+  options(lazyReportCounters = NULL)
 }
