@@ -1,3 +1,8 @@
+KNOWN ISSUES:
+- write.univ has no option to suppress printing p-values
+
+
+
 === 20 May 2014 ===
 Some bug fixes have been applied, and the html counters have been moved out of the Global environtment into an 
 environment stored in options()$htmlCounters
