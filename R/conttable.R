@@ -178,6 +178,7 @@
   if (!is.factor(data[, byVar])) data[, byVar] <- factor(data[, byVar])
 #   if (!("ccf.df" %in% class(data))) data <- as.ccf.df.data.frame(data)
   ctable <- do.call("rbind", lapply(vars, var.info))
+  ctable$type <- factor(ctable$type)
   class(ctable) <- c("ctable", "data.frame")
   attributes(ctable)$byVar <- data[, byVar]
   label(attributes(ctable)$byVar) <- label(data[, byVar])
