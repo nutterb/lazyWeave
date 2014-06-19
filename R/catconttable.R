@@ -36,6 +36,7 @@ catconttable <- function(data, vars, byVar, vars.cat=NULL, fisher=NULL, fisher.a
   }
 
   ctable <- do.call("rbind", lapply(vars, var.info))
+  ctable$type <- factor(ctable$type)
   attributes(ctable)$byVar <- data[, byVar]
   label(attributes(ctable)$byVar) <- label(data[, byVar])
   attributes(ctable)$vars <- vars  
