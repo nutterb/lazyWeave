@@ -144,7 +144,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   denote <- ifelse(denote %in% c("Chi-Square", "Fisher", "Logistic", "CMH"),
                    "Proportion", denote)
   
-  s.type <- unique(denote[!is.na(denote)])
+  s.type <- levels(denote[!is.na(denote)])
   
   type.mark <- if (reportFormat %in% "latex") paste("$^", letters[1:length(s.type)], "$", sep="")
                else paste("<sup>", letters[1:length(s.type)], "</sup>", sep="")
