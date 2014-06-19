@@ -1,4 +1,6 @@
 split_ctable <- function(x, max.rows=35, ...){
+  lazy.args <- list(...)
+  if ("counter" %in% names(lazy.args)) counter <- lazy.args$counter else counter <- "table"
   rowList <- list()
   rows <- 1:nrow(x)
   if (length(rows) < max.rows) rowList <- list(rows)
@@ -11,5 +13,7 @@ split_ctable <- function(x, max.rows=35, ...){
     }
   }
   Splits <- lapply(rowList, function(t) x[t, ])
-  do.call("paste", list(unlist(lapply(Splits, write.ctable, ...)), collapse="\\clearpage"))
+  Tabs <- sapply(Splits, write.ctable, ...)
+  Tabs[-1] <- paste("\\addtocounter{", counter, "}{-1}", Tabs[-1], sep="")
+  paste(Tabs, collapse="\\clearpage")
 }
