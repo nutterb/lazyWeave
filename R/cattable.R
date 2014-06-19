@@ -211,6 +211,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
   #data[, toFactor] <- lapply(data[, toFactor, drop=FALSE], factor)
   
   ctable <- do.call("rbind", lapply(vars, var.info))
+  ctable$type <- factor(ctable$type)
   attributes(ctable)$byVar <- data[, byVar]
   label(attributes(ctable)$byVar) <- label(data[, byVar])
   attributes(ctable)$vars <- vars  
