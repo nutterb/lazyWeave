@@ -14,6 +14,9 @@ lazy.table <- function(x,
   reportFormat <- getOption("lazyReportFormat")
   if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
   
+  #*** Convert latex color to HTML, if the color given is a default color
+  if (usecol=="lightgray" & reportFormat="html") usecol = "#D8D8D8"
+  
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
   else if (reportFormat == "html") c("<!--", "-->")
