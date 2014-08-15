@@ -59,6 +59,13 @@ function(docClass="article", packages=NULL,
     code <- "<html>\n"
   }
   
+  if (reportFormat == "markdown"){
+    setHtmlOptions(table=1, figure=1, footnote=1, chapter=1, section=1, subsection=1, 
+                   font.family="serif", font="helvetica", font.size=11)
+    assign("HTML.FOOTNOTES", NULL, envir=options()$htmlCounters)
+    code <- ""
+  }
+  
   return(code)
 }
 

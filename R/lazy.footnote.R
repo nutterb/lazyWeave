@@ -2,7 +2,7 @@ lazy.footnote <- function(text, number=NULL, translate=FALSE,
                           name, ref, counter="footnote", size=8){
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   if (reportFormat == "latex"){
     num <- if (is.null(number)) "" else paste("[", number, "]", sep="")  
@@ -23,6 +23,20 @@ lazy.footnote <- function(text, number=NULL, translate=FALSE,
     to.add <- lazy.text(paste("<sup>[<a name='", ref, "' href='#", name, "'>", end.value, "</a>]</sup>", sep=""), text, size=size)
     assign("HTML.FOOTNOTES", paste(get("HTML.FOOTNOTES", envir=options()$htmlCounters), to.add, sep="\n"), envir=options()$htmlCounters) 
   }
+  
+  if (reportFormat == "markdown"){
+    if (!is.null(number)){
+      if (!is.numeric(number)) stop("'number' must be numeric")
+      lazy.counter(counter, number, fn="set")
+    } 
+    
+    end.value <- lazy.counter(counter, fn="value")
+    lazy.counter(counter, end.value + 1, "set")
+    
+    code <- end.value
+    to.add <- paste("^", end.value, "^ ", text, sep="")
+    assign("HTML.FOOTNOTES", paste(get("HTML.FOOTNOTES", envir=options()$htmlCounters), to.add, sep="\n\n"), envir=options()$htmlCounters)
+  }   
   
   return(code)
 }

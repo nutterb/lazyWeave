@@ -1,7 +1,7 @@
 lazy.verbatim.start <- function(){
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   
   if (reportFormat == "latex") return("\\begin{verbatim}")
@@ -10,5 +10,7 @@ lazy.verbatim.start <- function(){
   #*** will thus appear in monospace courier font
   if (reportFormat == "html") return("<p style='font-family:monospace, courier; font-size:11pt; text-align:left; font-style:none;
   font-weight:none; text-decoration:none;'>")
+  
+  if (reportFormat == "markdown") return("")
   
 }

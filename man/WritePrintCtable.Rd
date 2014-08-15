@@ -20,7 +20,7 @@ write.ctable(x, round = 2, percent = TRUE,
              missing=FALSE, missing.perc=FALSE, testStat = TRUE,
              odds = FALSE, pval = TRUE, oneLine = FALSE, ...)
              
-split_ctable(x, max.rows=35, ...)
+split_ctable(x, max.rows=35, keepVarTogether=TRUE, ...)
 }
 
 \arguments{
@@ -65,6 +65,8 @@ split_ctable(x, max.rows=35, ...)
   \item{pval}{Toggles if the pvalue column is printed.}
   \item{oneLine}{When true, binary variables are printed with only one line per variable.  This does not affect the printing of 
     numeric variable or variables with more than two levels.}
+  \item{keepVarTogether}{Determines if variables are kept together when splitting a table across mulitple 
+    pages.  When a single variable has more levels than can remain on one printed page, this must be set to FALSE.}
   \item{...}{Other arguments to be passed to \code{print} (for \code{print.ctable}
     or \code{lazy.table} (for \code{write.ctable}).  Currently none
     are implemented for \code{print}.  In \code{split_ctable}, any options in \code{write.ctable} may also be included.}

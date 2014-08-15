@@ -3,7 +3,7 @@ lazy.toc <- function(type=c("contents", "figures", "tables"), add=FALSE, desc=""
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', 'markdown'")
   
   if (reportFormat == "latex"){
 
@@ -30,9 +30,9 @@ lazy.toc <- function(type=c("contents", "figures", "tables"), add=FALSE, desc=""
     code <- paste(fncall, "\n", code, "\n\n")
   }
   
-  if (reportFormat == "html"){
+  if (reportFormat %in% c("html", "markdown")){
     code <- ""
-    warning("Tables of contents are not available in HTML reports.  Nothing has been done")
+    warning("Tables of contents are not available in HTML or markdown reports.  Nothing has been done")
   }
   
   return(code)

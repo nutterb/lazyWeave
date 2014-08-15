@@ -5,7 +5,7 @@ lazy.section <- function(heading, type=c("section", "sub", "subsub", "chapter", 
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex' 'html', or 'markdown'")
   
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
@@ -71,6 +71,45 @@ lazy.section <- function(heading, type=c("section", "sub", "subsub", "chapter", 
                   "<H", H, " style='font-family:", font, ", ", family, "; font-weight:bold;'>",
                   if (ordered) sec.number else "",
                   heading, "</H", H, ">\n", sep="")  
+  }
+  
+  if (reportFormat == "markdown"){
+    if (missing(counter)) counter <- type
+    
+    if (!is.null(counterSet)) lazy.counter(counter, counterSet, fn="set")
+    count.val <- lazy.counter(counter, fn="value")
+    
+    sec.number <- switch(type,
+                         "chapter" = paste("Chapter ", count.val, ": ", sep=""),
+                         "section" = paste(lazy.counter("chapter", fn="value") - 1, ".", count.val, ": ", sep=""),
+                         "sub" = paste(lazy.counter("chapter", fn="value") - 1, ".", lazy.counter("section", fn="value") - 1, ".", count.val, ": ", sep=""),
+                         "sub2" = paste(lazy.counter("chapter", fn="value") - 1, ".", lazy.counter("section", fn="value") - 1, ".",
+                                        lazy.counter("sub", fn="value") - 1, ".", count.val, ": ", sep=""),
+                         "subsub" = paste(lazy.counter("chapter", fn="value") - 1, ".", lazy.counter("section", fn="value") - 1, ".",
+                                          lazy.counter("sub", fn="value") - 1, ".", count.val, ": ", sep=""))
+    
+    if (ordered){
+      lazy.counter(counter, count.val + 1, fn="set")
+      if (counter %in% "chapter"){
+        lazy.counter("section", 1, "set")
+        lazy.counter("sub", 1, "set")
+        lazy.counter("subsub", 1, "set")
+      }
+      if (counter %in% "section"){
+        lazy.counter("sub", 1, "set")
+        lazy.counter("subsub", 1, "set")
+      }
+      if (counter %in% "sub") lazy.counter("subsub", 1, "set")
+    }
+    
+    if (type %in% "section") H <- "##"
+    else if (type %in% "sub") H <- "###"
+    else if (type %in% c("subsub", "sub2")) H <- "####"
+    else H <- "#"
+    
+    code <- paste(H, if (ordered) sec.number else "", heading, sep=" ")
+    
+    
   }
   
   return(code)

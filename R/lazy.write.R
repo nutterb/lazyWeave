@@ -3,19 +3,21 @@ function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
 
+  if (reportFormat != "markdown"){
   #*** Stop Function if no OutFile is given
-  if (missing(OutFile))
-    stop("'OutFile' must be explicitly specfied using 'OutFile=[filename]'")
+    if (missing(OutFile))
+      stop("'OutFile' must be explicitly specfied using 'OutFile=[filename]'")
   
-  file <- unlist(strsplit(OutFile, "[.]"))
-  file.ext <- tail(file, 1)
-  if (reportFormat == "latex" && file.ext %in% c("html", "htm")) 
-    OutFile <- paste(file[-length(file)], ".tex", sep="")
-  if (reportFormat == "html" && file.ext == "tex")
-    OutFile <- paste(file[-length(file)], "html", sep=".")
-  
+
+      file <- unlist(strsplit(OutFile, "[.]"))
+      file.ext <- tail(file, 1)
+      if (reportFormat == "latex" && file.ext %in% c("html", "htm")) 
+        OutFile <- paste(file[-length(file)], ".tex", sep="")
+      if (reportFormat == "html" && file.ext == "tex")
+        OutFile <- paste(file[-length(file)], "html", sep=".")
+  }
 
   #*** As awful as this sounds, I have no idea what this does.  It is a relic
   #*** from html.write in my earlier version of CCFmisc, but I never documented
@@ -31,9 +33,13 @@ function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
 
   #*** Combine all the code into one string for exporting to the file.
   code <- list(...)
-  code <- lapply(code, f)
+  code <- if (!is.null(code)) lapply(code, f) else code <- ""
   code <- paste(code, collapse = collapse)
   
+  if (reportFormat == "markdown" & footnotes & !is.null(get("HTML.FOOTNOTES", envir=options()$htmlCounters))){
+    return(get("HTML.FOOTNOTES", envir=options()$htmlCounters))
+  }
+  else return("")
   
   if (reportFormat == "html" & footnotes & !is.null(get("HTML.FOOTNOTES", envir=options()$htmlCounters))){
     code <- gsub("</html>", paste("\n\n\n", get("HTML.FOOTNOTES", envir=options()$htmlCounters), "\n</html>"), code)
