@@ -2,7 +2,7 @@ lazy.link <- function(url, text, web=TRUE, secure=FALSE){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
@@ -23,6 +23,11 @@ lazy.link <- function(url, text, web=TRUE, secure=FALSE){
   
   if (reportFormat == "html"){
     code <- paste("<a href='", url, "'>", if (missing(text)) url else text, " </a>\n\n", sep="")
+  }
+  
+  if (reportFormat == "markdown"){
+    fncall <- ""
+    code <- paste("[", text, "](", url, ")", sep="")
   }
  
   return(paste(fncall, code))

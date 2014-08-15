@@ -9,10 +9,10 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                          odds = FALSE, pval = TRUE, oneLine = FALSE, ...){
   
   reportFormat <- getOption("lazyReportFormat")
-  pm <- if (reportFormat %in% "latex") "$\\pm$" else "&plusmn"
-  ln.break <- if (reportFormat %in% "latex") "\\\\" else "<br>"
+  pm <- if (reportFormat %in% "latex") "$\\pm$" else if (reportFormat == "html") "&plusmn" else "$\\pm$"
+  ln.break <- if (reportFormat %in% "latex") "\\\\" else if (reportFormat == "html") "<br>" else "  \n"
   prc <- if (reportFormat %in% "latex") "\\%" else "%"
-  na.char <- if (reportFormat %in% "latex") "" else "&nbsp "
+  na.char <- if (reportFormat %in% c("latex", "markdown")) "" else "&nbsp "
   
   if (!is.factor(attributes(x)$byVar))
     attributes(x)$byVar <- factor(attributes(x)$byVar)
@@ -120,14 +120,16 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                  if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="")) 
                  else paste(x$label, x$level, sep=""),
                  if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="\\hspace{.2in}"))
-                 else paste(x$label, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")), 
+                 else if (reportFormat == "html") paste(x$label, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")
+                 else paste(x$label, x$level, sep = " - ")), 
           output)
   if (name) output <- 
     cbind(ifelse(x$name!="",
                  if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="")) 
                  else paste(x$name, x$level, sep=""),
                  if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="\\hspace{.2in}"))
-                 else paste(x$name, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")), 
+                 else if (reportFormat == "html") paste(x$name, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")
+                 else paste(x$name, x$level, sep = " - ")), 
           output)
   if (missing) output <- cbind(output, x$missing)
   if (missing.perc) output <- cbind(output, x$missing.perc)
@@ -137,7 +139,10 @@ write.ctable <- function(x, round = 2, percent = TRUE,
     cbind(output,
           if (reportFormat %in% "latex") 
             paste(x$pvalue, ifelse(!x$test.mark %in% "", paste("$^{", x$test.mark, "}$", sep=""), x$test.mark), sep="")
-          else paste(x$pvalue, ifelse(!x$test.mark %in% "", paste("<sup>", x$test.mark, "</sup>", sep=""), x$test.mark), sep=""))
+          else if (reportFormat == "html") 
+            paste(x$pvalue, ifelse(!x$test.mark %in% "", paste("<sup>", x$test.mark, "</sup>", sep=""), x$test.mark), sep="")
+          else paste(x$pvalue, ifelse(!x$test.mark %in% "", paste("^", x$test.mark, "^", sep=""), x$test.mark), sep=""))
+          
   
   denote <- ifelse(rownames(output) %in% attributes(x)$vars,
                    as.character(x$type), NA)
@@ -150,7 +155,8 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                    "Proportion", s.type)
   
   type.mark <- if (reportFormat %in% "latex") paste("$^", letters[1:length(s.type)], "$", sep="")
-  else paste("<sup>", letters[1:length(s.type)], "</sup>", sep="")
+               else if (reportFormat == "html") paste("<sup>", letters[1:length(s.type)], "</sup>", sep="")
+               else paste("^", letters[1:length(s.type)], "^", sep="")
   names(type.mark) <- s.type
   
   
@@ -190,9 +196,9 @@ write.ctable <- function(x, round = 2, percent = TRUE,
     output[x$significant, ] <- 
       lapply(output[x$significant, ], 
              function(x){ if (reportFormat == "latex") paste("\\textbf{", x, "}", sep="") 
-                          else if (reportFormat == "html") paste("<b>", x, "</b>", sep="")})
+                          else if (reportFormat == "html") paste("<b>", x, "</b>", sep="")
+                          else if (reportFormat == "markdown") paste("**", x, "**", sep="")})
   }
-  
   
   #******************************************************************************
   #* For LaTeX output (PDF)
@@ -203,23 +209,31 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   
   #   if (reportFormat %in% "latex"){
   cspan <- c( rep(1, name), rep(1, var.label), rep(1, total),
-{if (descripCombine) rep(2, nlev) else rep(4, nlev)},
+              {if (descripCombine) rep(2, nlev) else rep(4, nlev)},
               rep(1, missing), rep(1, missing.perc), rep(1, testStat),
               if (odds){ if (oddsCombine) 2 else if(oddsCombine) 4},
               rep(1, pval))
+  if (reportFormat == "markdown") cspan <- rep(1, sum(cspan))
   cwidth1 <- rep("", length(cspan))
+  
+  align.lev <- if (reportFormat == "markdown") {if (descripCombine) nlev * 2 else nlev * 4}
+               else nlev
+  odds.lev <- if (reportFormat == "markdown") {if (oddsCombine) 2 else 4} else odds
+  
   align <- c( rep("l", name + var.label),                
-              rep("c", total + nlev + missing + missing.perc + testStat + odds ),
+              rep("c", total + align.lev + missing + missing.perc + testStat + odds.lev ),
               rep("r", pval))
   head <- c( if(name) na.char,
              if(var.label) na.char,
              if(total) na.char,
-             lev,
+             if (reportFormat == "markdown") unlist(lapply(lev, function(x) c(x, rep("", as.numeric(!descripCombine*2) + 1)))) else lev,
              if(missing) na.char,
              if(missing.perc) na.char,
              if(testStat) na.char,
-             if(odds) na.char,
+             if (odds) {if (reportFormat == "markdown") {if (oddsCombine) 2 else 4} else na.char},
              if(pval) na.char)
+  
+
   if (options("lazyReportFormat") == "latex") head <- latexTranslate(head)
   
   #    return(name + var.label + total + 1 + nlev)
@@ -302,7 +316,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   part3 <- lazy.table(output, align=align, open=FALSE, justify="left",
                       cwidth=c(cwidth, rep("", odds)),
                       rborder=c(0, nrow(output)),
-                      footnote=paste(fnote, footnote, sep=if (reportFormat=="latex") "\\\\" else "<br>"),
+                      footnote=paste(fnote, footnote, sep=ln.break),
                       translate=FALSE, ...)
   
   paste(part1, part2, part3, sep="\n")

@@ -1,7 +1,7 @@
 lazy.ref <- function(label, text, page=FALSE, link=TRUE){ 
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
@@ -17,6 +17,11 @@ lazy.ref <- function(label, text, page=FALSE, link=TRUE){
   if (reportFormat == "html"){
     if (missing(text)) text <- "(link)"
     code <- paste("<a href='#", label, "'> ", text, " </a>\n\n", sep="")
+  }
+  
+  if (reportFormat == "markdown"){
+    warning("labelling and referencing are not currently available in markdown")
+    return("")
   }
   
   return(code)

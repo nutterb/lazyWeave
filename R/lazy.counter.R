@@ -41,7 +41,7 @@ lazy.counter <- function(counter, value, oldcounter, fn=c("new", "addto", "set",
   
   
   #*** HTML counters
-  if (reportFormat == "html"){
+  if (reportFormat %in% c("html", "markdown")){
     if ("set" %in% fn){
       if ("table" %in% counter)         assign("HTML.COUNTER.TABLE", value, envir=options()$htmlCounters)
       else if ("figure" %in% counter)   assign("HTML.COUNTER.FIGURE", value, envir=options()$htmlCounters)

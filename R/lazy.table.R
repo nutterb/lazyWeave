@@ -12,7 +12,7 @@ lazy.table <- function(x,
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   #*** Convert latex color to HTML, if the color given is a default color
   if (usecol=="lightgray" & reportFormat=="html") usecol = "#D8D8D8"
@@ -62,7 +62,7 @@ lazy.table <- function(x,
   
   #*** column alignment
   if (length(align) == 1) align <- rep(align, length.out=ncol(x))
-  if (reportFormat == "latex") align <- substr(align, 1, 1)
+  if (reportFormat %in% c("latex", "markdown")) align <- substr(align, 1, 1)
   if (reportFormat == "html"){ 
     align <- rep(align, length.out=ncol(x))
     align <- matrix(rep(align, nrow(x)), nrow=nrow(x), ncol=ncol(x), byrow=TRUE)
@@ -177,7 +177,7 @@ lazy.table <- function(x,
       if (translate) caption <- latexTranslate(caption)
     }
   }
-  if (reportFormat == "html"){
+  if (reportFormat %in% c("html", "markdown")){
     if (is.null(caption)) caption <- ""
     else{ 
       if (is.null(counter)) counter <- "table"
@@ -282,6 +282,28 @@ lazy.table <- function(x,
     
     if (!is.null(label)) code <- paste("<br>", lazy.label(label), code, sep="\n")
     return(paste(fncall, code, footnote, "\n\n"))
+  }
+
+  #******************************************************************************************************
+  #* Markdown Code
+  #******************************************************************************************************
+
+  if (reportFormat == "markdown"){
+    #* Place a colon on the left of ------ when align = c
+    #* Place a colon on the right of ----- when align is either c or r
+    align <- paste(paste(ifelse(align == "c", ":", ""), "------", 
+                           ifelse(align %in% c("c", "r"), ":", ""), sep=""), collapse = "|")
+    
+    code <- paste(paste("|", apply(x, 1, paste, collapse = "|"), "|"), collapse="\n")
+    if (open) code <- paste(paste(rep("| ", ncol(x)+1), collapse=""),
+                            paste("|", align, "|", sep=""),
+                            code,
+                            sep="\n")
+    
+    if (open) code <- paste(lazy.text(caption, italic=TRUE), "\n\n", code)
+    if (close) code <- paste(code, "\n\n", lazy.text(footnote, italic=TRUE))
+    
+    return(code)
   }
 
 }

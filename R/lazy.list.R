@@ -7,7 +7,7 @@ function(item, ordered=TRUE, counter=NULL, counterSet=1, title=NULL,
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   style.ref <- data.frame(latex=c("arabic", "Roman", "roman", "Alph", "alph"),
                           html =c("arabic", "I",     "i",     "A",    "a"),
@@ -101,6 +101,14 @@ function(item, ordered=TRUE, counter=NULL, counterSet=1, title=NULL,
     lst <- paste(lst, collapse="\n")
     
     code <- paste(fncall, code, "\n", lst, "\n</", tag, ">\n\n", sep="")  
+  }
+  
+  if (reportFormat == "markdown"){
+    if (!ordered) code <- paste(paste("*", item), collapse="\n")
+    else {
+      val <- 1:length(item) + (counterSet-1)
+      code <- paste(paste(val, ". ", item, sep=""), collapse="\n")
+    }
   }
 
   return(code)

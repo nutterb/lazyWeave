@@ -2,7 +2,7 @@ lazy.text.format <- function(text, italic=FALSE, bold=FALSE, underline=FALSE, tr
 
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   if (reportFormat == "latex"){
     if (translate) text <- latexTranslate(text)
@@ -16,6 +16,11 @@ lazy.text.format <- function(text, italic=FALSE, bold=FALSE, underline=FALSE, tr
     if (underline) text <- paste("<ul>", text, "</ul>")
     if (italic) text <- paste("<i>", text, "</i>")
     if (bold) text <- paste("<b>", text, "</b>")  
+  }
+  
+  if (reportFormat == "markdown"){
+    if (italic) text <- paste("_", text, "_")
+    if (bold) text <- paste("**", bold, "**")
   }
   
   return(text)

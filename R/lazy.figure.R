@@ -7,7 +7,7 @@ function(filename, caption=NULL, align="center",
 
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   
   #*** Construct the comment with the function call
@@ -69,6 +69,24 @@ function(filename, caption=NULL, align="center",
                   lazy.text(caption, italic=TRUE, align=align), sep="")
     if (!is.null(label)) code <- paste(lazy.label(label), code, sep="\n") 
     code <- paste(code, "\n\n", sep="")
+  }
+  
+  #*** Markdown format
+  if (reportFormat == "markdown"){
+  
+    if (missing(counter)) counter <- "figure"
+    if (is.null(caption)) caption <- ""
+    else{
+      if (!is.null(counterSet)) lazy.counter(counter, counterSet, fn="set")
+      count.val <- lazy.counter(counter, fn="value")
+      caption <- paste("Figure ", lazy.counter(counter, fn="value"), ": ", caption, sep="")
+      lazy.counter(counter, count.val + 1, fn="set")
+    }
+    
+    code <- paste("![", alt, "][", lazy.counter(counter, fn="value"), "]", "\n\n",
+                  "[", lazy.counter(counter, fn="value"), "]: ", filename, " ''", sep="")
+    
+    
   }
 
   return(code)

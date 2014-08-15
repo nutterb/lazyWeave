@@ -3,7 +3,7 @@ lazy.citation <- function(pkg=NULL, author=TRUE, title=TRUE, org=TRUE,
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
 
   #*** Construct the comment with the function call
@@ -15,7 +15,7 @@ lazy.citation <- function(pkg=NULL, author=TRUE, title=TRUE, org=TRUE,
 
   #*** get the right left quote characters for the report format
   quote.string <- if (reportFormat == "latex") "``"              
-  else if (reportFormat == "html") "\""
+  else if (reportFormat %in% c("html", "markdown")) "\""
   
   #*** Construct the citation
   cit <- if (is.null(pkg)) citation() else citation(pkg)

@@ -5,7 +5,7 @@ function(..., title=NULL, align="left",
     
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
-  if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")
+  if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   #*** Construct the comment with the function call
   comment.char <- if (reportFormat == "latex") c("%%", "")
@@ -69,6 +69,11 @@ function(..., title=NULL, align="left",
                   "text-decoration:", if (underline) "underline;" else "none;",
                   "'>", sep="")
     code <- paste(code, txt, "</p>")
+  }
+  
+  if (reportFormat == "markdown"){
+    code <- paste(..., sep=sep)
+    code <- paste(if (bold) "**" else "", if (italic) "_" else "", code, if (italic) "_" else "", if (bold) "**" else "", sep="")
   }
   
   return(code)
