@@ -63,6 +63,6 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
                         translate=translate, ...)
   }
   
-  paste(if (reportFormat != "markdown") fncall else "", header, body, sep="")
+  paste(if (reportFormat != "markdown") fncall else "", header, body, sep="\n")
 }
 
