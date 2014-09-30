@@ -39,7 +39,7 @@ function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
   if (reportFormat == "markdown" & footnotes & !is.null(get("HTML.FOOTNOTES", envir=options()$htmlCounters))){
     return(get("HTML.FOOTNOTES", envir=options()$htmlCounters))
   }
-  else return("")
+  else if (reportFormat=="markdown") return("")
   
   if (reportFormat == "html" & footnotes & !is.null(get("HTML.FOOTNOTES", envir=options()$htmlCounters))){
     code <- gsub("</html>", paste("\n\n\n", get("HTML.FOOTNOTES", envir=options()$htmlCounters), "\n</html>"), code)
