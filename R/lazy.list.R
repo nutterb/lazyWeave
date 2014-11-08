@@ -1,3 +1,60 @@
+#' @name lazy.list
+#' @export lazy.list
+#' 
+#' @title Lists in LaTeX and HTML
+#' @description Produce code for lists in LaTeX documents
+#' 
+#' @param item A vector with the items to be placed in the list
+#' @param ordered Denotes if the list is ordered or bulleted
+#' @param counter For future inclusion.  Specifies what counter 
+#'   should be used for numbering.  Currently not in use
+#' @param counterSet The value to which \code{counter} should 
+#'   be set.  In other words, the number for the first item in the 
+#'   list
+#' @param title A title for the list
+#' @param style A character string denoting how the ordered list 
+#'   should be numbered.  Options are \code{"arabic", "roman", 
+#'   "Roman", "alph", "Alph"}.
+#' @param symbol A symbol for bulleted lists to be used as the bullet
+#' @param font Font to be used in HTML documents.  Defaults to the 
+#'   font set in the options
+#' @param family Font family to be used in HTML documents.  Defaults 
+#'   to the font family in the options
+#' @param size Font size to be used in HTML documents.  Defaults to 
+#'   the font family in the options
+#'   
+#' @details  With \code{style}, the options produce the following and 
+#' apply to both LaTeX and HTML:
+#' \tabular{ll}{
+#'   arabic \tab Arabic numbers\cr
+#'   roman  \tab Lower case roman numerals (i, ii, iii, ...)\cr
+#'   Roman  \tab Upper case roman numerals (I, II, III, ...)\cr
+#'   alph   \tab Lower case alphabetic ordering (a, b, c, ...)\cr
+#'   Alph   \tab Upper case alphabetic ordering (A, B, C, ...)\cr
+#' }
+#' 
+#' The given options for \code{symbol} follow the HTML conventions, 
+#' but when \code{options("lazyReportFormat")} is \code{"latex"}, 
+#' these options are translated into the appropriate equivalent.
+#' 
+#' @author Benjamin Nutter
+#' 
+#' @examples
+#' \dontrun{
+#' lazy.write(
+#'   lazy.file.start(),
+#'   lazy.text("In Boy Scouts, participants can earn several 
+#'       ranks that denote the level of skill and accomplishment 
+#'       they have developed.  These ranks are:"),
+#'   lazy.list(c("Scout", "Tenderfoot", "Second Class", 
+#'               "First Class", "Star", "Life", "Eagle"), style="Alph"),
+#'   lazy.file.end(),
+#'   OutFile="Example 1.tex")
+#' 
+#' unlink("Example 1.tex")
+#' }
+#' 
+
 lazy.list <-
 function(item, ordered=TRUE, counter=NULL, counterSet=1, title=NULL, 
          style=c("arabic", "Roman", "roman", "Alph", "alph"), 

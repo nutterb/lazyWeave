@@ -1,3 +1,6 @@
+#' @describeIn lazy.verbatim.start
+#' 
+
 lazy.verbatim.end <- function(){
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")

@@ -1,3 +1,7 @@
+#' @describeIn lazy.ref
+#' @export lazy.label
+#' 
+
 lazy.label <- function(label){
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")

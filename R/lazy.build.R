@@ -1,4 +1,36 @@
-lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE, replace=TRUE, ...){
+#' @name lazy.build
+#' @export lazy.build
+#' 
+#' @title Compile a PDF or HTML Report
+#' @description Executes a command to build a pdf file based on a .tex or 
+#'   .html file.  For HTML files, compiles the figure into a subfolder 
+#'   and places all of the contents into a zip file
+#'   
+#' @param filename Character string giving the location of the file to be built.
+#'   Usually a .tex or .html file.
+#' @param pdf.zip filename where the completed document should be saved. Usually a 
+#'   .pdf or .zip file.
+#' @param quiet Sets the system call flag for a quiet (non-verbose) run.
+#' @param clean Sets the system call for cleaning up the folder after completion.
+#'   If \code{TRUE}, extra files generated during processing will be deleted.
+#' @param replace when \code{pdf.zip} is not \code{NULL}, this determines if 
+#'   the new file will overwrite an existing file.
+#' @param ... Additoinal arguments to be passed to \code{tools::texi2dvi}
+#' 
+#' @details For TEX files, a call is made using \code{tools::texi2dvi} to 
+#'   compile a PDF file.
+#'   
+#'   For HTML files, the referenced figures are gathered, copied into a
+#'   subdirectory and the HTML document and the figures are placed into a 
+#'   zip folder for convenient transfer.  All of the image links in the HTML
+#'   code are modified to reflect the new location.  Lastly, a text file 
+#'   is added with instructions for unzipping the files for convenient viewing
+#'   (but don't worry, no one ever reads this).
+#'   
+#' @author Benjamin Nutter
+#' 
+lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE, 
+                       replace=TRUE, ...){
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
   if (!reportFormat %in% c("latex", "html")) stop("option(\"lazyReportFormat\") must be either 'latex' or 'html'")

@@ -1,3 +1,7 @@
+#' @rdname WritePrintCtable
+#' @export write.ctable
+#' 
+
 write.ctable <- function(x, round = 2, percent = TRUE,
                          quartile=TRUE, cwidth=NULL,
                          caption=NULL, footnote = NULL, 

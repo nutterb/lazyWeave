@@ -1,5 +1,84 @@
+#' @name univ
+#' @export univ
+#' 
+#' @title Univariable Table
+#' @description Similar to the QHS SAS macro, provides a simple
+#'   summary of numerical variables
+#'   
+#' @param data A \code{ccf.df} or \code{data.frame} containing the variables in
+#'   \code{vars} and \code{byVar}.
+#' @param vars Character vector naming the variables in \code{data} to be
+#'   summarized.
+#' @param byVar A categorical variables giving groups by which statistics 
+#'   should be computed.
+#' @param alpha significance level for determining the confidence limits.
+#' @param test The test to use for comparing between groups.  Currently 
+#'   limited to t-test and ANOVA (parametric tests).
+#' @param test.args a list of additional arguments to pass to the function in 
+#' \code{test}.
+#' 
+#' @details
+#' Statistics available in univ, and the calls to get them are:
+#' \enumerate{
+#' \item{\code{n}}{number of non-missing values.}
+#' \item{\code{missing}}{number of missing values}
+#' \item{\code{mean}}{arithmetic mean}
+#' \item{\code{median}}{median value}
+#' \item{\code{sd}}{standard deviation}
+#' \item{\code{lcl}}{lower confidence limit}
+#' \item{\code{ucl}}{upper confidence limit}
+#' \item{\code{min}}{minimum value}
+#' \item{\code{max}}{maximum value}
+#' \item{\code{p25}}{25th percentile}
+#' \item{\code{p75}}{75th percentile}
+#' \item{\code{cv}}{coefficient of variation}
+#' }
+#' 
+#' \code{univ} does not perform any kind of inference on the varaibles 
+#' supplied in the argument.  It returns only summary statistics.  If 
+#' comparisons are desired, try using \code{conttable}.  Confidence limits 
+#' are determined using the t-distribution.
+#' 
+#' @author Benjamin Nutter
+#' 
+#' @examples
+#' data(Delivery)
+#' #Read in the delivery dataset from the CCFmisc library
+#' #use Hmisc library to labeling variables in univariate tables
+#' label(Delivery$maternal.age) <- "Maternal Age"
+#' label(Delivery$ga.weeks) <- "Gestation weeks"
+#' label(Delivery$wt.gram) <- "Weight (g)"
+#' 
+#' 
+#' #a univariate table of the variables maternal age,
+#' #ga.weeks and wt.grams.  The object resulting
+#' #from univ() can be used in other functions to create html or
+#' #LaTeX tables.
+#' 
+#' uni <- univ(Delivery,
+#'             vars=c("maternal.age", "ga.weeks", "wt.gram"))
+#' 
+#' #a univariate table of the variables maternal age,
+#' #ga.weeks and wt.grams by delivery.type.  The object resulting
+#' #from univ() can be used in other functions to create html or
+#' #LaTeX tables.
+#' 
+#' deliv.uni <- univ(Delivery,
+#'                   vars=c("maternal.age", "ga.weeks", "wt.gram"),
+#'                   byVar="delivery.type")
+#' 
+#' #if you want to take advantage of the confidence interval
+#' #output from univ() different alpha levels can be set
+#' #by the alpha= argument.
+#' 
+#' deliv_99.uni <- univ(Delivery,
+#'                      vars=c("maternal.age", "ga.weeks", "wt.gram"),
+#'                      byVar="delivery.type",
+#'                      alpha=0.01)
+#'
+
 'univ' <- function(data, vars, byVar, alpha=0.05,
-                   test=c("t.test", "aov"), test.args=NULL){
+                   test=c("t.test", "aov", "wilcox.test", "kruskal.test"), test.args=NULL){
 
 #********************************************************************
 #* 3. Provide dummy byVar if necessary
@@ -18,8 +97,8 @@
     data[,byVar] <- factor(data[,byVar])
     warning(paste(expression(byVar),"was coerced to a factor variable"))  }
   
-  test <- match.arg(test, c("t.test", "aov"))
-
+  test <- match.arg(test, c("t.test", "aov", "wilcox.test", "kruskal.test"))
+ 
 #********************************************************************
 #* 1. Generic function to obtain statistics
 #* 2. Generic function to obtain counts
@@ -62,7 +141,7 @@
  
   if (nlevels(data[, byVar]) > 1){  
     PVAL <- lapply(vars, function(v) do.call(test, c(list(data[, v] ~ data[, byVar]), test.args))) 
-    PVAL <- if (test == "t.test") unlist(lapply(PVAL, function(x) c(x$p.value, rep(NA, nlevels(data[, byVar]) - 1))))
+    PVAL <- if (test != "aov") unlist(lapply(PVAL, function(x) c(x$p.value, rep(NA, nlevels(data[, byVar]) - 1))))
             else if (test == "aov") unlist(lapply(PVAL, function(x) c(anova(x)[1, 5], rep(NA, nlevels(data[, byVar]) - 1))))
   }
   else PVAL <- NA

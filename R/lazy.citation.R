@@ -1,3 +1,29 @@
+#' @name lazy.citation
+#' @export lazy.citation
+#' 
+#' @title Add R or R Package Citation
+#' @description Generates code for the citation of R or an R package.
+#' 
+#' @param pkg a character(1) vector giving the name of a package.  If \code{NULL}, a citation for R is produced.
+#' @param author Include author name
+#' @param title Include title of package
+#' @param org Include organization name
+#' @param address Include address
+#' @param volume Include volume
+#' @param year include year of publication
+#' @param note include the note on the citation.
+#' 
+#' @details Not every option is populated in every package.  
+#' Future improvements might include automatic detection of NULL fields, 
+#' but for now, observing the output with all the options set to \code{TRUE}
+#' will tell you which ones are empty.
+#' 
+#' @author Benjamin Nutter
+#' 
+#' @examples
+#' lazy.citation()
+#' lazy.citation(pkg="lazyWeave", org=FALSE, address=FALSE, volume=FALSE)
+
 lazy.citation <- function(pkg=NULL, author=TRUE, title=TRUE, org=TRUE, 
                           address=TRUE, volume=TRUE, year=TRUE, note=TRUE){
   

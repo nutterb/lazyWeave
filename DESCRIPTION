@@ -1,11 +1,19 @@
 Package: lazyWeave
 Type: Package
 Title: LaTeX Wrappers for R Users
-Version: 2.3.0
-Date: 2014-08-15
+Version: 2.3.1
+Date: 2015-01-01
 Author: Benjamin Nutter
 Maintainer: Benjamin Nutter <nutterb@ccf.org>
-Description: Provides the functionality to write LaTeX code from within R without having to learn LaTeX.  Functionality also exists to create HTML and Markdown code.  
+Description: Provides the functionality to write LaTeX code from within R
+    without having to learn LaTeX.  Functionality also exists to create HTML
+    and Markdown code.  While the functionality still exists to write
+    complete documents with lazyWeave, it is generally easier to do so with
+    with markdown and knitr.  lazyWeave's main strength now is the ability
+    to design custom and complex tables for reporting results.
 License: GPL
 LazyLoad: yes
-Depends: R (>= 2.10.0), Hmisc, survival
+Depends:
+    R (>= 2.10.0),
+    Hmisc,
+    survival

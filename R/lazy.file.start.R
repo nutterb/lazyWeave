@@ -1,3 +1,54 @@
+#' @name lazy.file.start
+#' @export lazy.file.start
+#' 
+#' @title Initiate New LaTeX, HTML, or Markdown Files
+#' @description Write code to open a new LaTeX document with 
+#'   packages, classes, a title, and page settings
+#'   
+#' @param docClass a character string giving a valid LaTeX document 
+#' class. For example, \code{article}, \code{slide}, \code{report}, 
+#' \code{book}
+#' @param packages A character vector of additional LaTeX packages to use
+#' @param counters A character vector of additional counters to initialize
+#' @param layout LaTeX code for page layout.  Remember to escape backslashes!
+#' @param page A character string denoting the page numbering style.  Options
+#'   are \code{"arabic", "roman", "Roman", "alph", "Alph"}.
+#' @param ligatures Determines if ligatures are enabled.  See the references for a link about ligatures
+#' @param title A title for the document
+#' @param author Author of the document
+#' @param date Date to be printed on the title page
+#' @param initialize For HTML and markdow files and when \code{TRUE}, 
+#'   the function \code{lazy.options} is called and 
+#'   all of the counters are reset to 1.  Font, family, and size 
+#'   defaults are also reset 
+#' 
+#' @details Titles are only made when either \code{title} or \code{author} are 
+#' not \code{NULL}.  
+#' 
+#' Packages automatically included are "xcolor", "graphicx", "colortbl", "float",
+#' "soul", "hyperref", "placeins", and "Sweave".  Any user 
+#' defined templates made in conjuction with \code{lazyWeave} must include these
+#' packages in order to use figures and underlined text.
+#' 
+#' With \code{page}, the options produce the following:
+#' \tabular{ll}{
+#'   arabic \tab Arabic numbers\cr
+#'   roman  \tab Lower case roman numerals (i, ii, iii, ...)\cr
+#'   Roman  \tab Upper case roman numerals (I, II, III, ...)\cr
+#'   alph   \tab Lower case alphabetic ordering (a, b, c, ...)\cr
+#'   Alph   \tab Upper case alphabetic ordering (A, B, C, ...)\cr
+#' }
+#' 
+#' @author Benjamin Nutter
+#' 
+#' @references Ligatures: \url{http://en.wikibooks.org/wiki/LaTeX/Formatting\#Ligatures}
+#' 
+#' @examples
+#' lazy.file.start(docClass="report", 
+#'   packages=c("pslatex", "palatino", "avant"),
+#'   title="Report Name", author="Your Name")
+#'   
+
 lazy.file.start <-
 function(docClass="article", packages=NULL, 
     counters=NULL, layout="", page="arabic", ligatures=TRUE,

@@ -1,3 +1,7 @@
+#' @rdname ComparisonTable
+#' @export cattable
+#' 
+
 cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
                      cmh=NULL, row.score=NULL, col.score=NULL,
                      mcnemar=NULL, correct=NULL,

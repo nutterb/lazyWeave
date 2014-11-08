@@ -1,3 +1,14 @@
+#' @name lazy.file.end
+#' @export lazy.file.end
+#' 
+#' @title End LaTeX Documents
+#' @description Provides the code to end a LaTeX document
+#' 
+#' @author Benjamin Nutter
+#' 
+#' @examples
+#' lazy.file.end()
+#' 
 lazy.file.end <- function(){
 
   #*** retrieve the report format

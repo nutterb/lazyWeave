@@ -1,3 +1,7 @@
+#' @rdname WritePrintCtable
+#' @export split_ctable
+#' 
+
 split_ctable <- function(x, max.rows=35, keepVarTogether=TRUE, ...){
   lazy.args <- list(...)
   if ("counter" %in% names(lazy.args)) counter <- lazy.args$counter else counter <- "table"

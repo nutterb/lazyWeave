@@ -1,3 +1,26 @@
+#' @name lazy.write
+#' @export lazy.write
+#' 
+#' @title Output LaTeX Code to a File
+#' @description Output text and LaTeX code to a file for building
+#' 
+#' @param ... Strings, expressions, and statements to be written 
+#'   to a .tex file
+#' @param OutFile Filename to which the code should be written
+#' @param append logical.  Indicates if the code should be appended to 
+#'   and existing file
+#' @param collapse Sets the character string that is placed 
+#'   between elements in \code{\dots}
+#' @param footnotes logical.  For HTML and markdown only, when 
+#'   \code{TRUE}, the footnotes stored in 
+#'   \code{options("lazy.footnotes")} will be appended to the end 
+#'   of the HTML document
+#'   
+#' @details The contents of \code{\dots} will be pasted together
+#' 
+#' @author Benjamin Nutter
+#' 
+
 lazy.write <-
 function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
   

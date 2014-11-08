@@ -1,3 +1,7 @@
+#' @rdname ComparisonTable
+#' @export conttable
+#' 
+
 'conttable' <- function(data, vars, byVar,
                  normal = NULL, var.equal = NULL, 
                  median = NULL,  
