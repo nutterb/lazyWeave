@@ -1,4 +1,5 @@
 #' @name pvalue.QHS
+#' @export pvalue.QHS
 #' 
 #' @title Format p-values
 #' @description Prepares p-values for printing according to the 
