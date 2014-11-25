@@ -37,7 +37,11 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
   }
 
   var.info <- function(v){
-    if (!is.factor(data[, v])) data[, v] <- factor(data[,v])
+    if (!is.factor(data[, v])){
+      v.lab <- label(data[, v])
+      data[, v] <- factor(data[,v])
+      label(data[, v]) <- v.lab
+    }
     
     nlev <- nlevels(data[, byVar])
     nlev.v <- nlevels(data[, v])
