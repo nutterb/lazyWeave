@@ -43,11 +43,9 @@
 #' \dontrun{
 #' lazy.write(
 #'   lazy.file.start(),
-#'   lazy.text("In Boy Scouts, participants can earn several 
-#'       ranks that denote the level of skill and accomplishment 
-#'       they have developed.  These ranks are:"),
-#'   lazy.list(c("Scout", "Tenderfoot", "Second Class", 
-#'               "First Class", "Star", "Life", "Eagle"), style="Alph"),
+#'   lazy.text("A vector can be presented as a list as follows"),
+#'   lazy.list(c("First item", "Second item", "Third item", 
+#'               "Fourth item", "Fifth item"), style="Alph"),
 #'   lazy.file.end(),
 #'   OutFile="Example 1.tex")
 #' 

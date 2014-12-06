@@ -53,10 +53,6 @@
 #' @param translate Toggles if inputs in \code{x} should be passed through 
 #'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
 #'   custom code
-#' @param textsize A character string giving the text size for the table.  
-#'   This is provided for back compatibility with older versions of 
-#'   \code{lazyWeave}.  It is mapped to the \code{size} argument, and I 
-#'   recommend using that argument instead
 #' 
 #' @details \code{cborder} (or column border) will create vertical borders in the table.
 #'   Borders are placed on the right side of the specified columns.  If a 
@@ -151,7 +147,7 @@ lazy.table <- function(x,
                        open=TRUE, close=TRUE, 
                        caption=NULL, footnote=NULL, label=NULL,
                        counter=NULL, counterSet=NULL,
-                       translate=TRUE, textsize=NULL){
+                       translate=TRUE){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -180,11 +176,6 @@ lazy.table <- function(x,
   if (missing(font)) font <- get("HTML.FONT.FONT", envir=options()$htmlCounters)
   if (missing(family)) family <- get("HTML.FONT.FAMILY", envir=options()$htmlCounters)
   if (missing(size)) size <- get("HTML.FONT.SIZE", envir=options()$htmlCounters)
-  
-  if (!is.null(textsize)){
-    size <- textsize
-    warning("The argument 'textsize' is scheduled for deletion in 2013.  Please use the 'size' argument instead")
-  }
   
   x[is.na(x)] <- ""
   if (reportFormat == "latex" && translate) x <- latexTranslate(x)

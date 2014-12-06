@@ -14,7 +14,6 @@ Description: Provides the functionality to write LaTeX code from within R
 License: GPL
 LazyLoad: yes
 Depends:
-    R (>= 2.10.0),
-    survival
+    R (>= 2.10.0)
 Imports:
     Hmisc (>= 3.14-6)
