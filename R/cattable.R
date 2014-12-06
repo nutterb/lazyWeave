@@ -47,7 +47,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
     nlev.v <- nlevels(data[, v])
     
     .name <- c(v, rep(NA, nlev.v))
-    .label <- c(if (label(data[,v]) %in% "") v else label(data[, v]), rep(NA, nlev.v))
+    .label <- c(if (Hmisc::label(data[,v]) %in% "") v else Hmisc::label(data[, v]), rep(NA, nlev.v))
     .level <- c(NA, levels(data[, v]))
     .total <- c(sum(table(data[, v])), table(data[, v]))
     .count <- rbind(NA, table(data[, v], data[, byVar]))
@@ -221,7 +221,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
   ctable <- do.call("rbind", lapply(vars, var.info))
   ctable$type <- factor(ctable$type)
   attributes(ctable)$byVar <- data[, byVar]
-  label(attributes(ctable)$byVar) <- label(data[, byVar])
+  Hmisc::label(attributes(ctable)$byVar) <- Hmisc::label(data[, byVar])
   attributes(ctable)$vars <- vars  
   class(ctable) <- c("ctable", "data.frame")
   return(ctable)

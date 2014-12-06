@@ -26,7 +26,7 @@ debated if that's really an advantage).
 
 Use of \code{lazyWeave} could also be greatly supplemented by some basic
 familiarity with LaTeX.  For example, knowing the commands for bolding
-(\\textbf\{\}), italicizing (\\empf\{\}), and underlining text
+(\\textbf\{\}), italicizing (\\emph\{\}), and underlining text
 (\\ul\{\}) can go a long way to improving the look of reports.  It also would
 help to know how to subscript and superscript terms.  Most introductions
 to LaTeX will cover these basics.

@@ -1,5 +1,12 @@
 #' @name univ
 #' @export univ
+#' @importFrom Hmisc label.default
+#' @importFrom Hmisc label.data.frame
+#' @importFrom Hmisc 'label<-.default'
+#' @importFrom Hmisc 'label<-.data.frame'
+#' @importFrom Hmisc print.labelled
+#' @importFrom Hmisc '[.labelled'
+#' @importFrom Hmisc latexTranslate
 #' 
 #' @title Univariable Table
 #' @description Similar to the QHS SAS macro, provides a simple
@@ -45,9 +52,9 @@
 #' data(Delivery)
 #' #Read in the delivery dataset from the CCFmisc library
 #' #use Hmisc library to labeling variables in univariate tables
-#' label(Delivery$maternal.age) <- "Maternal Age"
-#' label(Delivery$ga.weeks) <- "Gestation weeks"
-#' label(Delivery$wt.gram) <- "Weight (g)"
+#' Hmisc::label(Delivery$maternal.age) <- "Maternal Age"
+#' Hmisc::label(Delivery$ga.weeks) <- "Gestation weeks"
+#' Hmisc::label(Delivery$wt.gram) <- "Weight (g)"
 #' 
 #' 
 #' #a univariate table of the variables maternal age,
@@ -120,9 +127,9 @@
 #* Get Factor and Group names and corresponding statistics
 #********************************************************************
 
-  if(byVar.miss) Factor <- label(data[vars], default=names(data[, vars]))
+  if(byVar.miss) Factor <- Hmisc::label(data[vars], default=names(data[, vars]))
   else Factor <- unlist(lapply(vars,function(v) 
-                    c(label(data[, v], default=v),
+                    c(Hmisc::label(data[, v], default=v),
                       rep(NA,nlevels(data[,byVar])-1))))
   Group <- rep(levels(data[,byVar]),length(vars))
   N <- as.vector(sapply(vars,count.func))

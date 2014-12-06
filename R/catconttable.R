@@ -1,5 +1,13 @@
 #' @name ComparisonTable
 #' @export catconttable
+#' @importFrom Hmisc label.default
+#' @importFrom Hmisc label.data.frame
+#' @importFrom Hmisc 'label<-.default'
+#' @importFrom Hmisc 'label<-.data.frame'
+#' @importFrom Hmisc print.labelled
+#' @importFrom Hmisc '[.labelled'
+#' @importFrom Hmisc latexTranslate
+#' @importFrom Hmisc smean.cl.boot
 #' 
 #' @title Comparison Tables
 #' @description Produce a table of comparisons for reports and manuscripts
@@ -190,7 +198,7 @@ catconttable <- function(data, vars, byVar, vars.cat=NULL, fisher=NULL, fisher.a
   ctable <- do.call("rbind", lapply(vars, var.info))
   ctable$type <- factor(ctable$type)
   attributes(ctable)$byVar <- data[, byVar]
-  label(attributes(ctable)$byVar) <- label(data[, byVar])
+  Hmisc::label(attributes(ctable)$byVar) <- Hmisc::label(data[, byVar])
   attributes(ctable)$vars <- vars  
   return(ctable)
 }

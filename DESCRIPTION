@@ -15,5 +15,6 @@ License: GPL
 LazyLoad: yes
 Depends:
     R (>= 2.10.0),
-    Hmisc,
     survival
+Imports:
+    Hmisc (>= 3.14-6)

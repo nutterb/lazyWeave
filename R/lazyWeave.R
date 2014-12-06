@@ -20,7 +20,7 @@
 #' 
 #' Use of \code{lazyWeave} could also be greatly supplemented by some basic
 #' familiarity with LaTeX.  For example, knowing the commands for bolding 
-#' (\\textbf\{\}), italicizing (\\empf\{\}), and underlining text 
+#' (\\textbf\{\}), italicizing (\\emph\{\}), and underlining text 
 #' (\\ul\{\}) can go a long way to improving the look of reports.  It also would
 #' help to know how to subscript and superscript terms.  Most introductions
 #' to LaTeX will cover these basics. 
@@ -34,8 +34,8 @@
 #' All of the functions can be used for LaTeX and HTML reports, but the functionality and appearance
 #' may not be identical between formats.  
 #'
-#' @docType package
 #' @name lazyWeave
 #' @import survival
-#' @import Hmisc
+#' @docType package
+
 NULL

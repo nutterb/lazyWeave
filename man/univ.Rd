@@ -54,9 +54,9 @@ are determined using the t-distribution.
 data(Delivery)
 #Read in the delivery dataset from the CCFmisc library
 #use Hmisc library to labeling variables in univariate tables
-label(Delivery$maternal.age) <- "Maternal Age"
-label(Delivery$ga.weeks) <- "Gestation weeks"
-label(Delivery$wt.gram) <- "Weight (g)"
+Hmisc::label(Delivery$maternal.age) <- "Maternal Age"
+Hmisc::label(Delivery$ga.weeks) <- "Gestation weeks"
+Hmisc::label(Delivery$wt.gram) <- "Weight (g)"
 
 
 #a univariate table of the variables maternal age,

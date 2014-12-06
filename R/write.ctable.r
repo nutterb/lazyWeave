@@ -43,7 +43,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   p <- if (percent) 100 else 1
   
   if (is.null(caption)) 
-    caption <- paste("Listing of ", latexTranslate(label(attributes(x)$byVar)),
+    caption <- paste("Listing of ", latexTranslate(Hmisc::label(attributes(x)$byVar)),
                      "vs. Selected Continuous Measures.")
   
   if (name && var.label){

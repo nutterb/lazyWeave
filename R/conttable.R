@@ -52,13 +52,13 @@
 #*** 1. Variable name, label, and level.  
     nlev <- nlevels(data[, byVar])
     m.boot <- do.call("rbind",tapply(data[, v], data[, byVar],
-                                     smean.cl.boot, B=B))
+                                     Hmisc::smean.cl.boot, B=B))
     quant <- do.call("rbind", tapply(data[, v], data[, byVar], quantile,
                      probs=seq(0, 1, by=.25), na.rm=TRUE))
                      
 #*** 2. Numeric Summary variables
     .name <- v
-    .label <- if (label(data[,v]) %in% "") v else label(data[, v])
+    .label <- if (Hmisc::label(data[,v]) %in% "") v else Hmisc::label(data[, v])
     .level <- NA
     .count <- colSums(table(data[, v], data[, byVar]))
     .prop <- rep(NA, nlev); names(.prop) <- levels(data[, byVar])
@@ -185,7 +185,7 @@
   ctable$type <- factor(ctable$type)
   class(ctable) <- c("ctable", "data.frame")
   attributes(ctable)$byVar <- data[, byVar]
-  label(attributes(ctable)$byVar) <- label(data[, byVar])
+  Hmisc::label(attributes(ctable)$byVar) <- Hmisc::label(data[, byVar])
   attributes(ctable)$vars <- vars  
   return(ctable)
 }
