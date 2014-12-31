@@ -222,8 +222,8 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   
   align.lev <- if (reportFormat == "markdown") {if (descripCombine) nlev * 2 else nlev * 4}
                else nlev
-  odds.lev <- if (reportFormat == "markdown") {if (oddsCombine) 2 else 4} else odds
-  
+  odds.lev <- if (reportFormat == "markdown") {if (oddsCombine) 2*odds else 4*odds} else odds
+
   align <- c( rep("l", name + var.label),                
               rep("c", total + align.lev + missing + missing.perc + testStat + odds.lev ),
               rep("r", pval))
@@ -273,6 +273,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                         open=FALSE, close=FALSE, translate=FALSE, cborder=NULL)
     part1 <- paste(part1, Nline)
   }
+
   
   #******************************************************************************
   #*** Part 2

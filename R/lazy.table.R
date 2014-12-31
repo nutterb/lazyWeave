@@ -434,15 +434,20 @@ lazy.table <- function(x,
                             code,
                             sep="\n")
     
-    code <- if (open & caption != "") paste(lazy.text(caption, italic=TRUE), 
+    if (open){
+              if (caption != "") code <- paste(lazy.text(caption, italic=TRUE), 
                                             "\n\n", code)
-            else paste("\n\n", code)
-    code <- if (close & footnote != "") paste(code, "\n\n", 
-                                              lazy.text(footnote, italic=TRUE))
-            else paste(code, "\n\n")
+              else code <- paste("\n\n", code)
+    }
+    if (close){
+              if(footnote != "")
+                code <- paste(code, "\n\n", 
+                      lazy.text(footnote, italic=TRUE))
+              else code <- paste(code, "\n\n")
+    }
     
     
-    return(code)
   }
+  return(code)
 
 }
