@@ -38,6 +38,7 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
 
 #*** Table if colnames are present
   if (!is.null(colnames(x))){
+    if (reportFormat=="markdown") colnames(x) <- paste0("**", colnames(x), "**")
     header <- lazy.table(colnames(x), align=align, cspan=1,
                           justify=justify, rborder=c(0, 0, 1), 
                           open=TRUE, close=FALSE,
