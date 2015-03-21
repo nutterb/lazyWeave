@@ -1,6 +1,7 @@
 lazy.matrix <-
 function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
-    caption=NULL, footnote=NULL, placement="h", translate=TRUE, ...){
+    caption=NULL, footnote=NULL, placement="h", translate=TRUE, 
+    cat=getOption("lazyWeave_cat"), ...){
     
      
   #*** retrieve the report format
@@ -43,13 +44,13 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
                           justify=justify, rborder=c(0, 0, 1), 
                           open=TRUE, close=FALSE,
                           caption=caption, placement=placement,
-                          translate=translate, ...)
+                          translate=translate, cat=FALSE, ...)
     body <- lazy.table(x, align=align, cspan=1,
                         rborder=nrow(x), rcol=rcol,
                         justify=justify, usecol=usecol, 
                         open=FALSE, close=TRUE, 
                         footnote=footnote,
-                        translate=translate, ...)
+                        translate=translate, cat=FALSE, ...)
   }
   
 #*** Table if colnames are not present
@@ -61,9 +62,12 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
                         rcol=rcol, usecol=usecol,
                         caption=caption, footnote=footnote,
                         placement=placement,
-                        translate=translate, ...)
+                        translate=translate, cat=FALSE, ...)
   }
   
-  paste(if (reportFormat != "markdown") fncall else "", header, body, sep="")
+  code <- paste(if (reportFormat != "markdown") fncall else "", header, body, sep="")
+
+  if (cat) cat(code)
+  else return(code)
 }
 

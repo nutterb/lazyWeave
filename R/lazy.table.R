@@ -8,7 +8,8 @@ lazy.table <- function(x,
                        open=TRUE, close=TRUE, 
                        caption=NULL, footnote=NULL, label=NULL,
                        counter=NULL, counterSet=NULL,
-                       translate=TRUE, textsize=NULL){
+                       translate=TRUE, textsize=NULL,
+                       cat=getOption("lazyWeave_cat")){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -249,7 +250,7 @@ lazy.table <- function(x,
     code.tab[rborder] <- gsub("\\\n", cline, code.tab[rborder])
     code.tab <- paste(code.tab, collapse="")
     
-    return(paste(fncall, code.open, code.tab, code.close, if (close) "\n\n" else "", sep=""))
+    final_code <- paste(fncall, code.open, code.tab, code.close, if (close) "\n\n" else "", sep="")
   }
   
   
@@ -281,7 +282,7 @@ lazy.table <- function(x,
     if (close) code <- paste(code, "</table><br>\n", sep="")
     
     if (!is.null(label)) code <- paste("<br>", lazy.label(label), code, sep="\n")
-    return(paste(fncall, code, footnote, "\n\n"))
+    final_code <- paste(fncall, code, footnote, "\n\n")
   }
 
   #******************************************************************************************************
@@ -303,7 +304,9 @@ lazy.table <- function(x,
     if (open) code <- paste(lazy.text(caption, italic=TRUE), "\n\n", code)
     if (close) code <- paste(code, "\n\n", lazy.text(footnote, italic=TRUE))
     
-    return(code)
+    final_code <- code
   }
 
+  if (cat) cat(final_code)
+  else return(final_code)
 }
