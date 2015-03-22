@@ -118,7 +118,7 @@ lazy.counter <- function(counter, value, oldcounter, fn=c("new", "addto", "set",
       else assign(paste("HTML.COUNTER.", counter, sep=""), value, envir=options()$htmlCounters)
     }
     else if ("new" %in% fn){
-      assign(paste("HTML.COUNTER", counter, ".", sep=""), value, envir=options()$htmlCounters)
+      assign(paste("HTML.COUNTER", counter, ".", sep=""), if (missing(value)) 1 else value, envir=options()$htmlCounters)
     }
     else if ("value" %in% fn){
       if (counter %in% "table")    return(get("HTML.COUNTER.TABLE", envir=options()$htmlCounters))

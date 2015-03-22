@@ -51,7 +51,7 @@ lazy.link <- function(url, text, web=TRUE, secure=FALSE){
   
   if (reportFormat == "markdown"){
     fncall <- ""
-    code <- paste("[", text, "](", url, ")", sep="")
+    code <- paste("[", if (missing(text)) url else text, "](", url, ")", sep="")
   }
  
   return(paste(fncall, code))

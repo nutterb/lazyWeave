@@ -1,7 +1,7 @@
 Package: lazyWeave
 Type: Package
 Title: LaTeX Wrappers for R Users
-Version: 2.3.1
+Version: 3.0.0
 Date: 2015-01-01
 Author: Benjamin Nutter
 Maintainer: Benjamin Nutter <nutterb@ccf.org>
