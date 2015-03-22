@@ -20,6 +20,10 @@
 #'   \code{"!"}. See "Details" for more explanation
 #' @param alt For HTML documents only--when \code{filename} cannot be found, 
 #'   this text is printed in the figure's place
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' 
 #' @details
 #' For LaTeX files, \code{placement} options are used as follows:

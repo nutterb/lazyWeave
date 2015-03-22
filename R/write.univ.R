@@ -20,6 +20,14 @@
 #' @param P75 Determines if the 75th percentile is printed
 #' @param Max Determines if the maximum value is printed
 #' @param CV Determines if the coefficient of variation is printed
+#' @param Pval Determines if the p-value is printed
+#' @param pvalFormat Character string passed to \code{pvalString} and determines
+#'   the pvalue style to be printed.
+#' @param pvalArgs A list of additional arguments to be passed to \code{pvalString}
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' @param ... additional arguments to be passed to \code{lazy.matrix}
 #' 
 #' @examples

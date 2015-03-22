@@ -24,9 +24,9 @@ write.ctable(x, round = 2, percent = TRUE, quartile = TRUE,
 \item{x}{A ctable object to be printed or written}
 
 \item{...}{Other arguments to be passed to \code{print} (for
-  \code{print.ctable} or \code{lazy.table} (for \code{write.ctable}).
-  Currently none are implemented for \code{print}.  In \code{split_ctable},
-  any options in \code{write.ctable} may also be included.}
+\code{print.ctable} or \code{lazy.table} (for \code{write.ctable}).
+Currently none are implemented for \code{print}.  In \code{split_ctable},
+any options in \code{write.ctable} may also be included.}
 
 \item{max.rows}{The maximum number of rows to be displayed on a page.
 Variable groups are forced to be kept together.}
@@ -100,6 +100,16 @@ variables.}
 \item{oneLine}{When true, binary variables are printed with only one
 line per variable.  This does not affect the printing of
 numeric variable or variables with more than two levels.}
+
+\item{pvalFormat}{Character string passed to \code{pvalString} and determines
+the pvalue style to be printed.}
+
+\item{pvalArgs}{A list of additional arguments to be passed to \code{pvalString}}
+
+\item{cat}{Logical. Determines if the output is returned as a character string
+  or returned via the \code{cat} function (printed to console).  The default
+  value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+  selective override of the default.}
 }
 \description{
 Print Comparisons to the console or write the table to a file.

@@ -43,6 +43,18 @@ write.univ(x, round = 1, Factor = TRUE, Group = FALSE, N = TRUE,
 
 \item{CV}{Determines if the coefficient of variation is printed}
 
+\item{Pval}{Determines if the p-value is printed}
+
+\item{pvalFormat}{Character string passed to \code{pvalString} and determines
+the pvalue style to be printed.}
+
+\item{pvalArgs}{A list of additional arguments to be passed to \code{pvalString}}
+
+\item{cat}{Logical. Determines if the output is returned as a character string
+or returned via the \code{cat} function (printed to console).  The default
+value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+selective override of the default.}
+
 \item{...}{additional arguments to be passed to \code{lazy.matrix}}
 }
 \description{

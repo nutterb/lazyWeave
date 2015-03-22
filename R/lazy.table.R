@@ -53,6 +53,10 @@
 #' @param translate Toggles if inputs in \code{x} should be passed through 
 #'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
 #'   custom code
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' 
 #' @details \code{cborder} (or column border) will create vertical borders in the table.
 #'   Borders are placed on the right side of the specified columns.  If a 
@@ -147,7 +151,7 @@ lazy.table <- function(x,
                        open=TRUE, close=TRUE, 
                        caption=NULL, footnote=NULL, label=NULL,
                        counter=NULL, counterSet=NULL,
-                       translate=TRUE, textsize=NULL,
+                       translate=TRUE, 
                        cat=getOption("lazyWeave_cat")){
   
   #*** retrieve the report format

@@ -11,7 +11,7 @@ lazy.table(x, align = "center", cspan = 1, cwidth = NULL,
   usecol = "lightgray", font, family, size, justify = "center",
   placement = "h", open = TRUE, close = TRUE, caption = NULL,
   footnote = NULL, label = NULL, counter = NULL, counterSet = NULL,
-  translate = TRUE, textsize = NULL, cat = getOption("lazyWeave_cat"))
+  translate = TRUE, cat = getOption("lazyWeave_cat"))
 }
 \arguments{
 \item{x}{Matrix to be put into the table.  Other objects are coerced to
@@ -87,8 +87,13 @@ above tables.}
 In other words, the number of this table}
 
 \item{translate}{Toggles if inputs in \code{x} should be passed through
-  \code{latexTranslate}.  This should be set to \code{FALSE} if writing
-  custom code}
+\code{latexTranslate}.  This should be set to \code{FALSE} if writing
+custom code}
+
+\item{cat}{Logical. Determines if the output is returned as a character string
+  or returned via the \code{cat} function (printed to console).  The default
+  value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+  selective override of the default.}
 }
 \description{
 Generate code for custom LaTeX tables

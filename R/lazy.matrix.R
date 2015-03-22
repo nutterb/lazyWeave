@@ -21,6 +21,10 @@
 #' @param translate Toggles if inputs in \code{x} should be passed through 
 #'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
 #'   custom code
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' @param ... Additional arguments to be passed to \code{lazy.table}
 #' 
 #' @details The output for \code{lazy.matrix} is highly inflexible compared 
@@ -102,7 +106,7 @@ function(x, align="center", justify="center", rcol=NULL, usecol="lightgray",
 
 #*** Table if colnames are present
   if (!is.null(colnames(x))){
-    if (reportFormat=="markdown") colnames(x) <- paste0("**", colnames(x), "**")
+    if (reportFormat=="markdown") colnames(x)[-1] <- paste0("**", colnames(x)[-1], "**")
     header <- lazy.table(colnames(x), align=align, cspan=1,
                           justify=justify, rborder=c(0, 0, 1), 
                           open=TRUE, close=FALSE,

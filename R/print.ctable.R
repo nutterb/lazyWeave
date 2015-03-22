@@ -57,6 +57,13 @@
 #'   \code{print.ctable} or \code{lazy.table} (for \code{write.ctable}).  
 #'   Currently none are implemented for \code{print}.  In \code{split_ctable}, 
 #'   any options in \code{write.ctable} may also be included.
+#' @param pvalFormat Character string passed to \code{pvalString} and determines
+#'   the pvalue style to be printed.
+#' @param pvalArgs A list of additional arguments to be passed to \code{pvalString}
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #'   
 #' @author Benjamin Nutter
 

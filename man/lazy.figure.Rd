@@ -35,7 +35,12 @@ In other words, the figure number for this figure}
 \code{"!"}. See "Details" for more explanation}
 
 \item{alt}{For HTML documents only--when \code{filename} cannot be found,
-  this text is printed in the figure's place}
+this text is printed in the figure's place}
+
+\item{cat}{Logical. Determines if the output is returned as a character string
+  or returned via the \code{cat} function (printed to console).  The default
+  value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+  selective override of the default.}
 }
 \description{
 Include Figures in Latex Documents
