@@ -65,7 +65,8 @@ function(filename, caption=NULL, align="center",
                          height=3, width=3, units="in", 
                          counter, counterSet=NULL,
                          label=NULL, placement="h",
-                         alt="Image Not Found"){
+                         alt="Image Not Found",
+         cat=getOption("lazyWeave_cat")){
 
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -151,5 +152,6 @@ function(filename, caption=NULL, align="center",
     
   }
 
-  return(code)
+  if (cat) cat(code)
+  else return(code)
 }

@@ -11,7 +11,7 @@ lazy.table(x, align = "center", cspan = 1, cwidth = NULL,
   usecol = "lightgray", font, family, size, justify = "center",
   placement = "h", open = TRUE, close = TRUE, caption = NULL,
   footnote = NULL, label = NULL, counter = NULL, counterSet = NULL,
-  translate = TRUE)
+  translate = TRUE, textsize = NULL, cat = getOption("lazyWeave_cat"))
 }
 \arguments{
 \item{x}{Matrix to be put into the table.  Other objects are coerced to
