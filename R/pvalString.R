@@ -44,7 +44,7 @@ pvalString <- function(p, format=c("default", "exact", "scientific"),
   format <- match.arg(format, c("default", "exact", "scientific"))
   
   #* Stop the function for values outside of [0, 1]
-  if (any(p < 0) | any(p > 1)){
+  if (any(p < 0, na.rm=TRUE) | any(p > 1, na.rm=TRUE)){
     notProb <- which(p < 0 | p > 1)
     stop(paste0("Element(s) ", 
                 paste(notProb, 

@@ -4,8 +4,7 @@
 \alias{pvalString}
 \title{Format P-values for Reports}
 \usage{
-pvalString(p, format = c("alphabeta", "exact", "scientific"), digits = 3,
-  ...)
+pvalString(p, format = c("default", "exact", "scientific"), digits = 3, ...)
 }
 \arguments{
 \item{p}{a numeric vector of p-values.}
@@ -24,7 +23,7 @@ pre-defined formatting parameters.  Additional formats may be added
 for required or desired reporting standards.
 }
 \details{
-When \code{format = "alphabeta"}, p-values are formatted:
+When \code{format = "default"}, p-values are formatted:
 \enumerate{
   \item \emph{p > 0.99}: "> 0.99"
   \item \emph{0.99 > p > 0.10}: Rounded to two digits
@@ -42,7 +41,7 @@ When \code{format = "alphabeta"}, p-values are formatted:
 \examples{
 p <- c(1, .999, .905, .505, .205, .125, .09531,
         .05493, .04532, .011234, .0003431, .000000342)
- pvalString(p, format="alphabeta")
+ pvalString(p, format="default")
  pvalString(p, format="exact", digits=3)
  pvalString(p, format="exact", digits=2)
  pvalString(p, format="scientific", digits=3)

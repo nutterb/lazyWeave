@@ -450,7 +450,6 @@ lazy.table <- function(x,
     
     final_code <- code
   }
-  return(code)
 
   if (cat) cat(final_code)
   else return(final_code)
