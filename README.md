@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/nutterb/lazyWeave.png?branch=master)](https://travis-ci.org/nutterb/lazyWeave)  
 [![DOI](https://zenodo.org/badge/6246/nutterb/lazyWeave.png)](http://dx.doi.org/10.5281/zenodo.12618)
+![](http://cranlogs-dev.r-pkg.org/badges/lazyWeave)
 
 lazyWeave makes the functionality of Sweave/knitr available to those who don't know LaTeX.  It is written for new and infrequent R users with the goal of making reproducible research a possibility while one learns the finer points of R.  The guiding philosophy for this package is that:
 
