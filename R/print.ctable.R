@@ -1,5 +1,6 @@
 #' @name WritePrintCtable
-#' @export print.ctable
+#' @export 
+#' @method print ctable
 #' 
 #' @title Write and Print Comparison Tables
 #' @description Print Comparisons to the console or write the table to a file.
