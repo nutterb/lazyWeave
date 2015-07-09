@@ -257,8 +257,9 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                       }
                       else c((name + var.label + total + 1) : (name + var.label + total + nlev)),
                       caption=caption, size=size, 
-                      close=FALSE, translate=FALSE, cborder=NULL, ...)
-  #     return(part1)
+                      close=FALSE, translate=FALSE, cborder=NULL, 
+                      cat = FALSE, ...)
+
   if(byVarN){ 
     Nline <-   head <- c( if(name) "",
                           if(var.label) "",
@@ -277,10 +278,10 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                             name+var.label+total+2 * nlev + missing + missing.perc + (1 + (nlev - 1) * 3)* !descripCombine)
                         }
                         else c(name + var.label + total + 1, name + var.label + total + 1 + nlev),
-                        open=FALSE, close=FALSE, translate=FALSE, cborder=NULL)
+                        open=FALSE, close=FALSE, translate=FALSE, cborder=NULL,
+                        cat = FALSE)
     part1 <- paste(part1, Nline)
   }
-
   
   #******************************************************************************
   #*** Part 2
@@ -314,7 +315,8 @@ write.ctable <- function(x, round = 2, percent = TRUE,
              if(pval) "p-value")
   
   part2 <- lazy.table(head, align=align, cspan=cspan, 
-                      cwidth=cwidth, open=FALSE, close=FALSE, translate=FALSE, rborder=1, ...)
+                      cwidth=cwidth, open=FALSE, close=FALSE, translate=FALSE, 
+                      rborder=1, cat = FALSE, ...)
   
   
   #******************************************************************************
@@ -329,7 +331,8 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                       cwidth=c(cwidth, rep("", odds)),
                       rborder=c(0, nrow(output)),
                       footnote=paste(fnote, footnote, sep=ln.break),
-                      translate=FALSE, ...)
+                      translate=FALSE, 
+                      cat = FALSE, ...)
   
   if (cat) cat(paste(part1, part2, part3, sep="\n"))
   else return(paste(part1, part2, part3, sep="\n"))
