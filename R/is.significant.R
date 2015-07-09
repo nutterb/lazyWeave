@@ -2,7 +2,7 @@
 #' 
 #' @title Test the significance of a p-value
 #' @description Test if a p-value is significant.  This is specifically designed
-#'   to handle numeric output, or output from \code{\link{pvalue.QHS}}
+#'   to handle numeric output, or output from \code{\link{pvalString}}
 #'   
 #' @param pvalue The p-value to be tested
 #' @param alpha The significance level for comparison
@@ -28,7 +28,7 @@
 
 is.significant <- function(pvalue, alpha=.05){
 
-#*** 1. Eliminate < and > characters.  These are produced by pvalue.QHS
+#*** 1. Eliminate < and > characters.  These are produced by pvalString
   pvalue <- sub("<","",pvalue)
   pvalue <- sub(">","",pvalue)
   pvalue <- as.numeric(pvalue)

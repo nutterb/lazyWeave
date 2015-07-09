@@ -5,10 +5,7 @@ BACK COMPATIBILITY ISSUES
   the output will be wrapped within cat inside the function.  cat will also 
   be added as an argument to the table and figure generating functions.  It 
   will not be added within the prose generating functions, since those should
-  not be used in code blocks anyway.  Legacy code will break under this 
-  addition, but the problems can be fixed by adding the line
-  option(lazyWeave_cat=TRUE)
-  to the start of the script.
+  not be used in code blocks anyway.  This should not affect legacy code.
 
 FEATURE CHANGES
 - 'lazy.matrix' now prints column names in bold text.
