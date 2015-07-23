@@ -389,7 +389,8 @@ lazy.table <- function(x,
     code.tab[rborder] <- gsub("\\\n", cline, code.tab[rborder])
     code.tab <- paste(code.tab, collapse="")
     
-    final_code <- paste(fncall, code.open, code.tab, code.close, if (close) "\n\n" else "", sep="")
+    final_code <- paste(if (getOption("lazyWeave_latexComments") == "latex") fncall else "", 
+                        code.open, code.tab, code.close, if (close) "\n\n" else "", sep="")
   }
   
   
