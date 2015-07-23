@@ -1,5 +1,6 @@
 .onLoad <- function(libname, pkgname){
   options("lazyReportFormat" = "markdown")
+  options("lazyWeave_latexComments" = "markdown")
   options("lazyWeave_cat" = TRUE)
   options("htmlCounters" = new.env())
   assign("HTML.COUNTER.TABLE", 1, envir=options()$htmlCounters)

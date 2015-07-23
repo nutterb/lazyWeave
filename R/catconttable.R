@@ -183,6 +183,8 @@ catconttable <- function(data, vars, byVar, vars.cat=NULL, fisher=NULL, fisher.a
     stop(miss.vars.msg)
   }
   
+  if ("tbl_df" %in% class(data)) data <- as.data.frame(data)
+  
   var.info <- function(v, ...){
     if (!is.numeric(data[, v]) | v %in% vars.cat)
       cattable(data=data, vars=v, byVar=byVar, fisher=fisher, fisher.arg=fisher.arg,

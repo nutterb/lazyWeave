@@ -29,8 +29,9 @@ lazy.link <- function(url, text, web=TRUE, secure=FALSE){
   if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   #*** Construct the comment with the function call
-  comment.char <- if (reportFormat == "latex") c("%%", "")
-  else if (reportFormat == "html") c("<!--", "-->")
+  comment.char <- if (reportFormat == "latex") {
+    if (getOption("lazyWeave_latexComments") == "latex") c("%%", "") else c("<!-- ", " -->")
+  }  else if (reportFormat == "html") c("<!--", "-->")
   
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   

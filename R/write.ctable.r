@@ -20,7 +20,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   pm <- if (reportFormat %in% "latex") "$\\pm$" else if (reportFormat == "html") "&plusmn" else "$\\pm$"
   ln.break <- if (reportFormat %in% "latex") "\\\\" else if (reportFormat == "html") "<br>" else "  \n"
   prc <- if (reportFormat %in% "latex") "\\%" else "%"
-  na.char <- if (reportFormat %in% c("latex", "markdown")) "" else "&nbsp "
+  na.char <- if (reportFormat %in% c("latex", "markdown")) "" else " &nbsp; "
   
   if (!is.factor(attributes(x)$byVar))
     attributes(x)$byVar <- factor(attributes(x)$byVar)
@@ -131,7 +131,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                  if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="")) 
                  else paste(x$label, x$level, sep=""),
                  if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="\\hspace{.2in}"))
-                 else if (reportFormat == "html") paste(x$label, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")
+                 else if (reportFormat == "html") paste(x$label, x$level, sep=" &nbsp&nbsp&nbsp&nbsp ")
                  else paste(x$label, x$level, sep = " - ")), 
           output)
   if (name) output <- 
@@ -139,7 +139,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                  if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="")) 
                  else paste(x$name, x$level, sep=""),
                  if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="\\hspace{.2in}"))
-                 else if (reportFormat == "html") paste(x$name, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")
+                 else if (reportFormat == "html") paste(x$name, x$level, sep=" &nbsp&nbsp&nbsp&nbsp ")
                  else paste(x$name, x$level, sep = " - ")), 
           output)
   if (missing) output <- cbind(output, x$missing)

@@ -73,6 +73,6 @@ options(lazyReportFormat=orig_option)
 Benjamin Nutter
 }
 \references{
-Ligatures: \url{http://en.wikibooks.org/wiki/LaTeX/Formatting\#Ligatures}
+Ligatures: \url{https://en.wikibooks.org/wiki/LaTeX/Text_Formatting#Ligatures}
 }
 

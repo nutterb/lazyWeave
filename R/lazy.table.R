@@ -162,8 +162,9 @@ lazy.table <- function(x,
   if (usecol=="lightgray" & reportFormat=="html") usecol = "#D8D8D8"
   
   #*** Construct the comment with the function call
-  comment.char <- if (reportFormat == "latex") c("%%", "")
-  else if (reportFormat == "html") c("<!--", "-->")
+  comment.char <- if (reportFormat == "latex") {
+    if (getOption("lazyWeave_latexComments") == "latex") c("%%", "") else c("<!-- ", " -->")
+  }  else if (reportFormat == "html") c("<!--", "-->")
   
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   
@@ -397,7 +398,7 @@ lazy.table <- function(x,
   #******************************************************************************************************
   
   if (reportFormat == "html"){
-    code <- paste("    <td colspan=", cspan, "  ", 
+    code <- paste("<td colspan=", cspan, "  ", 
                   "style='font-family", font, ", ", family, "; ",
                   "font-size:", size, "pt;", 
                   "width:", cwidth, "; ",
@@ -410,7 +411,7 @@ lazy.table <- function(x,
                   "border-left:", blft, " ", bord.thick.lft, "pt; ",
                   "border-right:", brht, " ", bord.thick.rht, "pt;'>",
                   x,
-                  " </td>\n", sep="")
+                  "</td>\n", sep="")
     code <- matrix(code, nrow=nrow(x), ncol=ncol(x))
     code <- cbind("  <tr>\n", code, "</tr>\n")
     code <- apply(code, 1, paste, collapse=" ")

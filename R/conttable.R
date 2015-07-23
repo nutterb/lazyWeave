@@ -36,6 +36,8 @@
     miss.vars.msg <- paste("The following variables contain only missing values:", paste(miss.vars, collapse=", "))
     stop(miss.vars.msg)
   }
+  
+  if ("tbl_df" %in% class(data)) data <- as.data.frame(data)
 
 #******************************************************************************
 #* Subroutine for information extraction
@@ -157,7 +159,7 @@
                  .odds, .odds.lower, .odds.upper, .odds.scale, .odds.unit,
                  test.obj$method, .test.mark, test.obj$statistic, 
                  test.obj$p.value,
-                 is.significant(test.obj$p.value), .type,
+                 is_significant(test.obj$p.value), .type,
                  stringsAsFactors=FALSE)
     names(.df) <- c("name", "label", "level", "total", names.df, "missing", "missing.perc",
                     "odds", "odds.lower", "odds.upper", "odds.scale",

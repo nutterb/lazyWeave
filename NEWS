@@ -6,8 +6,12 @@ BACK COMPATIBILITY ISSUES
   be added as an argument to the table and figure generating functions.  It 
   will not be added within the prose generating functions, since those should
   not be used in code blocks anyway.  This should not affect legacy code.
+- `is.significant` is not `is_significant`.  
 
 FEATURE CHANGES
+- markdown support.  YAY!!!
+- `cattable`, `conttable`, and `catconttable` now accept `tbl_df` objects in 
+  the `data` argument.
 - 'lazy.matrix' now prints column names in bold text.
 - 'pvalue.QHS' is being removed and replaced with 'pvalString'.  'pvalue.QHS'
   was not exported, so this shouldn't have much effect on back compatibility.
