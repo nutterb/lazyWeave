@@ -11,6 +11,10 @@ part to get the maintainer e-mail transferred to my new place of
 employment.  The maintainer e-mail in this submission is delivered
 through my new employer.
 
+There was a note about possible misspellings in the DESCRIPTION.  
+The words in question are package names and I have verified 
+that the spelling is correct.
+
 There were no other NOTES, WARNINGS, or ERRORS observed.
 
 ## Downstream dependencies
