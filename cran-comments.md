@@ -1,7 +1,8 @@
 ## Test environments
 * local Windows install (devel (2015-07-25 r68744))
+* local Windows install (R 3.2.1)
 * Ubuntu/Linaro 4.6.3-1ubuntu5 (on travis-ci), R 3.2.1
-* win-builder (devel and release)
+* win-builder (devel)
 
 ## R CMD check results
 NOTES: 
@@ -16,7 +17,7 @@ There was a note about possible misspellings in the DESCRIPTION
 are spelled correctly.
 
 The note "No repository set, so cyclic dependency check skipped"
-appeared on win-builder (devel) but not on the local install 
+appeared on win-builder (devel) but not on the local installs 
 nor on travis-ci
 
 There were no other NOTES, WARNINGS, or ERRORS observed.
