@@ -1,6 +1,28 @@
-KNOWN ISSUES:
-- write.univ has no option to suppress printing p-values
+=== Version 3.0.0 === 
+BACK COMPATIBILITY ISSUES
+- When loading the package, the new default for lazyReportFormat is 'markdown'.
+- Another global option was added named 'lazyWeave_cat`.  When set to TRUE,
+  the output will be wrapped within cat inside the function.  cat will also 
+  be added as an argument to the table and figure generating functions.  It 
+  will not be added within the prose generating functions, since those should
+  not be used in code blocks anyway.  This should not affect legacy code.
+- `is.significant` is not `is_significant`.  
 
+FEATURE CHANGES
+- markdown support.  YAY!!!
+- `cattable`, `conttable`, and `catconttable` now accept `tbl_df` objects in 
+  the `data` argument.
+- 'lazy.matrix' now prints column names in bold text.
+- 'pvalue.QHS' is being removed and replaced with 'pvalString'.  'pvalue.QHS'
+  was not exported, so this shouldn't have much effect on back compatibility.
+  'pvalString' will be exported and will include options for different 
+  styles of pvalue formatting.
+- Additional arguments have been added to 'write.ctable' and 'write.univ' that
+  control the formatting of p-values.
+
+BUG FIXES
+- Additional arguments are added to 'write.univ' to allow suppression of the 
+  pvalue column.
 
 
 === 20 May 2014 ===

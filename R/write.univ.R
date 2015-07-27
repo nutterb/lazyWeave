@@ -20,6 +20,14 @@
 #' @param P75 Determines if the 75th percentile is printed
 #' @param Max Determines if the maximum value is printed
 #' @param CV Determines if the coefficient of variation is printed
+#' @param Pval Determines if the p-value is printed
+#' @param pvalFormat Character string passed to \code{pvalString} and determines
+#'   the pvalue style to be printed.
+#' @param pvalArgs A list of additional arguments to be passed to \code{pvalString}
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' @param ... additional arguments to be passed to \code{lazy.matrix}
 #' 
 #' @examples
@@ -76,18 +84,26 @@
 write.univ <- function(x, round=1, 
     Factor=TRUE, Group=FALSE, N=TRUE, Missing=FALSE,
     Mean=TRUE, SD=TRUE, LCL=FALSE, UCL=FALSE, Min=TRUE,
-    P25=TRUE, Median=TRUE, P75=TRUE, Max=TRUE, CV=FALSE, ...){
+    P25=TRUE, Median=TRUE, P75=TRUE, Max=TRUE, CV=FALSE, Pval=FALSE, 
+    pvalFormat="default", pvalArgs=list(),
+    cat=getOption("lazyWeave_cat"), ...){
 
   reportFormat <- getOption("lazyReportFormat")
   
   x <- x[, c(Factor, Group, N, Missing, Mean, SD, LCL, UCL,
-             Min, P25, Median, P75, Max, CV), drop=FALSE]
+             Min, P25, Median, P75, Max, CV, Pval), drop=FALSE]
+  
+  x$PVAL <- do.call("pvalString", 
+                    c(list(p=x$PVAL, 
+                           format=pvalFormat), 
+                      pvalArgs))
 
   num <- sapply(x, is.numeric)
   x[, num] <- lapply(x[, num], round, round)
   x[is.na(x)] <- ""
   rownames(x) <- NULL
 
-  return(lazy.matrix(x, ...))
+  if (cat) cat(lazy.matrix(x, ...))
+  else return(lazy.matrix(x, ...))
 }
 

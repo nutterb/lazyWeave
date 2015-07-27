@@ -7,16 +7,20 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                          caption=NULL, footnote = NULL, 
                          byVarN=FALSE, size="\\normalsize", 
                          descripCombine = TRUE,
-                         oddsCombine = TRUE, markSignificant = FALSE, statHeader="Statistics",
+                         oddsCombine = TRUE, markSignificant = FALSE, 
+                         statHeader="Statistics",
                          name = FALSE, var.label = TRUE, level = TRUE,
-                         total = TRUE, descriptive = TRUE, missing=FALSE, missing.perc=FALSE, testStat = TRUE,
-                         odds = FALSE, pval = TRUE, oneLine = FALSE, ...){
+                         total = TRUE, descriptive = TRUE, missing=FALSE, 
+                         missing.perc=FALSE, testStat = TRUE,
+                         odds = FALSE, pval = TRUE, oneLine = FALSE, 
+                         pvalFormat="default", pvalArgs=list(), 
+                         cat=getOption("lazyWeave_cat"), ...){
   
   reportFormat <- getOption("lazyReportFormat")
   pm <- if (reportFormat %in% "latex") "$\\pm$" else if (reportFormat == "html") "&plusmn" else "$\\pm$"
   ln.break <- if (reportFormat %in% "latex") "\\\\" else if (reportFormat == "html") "<br>" else "  \n"
   prc <- if (reportFormat %in% "latex") "\\%" else "%"
-  na.char <- if (reportFormat %in% c("latex", "markdown")) "" else "&nbsp "
+  na.char <- if (reportFormat %in% c("latex", "markdown")) "" else " &nbsp; "
   
   if (!is.factor(attributes(x)$byVar))
     attributes(x)$byVar <- factor(attributes(x)$byVar)
@@ -94,7 +98,10 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   odd.var <- c("odds", "odds.lower", "odds.upper", "odds.scale")
   x[, odd.var] <- lapply(x[, odd.var], round, round)
   
-  x$pvalue <- ifelse(is.na(x$pvalue), na.char, pvalue.QHS(round(x$pvalue, 8)))
+  x$pvalue <- ifelse(is.na(x$pvalue), na.char, do.call("pvalString", 
+                                                       c(list(p=x$pvalue, 
+                                                              format=pvalFormat), 
+                                                         pvalArgs)))
   if (reportFormat %in% "latex") x$pvalue <- latexTranslate(x$pvalue)
   x$test.stat <- round(x$test.stat, round)
   x$missing.perc <- ifelse(!is.na(x$missing.perc), format(x$missing.perc, digits=1), x$missing.perc)
@@ -124,7 +131,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                  if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="")) 
                  else paste(x$label, x$level, sep=""),
                  if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="\\hspace{.2in}"))
-                 else if (reportFormat == "html") paste(x$label, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")
+                 else if (reportFormat == "html") paste(x$label, x$level, sep=" &nbsp&nbsp&nbsp&nbsp ")
                  else paste(x$label, x$level, sep = " - ")), 
           output)
   if (name) output <- 
@@ -132,7 +139,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                  if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="")) 
                  else paste(x$name, x$level, sep=""),
                  if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="\\hspace{.2in}"))
-                 else if (reportFormat == "html") paste(x$name, x$level, sep="&nbsp&nbsp&nbsp&nbsp ")
+                 else if (reportFormat == "html") paste(x$name, x$level, sep=" &nbsp&nbsp&nbsp&nbsp ")
                  else paste(x$name, x$level, sep = " - ")), 
           output)
   if (missing) output <- cbind(output, x$missing)
@@ -250,8 +257,9 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                       }
                       else c((name + var.label + total + 1) : (name + var.label + total + nlev)),
                       caption=caption, size=size, 
-                      close=FALSE, translate=FALSE, cborder=NULL, ...)
-  #     return(part1)
+                      close=FALSE, translate=FALSE, cborder=NULL, 
+                      cat = FALSE, ...)
+
   if(byVarN){ 
     Nline <-   head <- c( if(name) "",
                           if(var.label) "",
@@ -270,10 +278,10 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                             name+var.label+total+2 * nlev + missing + missing.perc + (1 + (nlev - 1) * 3)* !descripCombine)
                         }
                         else c(name + var.label + total + 1, name + var.label + total + 1 + nlev),
-                        open=FALSE, close=FALSE, translate=FALSE, cborder=NULL)
+                        open=FALSE, close=FALSE, translate=FALSE, cborder=NULL,
+                        cat = FALSE)
     part1 <- paste(part1, Nline)
   }
-
   
   #******************************************************************************
   #*** Part 2
@@ -307,7 +315,8 @@ write.ctable <- function(x, round = 2, percent = TRUE,
              if(pval) "p-value")
   
   part2 <- lazy.table(head, align=align, cspan=cspan, 
-                      cwidth=cwidth, open=FALSE, close=FALSE, translate=FALSE, rborder=1, ...)
+                      cwidth=cwidth, open=FALSE, close=FALSE, translate=FALSE, 
+                      rborder=1, cat = FALSE, ...)
   
   
   #******************************************************************************
@@ -322,7 +331,9 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                       cwidth=c(cwidth, rep("", odds)),
                       rborder=c(0, nrow(output)),
                       footnote=paste(fnote, footnote, sep=ln.break),
-                      translate=FALSE, ...)
+                      translate=FALSE, 
+                      cat = FALSE, ...)
   
-  paste(part1, part2, part3, sep="\n")
+  if (cat) cat(paste(part1, part2, part3, sep="\n"))
+  else return(paste(part1, part2, part3, sep="\n"))
 }

@@ -35,6 +35,8 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
     miss.vars.msg <- paste("The following variables contain only missing values:", paste(miss.vars, collapse=", "))
     stop(miss.vars.msg)
   }
+  
+  if ("tbl_df" %in% class(data)) data <- as.data.frame(data)
 
   var.info <- function(v){
     if (!is.factor(data[, v])){
@@ -193,7 +195,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
     .df <- cbind(.name, .label, .level, .total, .df, .missing, .missingp,
                  .odds, .odds.lower, .odds.upper, .odds.scale, .odds.unit,
                  .test.method, .test.mark, .test.stat, .pvalue,
-                 is.significant(.pvalue), .type,
+                 is_significant(.pvalue), .type,
                  stringsAsFactors=FALSE)
     names(.df) <- c("name", "label", "level", "total", names.df, "missing", "missing.perc",
                     "odds", "odds.lower", "odds.upper",

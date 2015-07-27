@@ -55,8 +55,8 @@ lazy.text.format <- function(text, italic=FALSE, bold=FALSE,
   }
   
   if (reportFormat == "markdown"){
-    if (italic) text <- paste("_", text, "_")
-    if (bold) text <- paste("**", bold, "**")
+    if (italic) text <- paste0("_", text, "_")
+    if (bold) text <- paste0("**", text, "**")
   }
   
   return(text)

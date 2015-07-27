@@ -53,6 +53,10 @@
 #' @param translate Toggles if inputs in \code{x} should be passed through 
 #'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
 #'   custom code
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' 
 #' @details \code{cborder} (or column border) will create vertical borders in the table.
 #'   Borders are placed on the right side of the specified columns.  If a 
@@ -147,7 +151,8 @@ lazy.table <- function(x,
                        open=TRUE, close=TRUE, 
                        caption=NULL, footnote=NULL, label=NULL,
                        counter=NULL, counterSet=NULL,
-                       translate=TRUE){
+                       translate=TRUE, 
+                       cat=getOption("lazyWeave_cat")){
   
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -157,8 +162,9 @@ lazy.table <- function(x,
   if (usecol=="lightgray" & reportFormat=="html") usecol = "#D8D8D8"
   
   #*** Construct the comment with the function call
-  comment.char <- if (reportFormat == "latex") c("%%", "")
-  else if (reportFormat == "html") c("<!--", "-->")
+  comment.char <- if (reportFormat == "latex") {
+    if (getOption("lazyWeave_latexComments") == "latex") c("%%", "") else c("<!-- ", " -->")
+  }  else if (reportFormat == "html") c("<!--", "-->")
   
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   
@@ -383,7 +389,8 @@ lazy.table <- function(x,
     code.tab[rborder] <- gsub("\\\n", cline, code.tab[rborder])
     code.tab <- paste(code.tab, collapse="")
     
-    return(paste(fncall, code.open, code.tab, code.close, if (close) "\n\n" else "", sep=""))
+    final_code <- paste(if (getOption("lazyWeave_latexComments") == "latex") fncall else "", 
+                        code.open, code.tab, code.close, if (close) "\n\n" else "", sep="")
   }
   
   
@@ -392,7 +399,7 @@ lazy.table <- function(x,
   #******************************************************************************************************
   
   if (reportFormat == "html"){
-    code <- paste("    <td colspan=", cspan, "  ", 
+    code <- paste("<td colspan=", cspan, "  ", 
                   "style='font-family", font, ", ", family, "; ",
                   "font-size:", size, "pt;", 
                   "width:", cwidth, "; ",
@@ -405,7 +412,7 @@ lazy.table <- function(x,
                   "border-left:", blft, " ", bord.thick.lft, "pt; ",
                   "border-right:", brht, " ", bord.thick.rht, "pt;'>",
                   x,
-                  " </td>\n", sep="")
+                  "</td>\n", sep="")
     code <- matrix(code, nrow=nrow(x), ncol=ncol(x))
     code <- cbind("  <tr>\n", code, "</tr>\n")
     code <- apply(code, 1, paste, collapse=" ")
@@ -415,7 +422,7 @@ lazy.table <- function(x,
     if (close) code <- paste(code, "</table><br>\n", sep="")
     
     if (!is.null(label)) code <- paste("<br>", lazy.label(label), code, sep="\n")
-    return(paste(fncall, code, footnote, "\n\n"))
+    final_code <- paste(fncall, code, footnote, "\n\n")
   }
 
   #******************************************************************************************************
@@ -447,7 +454,9 @@ lazy.table <- function(x,
     }
     
     
+    final_code <- code
   }
-  return(code)
 
+  if (cat) cat(final_code)
+  else return(final_code)
 }

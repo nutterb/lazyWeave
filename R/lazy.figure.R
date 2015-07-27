@@ -20,6 +20,10 @@
 #'   \code{"!"}. See "Details" for more explanation
 #' @param alt For HTML documents only--when \code{filename} cannot be found, 
 #'   this text is printed in the figure's place
+#' @param cat Logical. Determines if the output is returned as a character string
+#'   or returned via the \code{cat} function (printed to console).  The default
+#'   value is set by \code{options()$lazyWeave_cat}.  This argument allows for
+#'   selective override of the default.
 #' 
 #' @details
 #' For LaTeX files, \code{placement} options are used as follows:
@@ -65,7 +69,8 @@ function(filename, caption=NULL, align="center",
                          height=3, width=3, units="in", 
                          counter, counterSet=NULL,
                          label=NULL, placement="h",
-                         alt="Image Not Found"){
+                         alt="Image Not Found",
+         cat=getOption("lazyWeave_cat")){
 
   #*** retrieve the report format
   reportFormat <- getOption("lazyReportFormat")
@@ -73,8 +78,9 @@ function(filename, caption=NULL, align="center",
   
   
   #*** Construct the comment with the function call
-  comment.char <- if (reportFormat == "latex") c("%%", "")
-                  else if (reportFormat == "html") c("<!--", "-->")
+  comment.char <- if (reportFormat == "latex") {
+    if (getOption("lazyWeave_latexComments") == "latex") c("%%", "") else c("<!-- ", " -->")
+  }  else if (reportFormat == "html") c("<!--", "-->")
   
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   
@@ -151,5 +157,6 @@ function(filename, caption=NULL, align="center",
     
   }
 
-  return(code)
+  if (cat) cat(code)
+  else return(code)
 }

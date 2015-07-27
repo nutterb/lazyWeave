@@ -9,8 +9,9 @@ lazy.label <- function(label){
   
   
   #*** Construct the comment with the function call
-  comment.char <- if (reportFormat == "latex") c("%%", "")
-  else if (reportFormat == "html") c("<!--", "-->")
+  comment.char <- if (reportFormat == "latex") {
+    if (getOption("lazyWeave_latexComments") == "latex") c("%%", "") else c("<!-- ", " -->")
+  }  else if (reportFormat == "html") c("<!--", "-->")
   
   fncall <- paste(comment.char[1], paste(deparse(match.call()), collapse=" "), comment.char[2], "\n")
   
