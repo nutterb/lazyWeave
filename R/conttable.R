@@ -55,7 +55,7 @@
     nlev <- nlevels(data[, byVar])
     m.boot <- do.call("rbind",tapply(data[, v], data[, byVar],
                                      Hmisc::smean.cl.boot, B=B))
-    quant <- do.call("rbind", tapply(data[, v], data[, byVar], quantile,
+    quant <- do.call("rbind", tapply(data[, v], data[, byVar], stats::quantile,
                      probs=seq(0, 1, by=.25), na.rm=TRUE))
                      
 #*** 2. Numeric Summary variables
@@ -71,7 +71,7 @@
     .lowerb <- m.boot[, 2]
     .upperb <- m.boot[, 3]
     .mean <- tapply(data[, v], data[, byVar], mean, na.rm=TRUE)
-    .sd <- tapply(data[, v], data[, byVar], sd, na.rm=TRUE)
+    .sd <- tapply(data[, v], data[, byVar], stats::sd, na.rm=TRUE)
     .min <- quant[, 1]
     .p25 <- quant[, 2]
     .median <- quant[, 3]
@@ -83,9 +83,9 @@
       if (nlev == 2){
         .odds.scale <- if (v %in% names(odds.scale)) odds.scale[[v]] else 1
         .odds.unit <- if (v %in% names(odds.unit))  odds.unit[[v]] else "units"
-        m <- glm(data[, byVar] ~ data[, v], family=binomial)
-        ci <- confint(m, level=1 - alpha)
-        .odds <- exp(coef(m)[2] * .odds.scale)
+        m <- stats::glm(data[, byVar] ~ data[, v], family=stats::binomial)
+        ci <- stats::confint(m, level=1 - alpha)
+        .odds <- exp(stats::coef(m)[2] * .odds.scale)
         .odds.lower <- exp(ci[2,1] * .odds.scale)
         .odds.upper <- exp(ci[2,2] * .odds.scale)
       }
@@ -116,12 +116,12 @@
     else if (nlev == 2){
       if (v %in% normal){
         v.eq <- v %in% var.equal
-        test.obj <- t.test(data[, v] ~ data[, byVar], var.equal=v.eq,
+        test.obj <- stats::t.test(data[, v] ~ data[, byVar], var.equal=v.eq,
                            conf.level=1 - alpha)
         .test.mark <- "T"
       }
       else{
-        warn <- withWarnings(wilcox.test(data[, v] ~ data[, byVar]))
+        warn <- withWarnings(stats::wilcox.test(data[, v] ~ data[, byVar]))
         if (!is.null(warn$warnings)) warning(v, ": ", warn$warnings)
         test.obj <- warn$value
         .test.mark <- "W"
@@ -129,14 +129,14 @@
     }
     else{
       if (v %in% normal){
-        test.obj <- aov(data[, v] ~ data[, byVar])
+        test.obj <- stats::aov(data[, v] ~ data[, byVar])
         test.obj$method <- "Analysis of Variance"
-        test.obj$statistic <- anova(test.obj)[1, 4]
-        test.obj$p.value <- anova(test.obj)[1, 5]
+        test.obj$statistic <- stats::anova(test.obj)[1, 4]
+        test.obj$p.value <- stats::anova(test.obj)[1, 5]
         .test.mark <- "A"
       }
       else{
-        test.obj <- kruskal.test(data[, v] ~ data[, byVar])
+        test.obj <- stats::kruskal.test(data[, v] ~ data[, byVar])
         .test.mark <- "K"
       }
     }

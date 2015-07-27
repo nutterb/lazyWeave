@@ -45,7 +45,7 @@ lazy.citation <- function(pkg=NULL, author=TRUE, title=TRUE, org=TRUE,
   else if (reportFormat %in% c("html", "markdown")) "\""
   
   #*** Construct the citation
-  cit <- if (is.null(pkg)) citation() else citation(pkg)
+  cit <- if (is.null(pkg)) utils::citation() else utils::citation(pkg)
 
   paste( if (author) paste(paste(cit$author, collapse=", "), ", ", sep="") else "",
          if (title)  paste(quote.string, cit$title, ",\" ", sep="") else "",

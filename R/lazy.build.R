@@ -38,7 +38,7 @@ lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE,
   #*** the following block changes the extension of 'filename' to match options("lazyReportFormat")
   file <- unlist(strsplit(filename, "[.]"))
   fileout <- if (!is.null(pdf.zip)) unlist(strsplit(pdf.zip, "[.]")) else NULL
-  file.ext <- tail(file, 1)
+  file.ext <- utils::tail(file, 1)
   if (reportFormat == "latex" && file.ext %in% c("html", "htm")){ 
     filename <- paste(c(file[-length(file)], "tex"), collapse=".")
     pdf.zip <- if (!is.null(pdf.zip)) paste(c(fileout[-length(fileout)], "pdf"), collapse=".") else NULL
@@ -86,7 +86,7 @@ lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE,
     pdf.zip <- gsub("[.]zip", "", pdf.zip)
     
     #*** designate the filename for the HTML file
-    filename.to <- sapply(strsplit(filename, .Platform$file.sep), tail, 1)
+    filename.to <- sapply(strsplit(filename, .Platform$file.sep), utils::tail, 1)
     
     #*** read the HTML code and identify rows with figures.
     code <- readLines(filename)
@@ -100,7 +100,7 @@ lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE,
     #*** create file paths for copies of figures
     weblinks <- grep("http[://]", figures)
     #igures.to <- figures
-    figures.to <- sapply(strsplit(figures, .Platform$file.sep), tail, 1)  
+    figures.to <- sapply(strsplit(figures, .Platform$file.sep), utils::tail, 1)  
     
     if (length(weblinks) > 0) figures.to[weblinks] <- figures
     
@@ -134,9 +134,9 @@ lazy.build <- function(filename, pdf.zip=NULL, quiet=TRUE, clean=TRUE,
     
     #*** Zip the files and clean up
     if (length(figures.to) > 0)
-      zip(pdf.zip, c(if (length(weblinks) > 0) figures.to[-weblinks] else figures.to, filename.to, "00_Troubleshooting.txt"))
+      utils::zip(pdf.zip, c(if (length(weblinks) > 0) figures.to[-weblinks] else figures.to, filename.to, "00_Troubleshooting.txt"))
     else 
-      zip(pdf.zip, c(filename.to, "00_Troubleshooting.txt"))
+      utils::zip(pdf.zip, c(filename.to, "00_Troubleshooting.txt"))
     unlink(c(filename.to, figures.to, "00_Troubleshooting.txt"))
     if (rename) file.rename("Temporary_Name_Change.html", filename)  
   }

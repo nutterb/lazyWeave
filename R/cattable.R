@@ -74,16 +74,16 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
     .odds.scale <- .odds.unit <- rep(NA, nlev.v + 1)
     if (v %in% odds){
       if (nlev == 2 & nlev.v > 1 & !0 %in% rowSums(.count)){
-        warn <- withWarnings(glm(data[, byVar] ~ data[, v], family=binomial))
+        warn <- withWarnings(stats::glm(data[, byVar] ~ data[, v], family=stats::binomial))
         if (!is.null(warn$warnings)) warning(v, "(glm): ", warn$warnings)
         m <- warn$value
         m$method <- "Logistic Regression"
-        warn <- withWarnings(confint(m, level=1 - alpha))
+        warn <- withWarnings(stats::confint(m, level=1 - alpha))
         if (!is.null(warn$warnings)) warning(paste(v, "(confint): ", 
                                                 unique(unlist(warn$warnings)), 
                                                 collapse="\n"))
         ci <- warn$value
-        .odds <- c(NA, 1.0, exp(coef(m)[-1]))
+        .odds <- c(NA, 1.0, exp(stats::coef(m)[-1]))
         .odds.lower <- c(NA, NA, exp(ci[-1,1]))
         .odds.upper <- c(NA, NA, exp(ci[-1,2]))
       }
@@ -143,7 +143,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
       }
       else if(v %in% mcnemar){
         if (v %in% correct) cont <- TRUE else cont <- FALSE  
-        test.obj <- mcnemar.test(data[, v], data[, byVar], correct=cont)
+        test.obj <- stats::mcnemar.test(data[, v], data[, byVar], correct=cont)
         .test.method <- c(test.obj$method, rep(NA, nlev.v))
         .test.mark <- c("M", rep(NA, nlev.v))
         .test.stat <- ifelse(is.null(test.obj$estimate), NA, test.obj$estimate)
@@ -155,8 +155,8 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
           test.obj <- m
           .test.method <- c(NA, NA, rep(test.obj$method, nlev.v - 1))
           .test.mark <- c(NA, NA, rep("L", nlev.v - 1))
-          .test.stat <- c(NA, 1.0, exp(coef(test.obj)[-1]))
-          .pvalue <- c(NA, NA, coef(summary(test.obj))[-1, 4])
+          .test.stat <- c(NA, 1.0, exp(stats::coef(test.obj)[-1]))
+          .pvalue <- c(NA, NA, stats::coef(summary(test.obj))[-1, 4])
         }
         else{
           .test.method <- NA
@@ -166,7 +166,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
         }
       }
       else{
-        warn <- withWarnings(chisq.test(data[, v], data[, byVar]))
+        warn <- withWarnings(stats::chisq.test(data[, v], data[, byVar]))
         if (!is.null(warn$warnings)) warning(v, ": ", warn$warnings)
         test.obj <- warn$value
         .test.method <- c(test.obj$method, rep(NA, nlev.v))

@@ -35,7 +35,7 @@ function(..., OutFile, append=FALSE, collapse="\n", footnotes=TRUE){
   
 
       file <- unlist(strsplit(OutFile, "[.]"))
-      file.ext <- tail(file, 1)
+      file.ext <- utils::tail(file, 1)
       if (reportFormat == "latex" && file.ext %in% c("html", "htm")) 
         OutFile <- paste(file[-length(file)], ".tex", sep="")
       if (reportFormat == "html" && file.ext == "tex")

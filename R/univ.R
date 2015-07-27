@@ -137,8 +137,8 @@
   MEAN <- as.vector(sapply(vars,stat.func,func="mean"))
   MEAN <- ifelse(is.nan(MEAN), NA, MEAN)
   SD <- as.vector(sapply(vars,stat.func,func="sd"))
-  LCL <- suppressWarnings(ifelse(N > 1, MEAN - qt(1-alpha/2, N-1) * SD, NA))
-  UCL <- suppressWarnings(ifelse(N > 1, MEAN + qt(1-alpha/2, N-1) * SD, NA))
+  LCL <- suppressWarnings(ifelse(N > 1, MEAN - stats::qt(1-alpha/2, N-1) * SD, NA))
+  UCL <- suppressWarnings(ifelse(N > 1, MEAN + stats::qt(1-alpha/2, N-1) * SD, NA))
   MIN <- as.vector(sapply(vars,stat.func,func="min"))
   P25 <- as.vector(sapply(vars,stat.func,func="quantile",probs=0.25))
   MEDIAN <- as.vector(sapply(vars,stat.func,func="median"))
@@ -149,7 +149,7 @@
   if (nlevels(data[, byVar]) > 1){  
     PVAL <- lapply(vars, function(v) do.call(test, c(list(data[, v] ~ data[, byVar]), test.args))) 
     PVAL <- if (test != "aov") unlist(lapply(PVAL, function(x) c(x$p.value, rep(NA, nlevels(data[, byVar]) - 1))))
-            else if (test == "aov") unlist(lapply(PVAL, function(x) c(anova(x)[1, 5], rep(NA, nlevels(data[, byVar]) - 1))))
+            else if (test == "aov") unlist(lapply(PVAL, function(x) c(stats::anova(x)[1, 5], rep(NA, nlevels(data[, byVar]) - 1))))
   }
   else PVAL <- NA
 

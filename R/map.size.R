@@ -39,7 +39,7 @@ map.size <- function(x, reportFormat=getOption("lazyReportFormat")){
   
   if (reportFormat == "latex"){
     if (gsub("[[:punct:]]", "", x) %in% size.ref$latex) return(x)
-    if (is.numeric(x) && x >= 5) html.size <- tail(size.ref$html[size.ref$html <= x], 1) else html.size <- 5
+    if (is.numeric(x) && x >= 5) html.size <- utils::tail(size.ref$html[size.ref$html <= x], 1) else html.size <- 5
     x <- paste("\\", size.ref$latex[size.ref$html == html.size], sep="")
   }
   

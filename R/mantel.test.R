@@ -128,7 +128,7 @@ function(x,byVar,row.scores=c("equal","midrank"),
     den <- sqrt((p4-p5/n)*(p6-p7/n))
     r <- num/den
     M2 <- (n-1)*r^2
-    pvalue <- 1-pchisq(M2,1)
+    pvalue <- 1-stats::pchisq(M2,1)
     df <- 1
 
 #*** 2. Build htest object
