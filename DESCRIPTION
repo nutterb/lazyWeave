@@ -1,8 +1,8 @@
 Package: lazyWeave
 Type: Package
 Title: LaTeX Wrappers for R Users
-Version: 3.0.0
-Date: 2015-07-27
+Version: 3.0.1
+Date: 2016-01-08
 Author: Benjamin Nutter
 Maintainer: Benjamin Nutter <nutter@battelle.org>
 Description: Provides the functionality to write LaTeX code from within R
