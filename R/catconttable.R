@@ -161,7 +161,7 @@ catconttable <- function(data, vars, byVar, vars.cat=NULL, fisher=NULL, fisher.a
   
   if (missing(byVar)){
     byVar <- "PlAcE_hOlDeR_fOr_CaTcOnTtAbLe"
-    # data[, byVar] <- factor("")
+    data[, byVar] <- factor("")
   }
   
   if (!all(vars %in% names(data))){

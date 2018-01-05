@@ -203,7 +203,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
     
     rownames(.df) <- 
        c(v, paste(v, abbreviate(levels(data[, v]), minlength=minl), sep="-"))
-print(lapply(.df, class))
+
     return(.df)
   }
 
