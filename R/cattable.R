@@ -174,7 +174,6 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
       }
     }
     
-    print("HERE1")
     if (v %in% odds) .type <- "Logistic"
     else if (v %in% cmh) .type <- "Mantel-Haenszel"
     else if (v %in% fisher) .type <- "Fisher"
@@ -189,22 +188,22 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
 
     .df <- as.data.frame(cbind(.count, .prop, .meanb, .lowerb, .upperb,
                                .mean, .sd, .min, .p25, .median, .p75, .max))
-print("HERE2")
+
     .df <- cbind(.name, .label, .level, .total, .df, .missing, .missingp,
                  .odds, .odds.lower, .odds.upper, .odds.scale, .odds.unit,
                  .test.method, .test.mark, .test.stat, .pvalue,
                  is_significant(.pvalue), .type,
                  stringsAsFactors=FALSE)
-print("HERE3")
+
     names(.df) <- c("name", "label", "level", "total", names.df, "missing", "missing.perc",
                     "odds", "odds.lower", "odds.upper",
                     "odds.scale", "odds.unit",
                     "test", "test.mark", "test.stat",
                     "pvalue", "significant", "type")
-print("HERE4")       
+    
     rownames(.df) <- 
        c(v, paste(v, abbreviate(levels(data[, v]), minlength=minl), sep="-"))
-print("HERE5")
+print(lapply(.df, class))
     return(.df)
   }
 
@@ -219,7 +218,6 @@ print("HERE5")
   #data[, toFactor] <- lapply(data[, toFactor, drop=FALSE], factor)
   
   ctable <- do.call("rbind", lapply(vars, var.info))
-  print("HERE3")
   ctable$type <- factor(ctable$type)
   data[[byVar]] <- labelVector::set_label(data[[byVar]],
                                           labelVector::get_label(data, byVar))
