@@ -164,7 +164,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
         }
       }
       else{
-        warn <- withWarnings(stats::chisq.test(data[, v], data[, byVar]))
+        warn <- withWarnings(stats::chisq.test(unclass(data[, v]), data[, byVar]))
         if (!is.null(warn$warnings)) warning(v, ": ", warn$warnings)
         test.obj <- warn$value
         .test.method <- c(test.obj$method, rep(NA, nlev.v))
