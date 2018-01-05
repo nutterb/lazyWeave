@@ -37,7 +37,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
   }
   
   if ("tbl_df" %in% class(data)) data <- as.data.frame(data)
-print("HERE0")
+
   var.info <- function(v){
     if (!is.factor(data[, v])){
       v.lab <- labelVector::get_label(data[[v]])
@@ -67,9 +67,6 @@ print("HERE0")
     .median <- matrix(NA, nrow=nlev.v + 1, ncol=nlevels(data[, byVar]))
     .p75 <- matrix(NA, nrow=nlev.v + 1, ncol=nlevels(data[, byVar]))
     .max <- matrix(NA, nrow=nlev.v + 1, ncol=nlevels(data[, byVar]))
-
-
-
 
     
     .odds.scale <- .odds.unit <- rep(NA, nlev.v + 1)
@@ -192,40 +189,40 @@ print("HERE0")
 
     .df <- as.data.frame(cbind(.count, .prop, .meanb, .lowerb, .upperb,
                                .mean, .sd, .min, .p25, .median, .p75, .max))
-
+print("HERE2")
     .df <- cbind(.name, .label, .level, .total, .df, .missing, .missingp,
                  .odds, .odds.lower, .odds.upper, .odds.scale, .odds.unit,
                  .test.method, .test.mark, .test.stat, .pvalue,
                  is_significant(.pvalue), .type,
                  stringsAsFactors=FALSE)
+print("HERE3")
     names(.df) <- c("name", "label", "level", "total", names.df, "missing", "missing.perc",
                     "odds", "odds.lower", "odds.upper",
                     "odds.scale", "odds.unit",
                     "test", "test.mark", "test.stat",
                     "pvalue", "significant", "type")
-                    
+print("HERE4")       
     rownames(.df) <- 
        c(v, paste(v, abbreviate(levels(data[, v]), minlength=minl), sep="-"))
-
+print("HERE5")
     return(.df)
   }
-print("HERE2")
+
   if (missing(byVar)){
     byVar <- "PlAcE_hOlDeR_fOr_CaTtAbLe"
     data[, byVar] <- factor("")
   }
 #   if (!("ccf.df" %in% class(data))) data <- as.ccf.df.data.frame(data)
-print("HERE3")
   if (!is.factor(data[, byVar])) data[, byVar] <- factor(data[, byVar])
   
   #toFactor <- vars[sapply(vars, function(x) !is.factor(data[, x]))]
   #data[, toFactor] <- lapply(data[, toFactor, drop=FALSE], factor)
   
   ctable <- do.call("rbind", lapply(vars, var.info))
+  print("HERE3")
   ctable$type <- factor(ctable$type)
   data[[byVar]] <- labelVector::set_label(data[[byVar]],
                                           labelVector::get_label(data, byVar))
-print("HERE4")
   attributes(ctable)$byVar <- data[, byVar]
   attributes(ctable)$vars <- vars  
   class(ctable) <- c("ctable", "data.frame")
