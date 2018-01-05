@@ -193,10 +193,9 @@ catconttable <- function(data, vars, byVar, vars.cat=NULL, fisher=NULL, fisher.a
 
   ctable <- do.call("rbind", lapply(vars, var.info))
   ctable$type <- factor(ctable$type)
+  data[[byVar]] <- labelVector::set_label(data[[byVar]],
+                                          labelVector::get_label(data, byVar))
   attributes(ctable)$byVar <- data[, byVar]
-  attributes(ctable)$byVar <- 
-    labelVector::set_label(attributes(ctable$byVar),
-                           labelVector::get_label(data[[byVar]]))
   attributes(ctable)$vars <- vars  
   return(ctable)
 }

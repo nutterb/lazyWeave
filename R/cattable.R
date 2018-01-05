@@ -37,7 +37,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
   }
   
   if ("tbl_df" %in% class(data)) data <- as.data.frame(data)
-
+print("HERE0")
   var.info <- function(v){
     if (!is.factor(data[, v])){
       v.lab <- labelVector::get_label(data[[v]])
@@ -177,7 +177,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
       }
     }
     
-    
+    print("HERE1")
     if (v %in% odds) .type <- "Logistic"
     else if (v %in% cmh) .type <- "Mantel-Haenszel"
     else if (v %in% fisher) .type <- "Fisher"
@@ -209,13 +209,13 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
 
     return(.df)
   }
-
+print("HERE2")
   if (missing(byVar)){
     byVar <- "PlAcE_hOlDeR_fOr_CaTtAbLe"
     data[, byVar] <- factor("")
   }
 #   if (!("ccf.df" %in% class(data))) data <- as.ccf.df.data.frame(data)
-
+print("HERE3")
   if (!is.factor(data[, byVar])) data[, byVar] <- factor(data[, byVar])
   
   #toFactor <- vars[sapply(vars, function(x) !is.factor(data[, x]))]
@@ -225,6 +225,7 @@ cattable <- function(data, vars, byVar, fisher=NULL, fisher.arg=NULL,
   ctable$type <- factor(ctable$type)
   data[[byVar]] <- labelVector::set_label(data[[byVar]],
                                           labelVector::get_label(data, byVar))
+print("HERE4")
   attributes(ctable)$byVar <- data[, byVar]
   attributes(ctable)$vars <- vars  
   class(ctable) <- c("ctable", "data.frame")
