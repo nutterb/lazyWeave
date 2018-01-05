@@ -11,5 +11,7 @@ address from my employer's e-mail to my personal e-mail. This will make it
 easier for me to respond to e-mails regarding the package.
 
 ## Downstream dependencies
-There are no downstream dependencies for this package
-at this time.
+The `pointblank` package is listed as a downstream dependency. Although listed
+in `pointblank`'s Imports, there are no `lazyWeave` functions used within the
+`pointblank` source code.  The development code for `pointblank` on GitHub
+has removed `lazyWeave` as an Import.
