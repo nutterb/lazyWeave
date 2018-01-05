@@ -2,7 +2,7 @@
 #' @export lazy.figure
 #' 
 #' @title Include Figures in Latex Documents
-#' @details Generates the code to place a figure in a Latex document
+#' @description Generates the code to place a figure in a Latex document
 #' 
 #' @param filename Character string giving the location of the file to be included
 #' @param caption Text giving the caption for the figure

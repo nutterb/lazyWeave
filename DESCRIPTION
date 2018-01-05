@@ -1,10 +1,11 @@
 Package: lazyWeave
 Type: Package
 Title: LaTeX Wrappers for R Users
-Version: 3.0.1
-Date: 2016-01-08
-Author: Benjamin Nutter
-Maintainer: Benjamin Nutter <nutter@battelle.org>
+Version: 3.0.2
+Authors@R: c(
+    person("Benjamin", "Nutter", email = "benjamin.nutter@gmail.com", 
+           role = c("aut", "cre")))
+Maintainer: Benjamin Nutter <benjamin.nutter@gmail.com>
 Description: Provides the functionality to write LaTeX code from within R
     without having to learn LaTeX.  Functionality also exists to create HTML
     and Markdown code.  While the functionality still exists to write
@@ -16,6 +17,8 @@ LazyLoad: yes
 Depends:
     R (>= 2.10.0)
 Imports:
-    Hmisc (>= 3.14-6)
+    Hmisc,
+    labelVector
 Suggests:
     testthat
+RoxygenNote: 6.0.1

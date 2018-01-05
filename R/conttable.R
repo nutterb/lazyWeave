@@ -60,7 +60,7 @@
                      
 #*** 2. Numeric Summary variables
     .name <- v
-    .label <- if (Hmisc::label(data[,v]) %in% "") v else Hmisc::label(data[, v])
+    .label <- labelVector::get_label(data, v)
     .level <- NA
     .count <- colSums(table(data[, v], data[, byVar]))
     .prop <- rep(NA, nlev); names(.prop) <- levels(data[, byVar])
@@ -94,7 +94,7 @@
                       "two levels"))
         .odds <- .odds.lower <- .odds.upper <- .odds.scale <- .odds.unit <- NA
       }
-    }
+    } 
     else{
       .odds <- .odds.lower <- .odds.upper <- .odds.scale <- .odds.unit <- NA
     }
@@ -186,8 +186,13 @@
   ctable <- do.call("rbind", lapply(vars, var.info))
   ctable$type <- factor(ctable$type)
   class(ctable) <- c("ctable", "data.frame")
-  attributes(ctable)$byVar <- data[, byVar]
-  Hmisc::label(attributes(ctable)$byVar) <- Hmisc::label(data[, byVar])
+  data[[byVar]] <- labelVector::set_label(data[[byVar]],
+                                          labelVector::get_label(data, byVar))
+  attributes(ctable)$byVar <- data[[byVar]]
+# print(attributes(ctable)$byVar)
+#   attributes(ctable)$byVar <- 
+#     labelVector::set_label(attributes(ctable$byVar),
+#                            labelVector::get_label(data[[byVar]]))
   attributes(ctable)$vars <- vars  
   return(ctable)
 }

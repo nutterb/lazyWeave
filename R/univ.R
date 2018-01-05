@@ -1,11 +1,5 @@
 #' @name univ
 #' @export univ
-#' @importFrom Hmisc label.default
-#' @importFrom Hmisc label.data.frame
-#' @importFrom Hmisc 'label<-.default'
-#' @importFrom Hmisc 'label<-.data.frame'
-#' @importFrom Hmisc print.labelled
-#' @importFrom Hmisc '[.labelled'
 #' @importFrom Hmisc latexTranslate
 #' 
 #' @title Univariable Table
@@ -52,9 +46,12 @@
 #' data(Delivery)
 #' #Read in the delivery dataset from the CCFmisc library
 #' #use Hmisc library to labeling variables in univariate tables
-#' Hmisc::label(Delivery$maternal.age) <- "Maternal Age"
-#' Hmisc::label(Delivery$ga.weeks) <- "Gestation weeks"
-#' Hmisc::label(Delivery$wt.gram) <- "Weight (g)"
+#' Delivery$maternal.age <- 
+#'   labelVector::set_label(Delivery$maternal.age, "Maternal Age")
+#' Delivery$ga.weeks <- 
+#'   labelVector::set_label(Delivery$ga.weeks, "Gestation weeks")
+#' Delivery$wt.gram <- 
+#'   labelVector::set_label(Delivery$wt.gram, "Weight (g)")
 #' 
 #' 
 #' #a univariate table of the variables maternal age,
@@ -96,13 +93,15 @@
   if(missing(byVar)){
     byVar <- "SomePlaceHolderVariable"
     data[,byVar] <- factor(1)  
-    byVar.miss <- TRUE }
+    byVar.miss <- TRUE 
+  }
   else byVar.miss <- FALSE
 
 #*** 4. Coerce byVar to a factor variable
   if(!is.factor(data[,byVar])){
     data[,byVar] <- factor(data[,byVar])
-    warning(paste(expression(byVar),"was coerced to a factor variable"))  }
+    warning(paste(expression(byVar),"was coerced to a factor variable"))  
+  }
   
   test <- match.arg(test, c("t.test", "aov", "wilcox.test", "kruskal.test"))
  
@@ -127,9 +126,9 @@
 #* Get Factor and Group names and corresponding statistics
 #********************************************************************
 
-  if(byVar.miss) Factor <- Hmisc::label(data[vars], default=names(data[, vars]))
+  if(byVar.miss) Factor <- labelVector::get_label(data, vars)
   else Factor <- unlist(lapply(vars,function(v) 
-                    c(Hmisc::label(data[, v], default=v),
+                    c(labelVector::get_label(data, v),
                       rep(NA,nlevels(data[,byVar])-1))))
   Group <- rep(levels(data[,byVar]),length(vars))
   N <- as.vector(sapply(vars,count.func))

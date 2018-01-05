@@ -2,7 +2,7 @@
 #' @export lazy.text
 #' 
 #' @title Paragraphs in LaTeX
-#' @details Write paragraphs in LaTeX code
+#' @description Write paragraphs in LaTeX code
 #' 
 #' @param ... Text and other objects to be included in the paragraph
 #' @param title A title for the paragraph

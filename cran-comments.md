@@ -1,26 +1,14 @@
 ## Test environments
-* local Windows install (devel (2015-07-25 r68744))
-* local Windows install (R 3.2.1)
-* Ubuntu/Linaro 4.6.3-1ubuntu5 (on travis-ci), R 3.2.1
-* win-builder (devel)
+* Ubuntu 4.4.0-103-generic, R 3.4.3
+* ubuntu 14.04.5 (on travis-ci), R 3.4.2
+* win-builder devel (2018-01-04 r74054)
 
 ## R CMD check results
 NOTES: 
 
-This package was orphaned early in July.  This was a failing on my 
-part to get the maintainer e-mail transferred to my new place of 
-employment.  The maintainer e-mail in this submission is delivered
-through my new employer.
-
-There was a note about possible misspellings in the DESCRIPTION
-(win-builder, devel).  I have verified that the words in question 
-are spelled correctly.
-
-The note "No repository set, so cyclic dependency check skipped"
-appeared on win-builder (devel) but not on the local installs 
-nor on travis-ci
-
-There were no other NOTES, WARNINGS, or ERRORS observed.
+There is a change of the maintainer e-mail address.  I am switching the e-mail
+address from my employer's e-mail to my personal e-mail. This will make it 
+easier for me to respond to e-mails regarding the package.
 
 ## Downstream dependencies
 There are no downstream dependencies for this package

@@ -42,9 +42,12 @@
 #' data(Delivery)
 #' 
 #' #label the variables that will be used
-#' Hmisc::label(Delivery$maternal.age) <- "Maternal Age"
-#' Hmisc::label(Delivery$ga.weeks) <- "Gestation weeks"
-#' Hmisc::label(Delivery$wt.gram) <- "Weight (g)"
+#' Delivery$maternal.age <- 
+#'   labelVector::set_label(Delivery$maternal.age, "Maternal Age")
+#' Delivery$ga.weeks <- 
+#'   labelVector::set_label(Delivery$ga.weeks, "Gestation weeks")
+#' Delivery$wt.gram <- 
+#'   labelVector::set_label(Delivery$wt.gram, "Weight (g)")
 #' 
 #' #summaries of the continuous variables
 #' #maternal.age, ga.weeks and wt.gram in the 

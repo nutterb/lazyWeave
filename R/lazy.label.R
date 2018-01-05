@@ -1,4 +1,4 @@
-#' @describeIn lazy.ref
+#' @rdname lazy.ref
 #' @export lazy.label
 #' 
 
