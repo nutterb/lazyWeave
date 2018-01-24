@@ -1,6 +1,5 @@
 #' @name univ
 #' @export univ
-#' @importFrom Hmisc latexTranslate
 #' 
 #' @title Univariable Table
 #' @description Similar to the QHS SAS macro, provides a simple
@@ -45,7 +44,7 @@
 #' @examples
 #' data(Delivery)
 #' #Read in the delivery dataset from the CCFmisc library
-#' #use Hmisc library to labeling variables in univariate tables
+#' #use labelVector package to label variables in univariate tables
 #' Delivery$maternal.age <- 
 #'   labelVector::set_label(Delivery$maternal.age, "Maternal Age")
 #' Delivery$ga.weeks <- 

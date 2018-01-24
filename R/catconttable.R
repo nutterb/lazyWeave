@@ -1,7 +1,5 @@
 #' @name ComparisonTable
 #' @export catconttable
-#' @importFrom Hmisc latexTranslate
-#' @importFrom Hmisc smean.cl.boot
 #' 
 #' @title Comparison Tables
 #' @description Produce a table of comparisons for reports and manuscripts

@@ -184,7 +184,7 @@ lazy.table <- function(x,
   if (missing(size)) size <- get("HTML.FONT.SIZE", envir=options()$htmlCounters)
   
   x[is.na(x)] <- ""
-  if (reportFormat == "latex" && translate) x <- latexTranslate(x)
+  if (reportFormat == "latex" && translate) x <- Hmisc::latexTranslate(x)
 
   #****************************************************************************************************************************
   #* Arguments will be processed into their respective formats in the order they are listed in the function call
@@ -314,7 +314,7 @@ lazy.table <- function(x,
     if (is.null(caption)) caption <- ""
     else{
       caption <- paste("\\caption{", caption, "}\n", sep="")
-      if (translate) caption <- latexTranslate(caption)
+      if (translate) caption <- Hmisc::latexTranslate(caption)
     }
   }
   if (reportFormat %in% c("html", "markdown")){
@@ -330,7 +330,7 @@ lazy.table <- function(x,
     
   #*** table footnote
   if (is.null(footnote)) footnote <- ""
-  if (reportFormat == "latex" && translate) footnote <- latexTranslate(footnote)
+  if (reportFormat == "latex" && translate) footnote <- Hmisc::latexTranslate(footnote)
   
   #*** label
   if (reportFormat == "latex" && !is.null(label)) label <- lazy.label(label) else "%% \\label{}\n"

@@ -47,7 +47,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   p <- if (percent) 100 else 1
   
   if (is.null(caption)) 
-    caption <- paste("Listing of ", latexTranslate(Hmisc::label(attributes(x)$byVar)),
+    caption <- paste("Listing of ", Hmisc::latexTranslate(labelVector::get_label(attributes(x)$byVar)),
                      "vs. Selected Continuous Measures.")
   
   if (name && var.label){
@@ -102,7 +102,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
                                                        c(list(p=x$pvalue, 
                                                               format=pvalFormat), 
                                                          pvalArgs)))
-  if (reportFormat %in% "latex") x$pvalue <- latexTranslate(x$pvalue)
+  if (reportFormat %in% "latex") x$pvalue <- Hmisc::latexTranslate(x$pvalue)
   x$test.stat <- round(x$test.stat, round)
   x$missing.perc <- ifelse(!is.na(x$missing.perc), format(x$missing.perc, digits=1), x$missing.perc)
   x[is.na(x)] <- na.char
@@ -128,17 +128,17 @@ write.ctable <- function(x, round = 2, percent = TRUE,
   if (total) output <- cbind(x$total, output)
   if (var.label) output <- 
     cbind(ifelse(x$label!="",
-                 if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="")) 
+                 if (reportFormat %in% "latex") Hmisc::latexTranslate(paste(x$label, x$level, sep="")) 
                  else paste(x$label, x$level, sep=""),
-                 if (reportFormat %in% "latex") latexTranslate(paste(x$label, x$level, sep="\\hspace{.2in}"))
+                 if (reportFormat %in% "latex") Hmisc::latexTranslate(paste(x$label, x$level, sep="\\hspace{.2in}"))
                  else if (reportFormat == "html") paste(x$label, x$level, sep=" &nbsp&nbsp&nbsp&nbsp ")
                  else paste(x$label, x$level, sep = " - ")), 
           output)
   if (name) output <- 
     cbind(ifelse(x$name!="",
-                 if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="")) 
+                 if (reportFormat %in% "latex") Hmisc::latexTranslate(paste(x$name, x$level, sep="")) 
                  else paste(x$name, x$level, sep=""),
-                 if (reportFormat %in% "latex") latexTranslate(paste(x$name, x$level, sep="\\hspace{.2in}"))
+                 if (reportFormat %in% "latex") Hmisc::latexTranslate(paste(x$name, x$level, sep="\\hspace{.2in}"))
                  else if (reportFormat == "html") paste(x$name, x$level, sep=" &nbsp&nbsp&nbsp&nbsp ")
                  else paste(x$name, x$level, sep = " - ")), 
           output)
@@ -245,7 +245,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
              if(pval) na.char)
   
 
-  if (options("lazyReportFormat") == "latex") head <- latexTranslate(head)
+  if (options("lazyReportFormat") == "latex") head <- Hmisc::latexTranslate(head)
   
   #    return(name + var.label + total + 1 + nlev)
   part1 <- lazy.table(head, align=align, justify="left", 
@@ -309,7 +309,7 @@ write.ctable <- function(x, round = 2, percent = TRUE,
              if(total) "Total",
              rep(c("N", statHeader), nlev),
              if(missing) "Missing",
-             if(missing.perc) latexTranslate("% Missing"),
+             if(missing.perc) Hmisc::latexTranslate("% Missing"),
              if(odds) "Odds Ratio",
              if(testStat) "Test Statistic",
              if(pval) "p-value")

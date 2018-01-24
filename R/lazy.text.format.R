@@ -41,7 +41,7 @@ lazy.text.format <- function(text, italic=FALSE, bold=FALSE,
   if (!reportFormat %in% c("latex", "html", "markdown")) stop("option(\"lazyReportFormat\") must be either 'latex', 'html', or 'markdown'")
   
   if (reportFormat == "latex"){
-    if (translate) text <- latexTranslate(text)
+    if (translate) text <- Hmisc::latexTranslate(text)
   
     if (underline) text <- paste("\\ul{", text, "}", sep="")
     if (bold)      text <- paste("\\textbf{", text, "}", sep="")

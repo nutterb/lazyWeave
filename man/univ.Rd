@@ -54,7 +54,7 @@ are determined using the t-distribution.
 \examples{
 data(Delivery)
 #Read in the delivery dataset from the CCFmisc library
-#use Hmisc library to labeling variables in univariate tables
+#use labelVector package to label variables in univariate tables
 Delivery$maternal.age <- 
   labelVector::set_label(Delivery$maternal.age, "Maternal Age")
 Delivery$ga.weeks <- 
