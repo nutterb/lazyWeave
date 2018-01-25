@@ -54,6 +54,11 @@
 'mantel.test' <-
 function(x,byVar,row.scores=c("equal","midrank"),
                   col.scores=c("equal","midrank")){
+  
+  row.scores <- match.arg(row.scores,
+                          c("equal", "midrank"))
+  col.scores <- match.arg(col.scores,
+                          c("equal", "midrank"))
 
 #*****************************************************************************
 #* Calculate the midranks for a set of categorical observations.
@@ -82,18 +87,16 @@ function(x,byVar,row.scores=c("equal","midrank"),
   if(missing(byVar)) temp <- x else temp <- table(x,byVar)
 
 #*** 2. Determine row scores
-  suppressWarnings(
       # Equally spaced
       if(row.scores=="equal"){ row.scores <- seq(1,nrow(temp)) }
       # Midrank sores
-      else if(row.scores=="midrank"){ row.scores <- midrank(temp) } )
+      else if(row.scores=="midrank"){ row.scores <- midrank(temp) } 
 
 #*** 3. Determine column scores
-  suppressWarnings(
       # Equally spaced
       if(col.scores=="equal"){ col.scores <- seq(1,ncol(temp)) }
       # Midrank sores
-      else if(col.scores=="midrank"){ col.scores <- midrank(temp,row=FALSE) } )
+      else if(col.scores=="midrank"){ col.scores <- midrank(temp,row=FALSE) }
 
 #*** 4. Verify validity of user defined scores
   if(length(row.scores)!=nrow(temp)){

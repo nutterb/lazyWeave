@@ -10,6 +10,12 @@ There is a change of the maintainer e-mail address.  I am switching the e-mail
 address from my employer's e-mail to my personal e-mail. This will make it 
 easier for me to respond to e-mails regarding the package.
 
+The previous maintainer e-mail is nutter@battelle.org.
+
+The new maintainer e-mail is benjamin.nutter@gmail.com.
+
+I fixed the error reported on the previous submission. 
+
 ## Downstream dependencies
 The `pointblank` package is listed as a downstream dependency. Although listed
 in `pointblank`'s Imports, there are no `lazyWeave` functions used within the
