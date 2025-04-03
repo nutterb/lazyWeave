@@ -4,9 +4,18 @@
 \alias{lazy.file.start}
 \title{Initiate New LaTeX, HTML, or Markdown Files}
 \usage{
-lazy.file.start(docClass = "article", packages = NULL, counters = NULL,
-  layout = "", page = "arabic", ligatures = TRUE, title = NULL,
-  author = NULL, date = "", initialize = TRUE)
+lazy.file.start(
+  docClass = "article",
+  packages = NULL,
+  counters = NULL,
+  layout = "",
+  page = "arabic",
+  ligatures = TRUE,
+  title = NULL,
+  author = NULL,
+  date = "",
+  initialize = TRUE
+)
 }
 \arguments{
 \item{docClass}{a character string giving a valid LaTeX document 

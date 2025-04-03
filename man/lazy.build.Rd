@@ -4,8 +4,14 @@
 \alias{lazy.build}
 \title{Compile a PDF or HTML Report}
 \usage{
-lazy.build(filename, pdf.zip = NULL, quiet = TRUE, clean = TRUE,
-  replace = TRUE, ...)
+lazy.build(
+  filename,
+  pdf.zip = NULL,
+  quiet = TRUE,
+  clean = TRUE,
+  replace = TRUE,
+  ...
+)
 }
 \arguments{
 \item{filename}{Character string giving the location of the file to be built.

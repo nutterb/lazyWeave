@@ -4,8 +4,16 @@
 \alias{lazy.citation}
 \title{Add R or R Package Citation}
 \usage{
-lazy.citation(pkg = NULL, author = TRUE, title = TRUE, org = TRUE,
-  address = TRUE, volume = TRUE, year = TRUE, note = TRUE)
+lazy.citation(
+  pkg = NULL,
+  author = TRUE,
+  title = TRUE,
+  org = TRUE,
+  address = TRUE,
+  volume = TRUE,
+  year = TRUE,
+  note = TRUE
+)
 }
 \arguments{
 \item{pkg}{a character(1) vector giving the name of a package.  If \code{NULL}, a citation for R is produced.}

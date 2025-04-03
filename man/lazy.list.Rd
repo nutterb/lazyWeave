@@ -4,9 +4,18 @@
 \alias{lazy.list}
 \title{Lists in LaTeX and HTML}
 \usage{
-lazy.list(item, ordered = TRUE, counter = NULL, counterSet = 1,
-  title = NULL, style = c("arabic", "Roman", "roman", "Alph", "alph"),
-  symbol = c("bullet", "circ", "blacksquare"), font, family, size)
+lazy.list(
+  item,
+  ordered = TRUE,
+  counter = NULL,
+  counterSet = 1,
+  title = NULL,
+  style = c("arabic", "Roman", "roman", "Alph", "alph"),
+  symbol = c("bullet", "circ", "blacksquare"),
+  font,
+  family,
+  size
+)
 }
 \arguments{
 \item{item}{A vector with the items to be placed in the list}

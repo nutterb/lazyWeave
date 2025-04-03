@@ -4,8 +4,15 @@
 \alias{lazy.footnote}
 \title{Add a Footnote}
 \usage{
-lazy.footnote(text, number = NULL, translate = FALSE, name, ref,
-  counter = "footnote", size = 8)
+lazy.footnote(
+  text,
+  number = NULL,
+  translate = FALSE,
+  name,
+  ref,
+  counter = "footnote",
+  size = 8
+)
 }
 \arguments{
 \item{text}{Text for the footnote}

@@ -4,10 +4,18 @@
 \alias{setHtmlOptions}
 \title{lazyWeave HTML Report Options}
 \usage{
-setHtmlOptions(table = NULL, figure = NULL, footnote = NULL,
-  chapter = NULL, section = NULL, subsection = NULL,
-  subsubsection = NULL, font.family = NULL, font = NULL,
-  font.size = NULL)
+setHtmlOptions(
+  table = NULL,
+  figure = NULL,
+  footnote = NULL,
+  chapter = NULL,
+  section = NULL,
+  subsection = NULL,
+  subsubsection = NULL,
+  font.family = NULL,
+  font = NULL,
+  font.size = NULL
+)
 }
 \arguments{
 \item{table}{Sets the HTML table counter}

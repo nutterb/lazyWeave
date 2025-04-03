@@ -4,9 +4,13 @@
 \alias{lazy.toc}
 \title{Table of Contents and Other Lists}
 \usage{
-lazy.toc(type = c("contents", "figures", "tables"), add = FALSE,
-  desc = "", withPage = TRUE, sec_unit = c("chapter", "section",
-  "subsection", "subsubsection", "part"))
+lazy.toc(
+  type = c("contents", "figures", "tables"),
+  add = FALSE,
+  desc = "",
+  withPage = TRUE,
+  sec_unit = c("chapter", "section", "subsection", "subsubsection", "part")
+)
 }
 \arguments{
 \item{type}{Type of list to be printed or edited}

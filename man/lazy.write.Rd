@@ -4,8 +4,7 @@
 \alias{lazy.write}
 \title{Output LaTeX Code to a File}
 \usage{
-lazy.write(..., OutFile, append = FALSE, collapse = "\\n",
-  footnotes = TRUE)
+lazy.write(..., OutFile, append = FALSE, collapse = "\\n", footnotes = TRUE)
 }
 \arguments{
 \item{...}{Strings, expressions, and statements to be written 

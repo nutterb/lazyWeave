@@ -4,10 +4,19 @@
 \alias{lazy.matrix}
 \title{Convert Matrix to LaTeX Table}
 \usage{
-lazy.matrix(x, align = "center", justify = "center", rcol = NULL,
-  usecol = "lightgray", caption = NULL, footnote = NULL,
-  placement = "h", translate = TRUE, cat = getOption("lazyWeave_cat"),
-  ...)
+lazy.matrix(
+  x,
+  align = "center",
+  justify = "center",
+  rcol = NULL,
+  usecol = "lightgray",
+  caption = NULL,
+  footnote = NULL,
+  placement = "h",
+  translate = TRUE,
+  cat = getOption("lazyWeave_cat"),
+  ...
+)
 }
 \arguments{
 \item{x}{A matrix.  Other objects are coerced to matrices}

@@ -4,8 +4,14 @@
 \alias{univ}
 \title{Univariable Table}
 \usage{
-univ(data, vars, byVar, alpha = 0.05, test = c("t.test", "aov",
-  "wilcox.test", "kruskal.test"), test.args = NULL)
+univ(
+  data,
+  vars,
+  byVar,
+  alpha = 0.05,
+  test = c("t.test", "aov", "wilcox.test", "kruskal.test"),
+  test.args = NULL
+)
 }
 \arguments{
 \item{data}{A \code{ccf.df} or \code{data.frame} containing the variables in
@@ -31,7 +37,7 @@ Similar to the QHS SAS macro, provides a simple
 }
 \details{
 Statistics available in univ, and the calls to get them are:
-\enumerate{
+\describe{
 \item{\code{n}}{number of non-missing values.}
 \item{\code{missing}}{number of missing values}
 \item{\code{mean}}{arithmetic mean}

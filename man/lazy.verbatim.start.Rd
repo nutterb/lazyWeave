@@ -28,9 +28,9 @@ like \code{gsub(" ", "&nbsp ", [text])} (\code{&nbsp} is the HTML character for 
 }
 \section{Functions}{
 \itemize{
-\item \code{lazy.verbatim.end}: 
-}}
+\item \code{lazy.verbatim.end()}: 
 
+}}
 \author{
 Benjamin Nutter
 }

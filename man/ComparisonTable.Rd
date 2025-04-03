@@ -7,19 +7,62 @@
 \alias{conttable}
 \title{Comparison Tables}
 \usage{
-catconttable(data, vars, byVar, vars.cat = NULL, fisher = NULL,
-  fisher.arg = NULL, cmh = NULL, row.score = NULL, col.score = NULL,
-  normal = NULL, var.equal = NULL, median = NULL, odds = NULL,
-  odds.scale = NULL, odds.unit = NULL, none = NULL, row.p = TRUE,
-  alpha = 0.05, B = 1000, seed = NULL)
+catconttable(
+  data,
+  vars,
+  byVar,
+  vars.cat = NULL,
+  fisher = NULL,
+  fisher.arg = NULL,
+  cmh = NULL,
+  row.score = NULL,
+  col.score = NULL,
+  normal = NULL,
+  var.equal = NULL,
+  median = NULL,
+  odds = NULL,
+  odds.scale = NULL,
+  odds.unit = NULL,
+  none = NULL,
+  row.p = TRUE,
+  alpha = 0.05,
+  B = 1000,
+  seed = NULL
+)
 
-cattable(data, vars, byVar, fisher = NULL, fisher.arg = NULL, cmh = NULL,
-  row.score = NULL, col.score = NULL, mcnemar = NULL, correct = NULL,
-  none = NULL, odds = NULL, row.p = TRUE, alpha = 0.05, minl = 5)
+cattable(
+  data,
+  vars,
+  byVar,
+  fisher = NULL,
+  fisher.arg = NULL,
+  cmh = NULL,
+  row.score = NULL,
+  col.score = NULL,
+  mcnemar = NULL,
+  correct = NULL,
+  none = NULL,
+  odds = NULL,
+  row.p = TRUE,
+  alpha = 0.05,
+  minl = 5
+)
 
-conttable(data, vars, byVar, normal = NULL, var.equal = NULL,
-  median = NULL, none = NULL, odds = NULL, odds.scale = NULL,
-  odds.unit = NULL, alpha = 0.05, B = 1000, seed = NULL)
+conttable(
+  data,
+  vars,
+  byVar,
+  normal = NULL,
+  var.equal = NULL,
+  median = NULL,
+  none = NULL,
+  odds = NULL,
+  odds.scale = NULL,
+  odds.unit = NULL,
+  alpha = 0.05,
+  B = 1000,
+  seed = NULL
+)
 }
 \arguments{
 \item{data}{A \code{ccf.df} or \code{data.frame} with the variables to be

@@ -4,8 +4,12 @@
 \alias{mantel.test}
 \title{Mantel-Haenszel test for two-way tables}
 \usage{
-mantel.test(x, byVar, row.scores = c("equal", "midrank"),
-  col.scores = c("equal", "midrank"))
+mantel.test(
+  x,
+  byVar,
+  row.scores = c("equal", "midrank"),
+  col.scores = c("equal", "midrank")
+)
 }
 \arguments{
 \item{x}{Either a vector of data or a two way table. If a vector is given, 

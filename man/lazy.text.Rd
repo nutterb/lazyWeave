@@ -4,9 +4,19 @@
 \alias{lazy.text}
 \title{Paragraphs in LaTeX}
 \usage{
-lazy.text(..., title = NULL, align = "left", italic = FALSE,
-  bold = FALSE, underline = FALSE, sep = "", translate = TRUE, font,
-  family, size)
+lazy.text(
+  ...,
+  title = NULL,
+  align = "left",
+  italic = FALSE,
+  bold = FALSE,
+  underline = FALSE,
+  sep = "",
+  translate = TRUE,
+  font,
+  family,
+  size
+)
 }
 \arguments{
 \item{...}{Text and other objects to be included in the paragraph}

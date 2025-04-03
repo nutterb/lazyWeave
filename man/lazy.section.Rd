@@ -4,12 +4,19 @@
 \alias{lazy.section}
 \title{Open Sections in LaTeX Documents}
 \usage{
-lazy.section(heading, type = c("section", "sub", "subsub", "chapter", "sub2"),
-  ordered = FALSE, counter, counterSet = NULL, label = NULL,
+lazy.section(
+  heading,
+  type = c("section", "sub", "subsub", "chapter", "sub2"),
+  ordered = FALSE,
+  counter,
+  counterSet = NULL,
+  label = NULL,
   font = getOption("html.font.font"),
   family = getOption("html.font.family"),
-  size = getOption("html.font.size"), leadspace = TRUE,
-  floatBarrier = TRUE)
+  size = getOption("html.font.size"),
+  leadspace = TRUE,
+  floatBarrier = TRUE
+)
 }
 \arguments{
 \item{heading}{The name of the section or subsection}

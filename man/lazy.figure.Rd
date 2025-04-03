@@ -4,10 +4,20 @@
 \alias{lazy.figure}
 \title{Include Figures in Latex Documents}
 \usage{
-lazy.figure(filename, caption = NULL, align = "center", height = 3,
-  width = 3, units = "in", counter, counterSet = NULL, label = NULL,
-  placement = "h", alt = "Image Not Found",
-  cat = getOption("lazyWeave_cat"))
+lazy.figure(
+  filename,
+  caption = NULL,
+  align = "center",
+  height = 3,
+  width = 3,
+  units = "in",
+  counter,
+  counterSet = NULL,
+  label = NULL,
+  placement = "h",
+  alt = "Image Not Found",
+  cat = getOption("lazyWeave_cat")
+)
 }
 \arguments{
 \item{filename}{Character string giving the location of the file to be included}

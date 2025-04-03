@@ -4,14 +4,36 @@
 \alias{lazy.table}
 \title{Tables in LaTeX}
 \usage{
-lazy.table(x, align = "center", cspan = 1, cwidth = NULL,
-  cwidth.units = "in", cborder = NULL, cborder.thick = 1,
-  cborder.style = "solid black", rborder = NULL, rbspan = NULL,
-  rborder.thick = 1, rborder.style = "solid black", rcol = NULL,
-  usecol = "lightgray", font, family, size, justify = "center",
-  placement = "h", open = TRUE, close = TRUE, caption = NULL,
-  footnote = NULL, label = NULL, counter = NULL, counterSet = NULL,
-  translate = TRUE, cat = getOption("lazyWeave_cat"))
+lazy.table(
+  x,
+  align = "center",
+  cspan = 1,
+  cwidth = NULL,
+  cwidth.units = "in",
+  cborder = NULL,
+  cborder.thick = 1,
+  cborder.style = "solid black",
+  rborder = NULL,
+  rbspan = NULL,
+  rborder.thick = 1,
+  rborder.style = "solid black",
+  rcol = NULL,
+  usecol = "lightgray",
+  font,
+  family,
+  size,
+  justify = "center",
+  placement = "h",
+  open = TRUE,
+  close = TRUE,
+  caption = NULL,
+  footnote = NULL,
+  label = NULL,
+  counter = NULL,
+  counterSet = NULL,
+  translate = TRUE,
+  cat = getOption("lazyWeave_cat")
+)
 }
 \arguments{
 \item{x}{Matrix to be put into the table.  Other objects are coerced to

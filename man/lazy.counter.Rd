@@ -4,8 +4,12 @@
 \alias{lazy.counter}
 \title{Create and Manage Counters for LaTeX Documents}
 \usage{
-lazy.counter(counter, value, oldcounter, fn = c("new", "addto", "set", "use",
-  "value"))
+lazy.counter(
+  counter,
+  value,
+  oldcounter,
+  fn = c("new", "addto", "set", "use", "value")
+)
 }
 \arguments{
 \item{counter}{A character(1) giving the name of the counter to be created

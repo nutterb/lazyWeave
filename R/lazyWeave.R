@@ -35,6 +35,5 @@
 #' may not be identical between formats.  
 #'
 #' @name lazyWeave
-#' @docType package
 
-NULL
+"_PACKAGE"

@@ -12,14 +12,36 @@
 
 split_ctable(x, max.rows = 35, keepVarTogether = TRUE, ...)
 
-write.ctable(x, round = 2, percent = TRUE, quartile = TRUE,
-  cwidth = NULL, caption = NULL, footnote = NULL, byVarN = FALSE,
-  size = "\\\\normalsize", descripCombine = TRUE, oddsCombine = TRUE,
-  markSignificant = FALSE, statHeader = "Statistics", name = FALSE,
-  var.label = TRUE, level = TRUE, total = TRUE, descriptive = TRUE,
-  missing = FALSE, missing.perc = FALSE, testStat = TRUE, odds = FALSE,
-  pval = TRUE, oneLine = FALSE, pvalFormat = "default",
-  pvalArgs = list(), cat = getOption("lazyWeave_cat"), ...)
+write.ctable(
+  x,
+  round = 2,
+  percent = TRUE,
+  quartile = TRUE,
+  cwidth = NULL,
+  caption = NULL,
+  footnote = NULL,
+  byVarN = FALSE,
+  size = "\\\\normalsize",
+  descripCombine = TRUE,
+  oddsCombine = TRUE,
+  markSignificant = FALSE,
+  statHeader = "Statistics",
+  name = FALSE,
+  var.label = TRUE,
+  level = TRUE,
+  total = TRUE,
+  descriptive = TRUE,
+  missing = FALSE,
+  missing.perc = FALSE,
+  testStat = TRUE,
+  odds = FALSE,
+  pval = TRUE,
+  oneLine = FALSE,
+  pvalFormat = "default",
+  pvalArgs = list(),
+  cat = getOption("lazyWeave_cat"),
+  ...
+)
 }
 \arguments{
 \item{x}{A ctable object to be printed or written}

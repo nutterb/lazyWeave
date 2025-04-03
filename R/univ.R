@@ -19,7 +19,7 @@
 #' 
 #' @details
 #' Statistics available in univ, and the calls to get them are:
-#' \enumerate{
+#' \describe{
 #' \item{\code{n}}{number of non-missing values.}
 #' \item{\code{missing}}{number of missing values}
 #' \item{\code{mean}}{arithmetic mean}

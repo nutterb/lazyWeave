@@ -4,11 +4,29 @@
 \alias{write.univ}
 \title{Write Univariate Table to a File}
 \usage{
-write.univ(x, round = 1, Factor = TRUE, Group = FALSE, N = TRUE,
-  Missing = FALSE, Mean = TRUE, SD = TRUE, LCL = FALSE, UCL = FALSE,
-  Min = TRUE, P25 = TRUE, Median = TRUE, P75 = TRUE, Max = TRUE,
-  CV = FALSE, Pval = FALSE, pvalFormat = "default", pvalArgs = list(),
-  cat = getOption("lazyWeave_cat"), ...)
+write.univ(
+  x,
+  round = 1,
+  Factor = TRUE,
+  Group = FALSE,
+  N = TRUE,
+  Missing = FALSE,
+  Mean = TRUE,
+  SD = TRUE,
+  LCL = FALSE,
+  UCL = FALSE,
+  Min = TRUE,
+  P25 = TRUE,
+  Median = TRUE,
+  P75 = TRUE,
+  Max = TRUE,
+  CV = FALSE,
+  Pval = FALSE,
+  pvalFormat = "default",
+  pvalArgs = list(),
+  cat = getOption("lazyWeave_cat"),
+  ...
+)
 }
 \arguments{
 \item{x}{An object of type \code{univ}.}
