@@ -51,7 +51,7 @@
 #' @param counterSet The value to which \code{counter} should be set.  
 #'   In other words, the number of this table
 #' @param translate Toggles if inputs in \code{x} should be passed through 
-#'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
+#'   \code{\link[Hmisc]{latexTranslate}}.  This should be set to \code{FALSE} if writing
 #'   custom code
 #' @param cat Logical. Determines if the output is returned as a character string
 #'   or returned via the \code{cat} function (printed to console).  The default

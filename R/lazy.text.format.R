@@ -11,7 +11,7 @@
 #' @param bold Logical.  Specifies if text should be bold
 #' @param underline Logical. Specifies if text should be underlined
 #' @param translate Logical. Specifies if text should be passed through 
-#'   \code{latexTranslate} before printing
+#'   \code{\link[Hmisc]{latexTranslate}} before printing
 #'   
 #' @details This function differs from \code{lazy.text} in that 
 #' \code{lazy.text} produces a paragraph of formatted text while
@@ -27,7 +27,7 @@
 #' lazy.text.format("This is the text", bold=TRUE)
 #' lazy.text.format("This is the text", italic=TRUE, bold=TRUE)
 #' 
-#' lazy.text("The percentage of defective lightbulbs in this sample was ", 
+#' lazy.text("The percentage of defective light bulbs in this sample was ", 
 #'           lazy.text.format("30\%", italic=TRUE),
 #'           ". Clearly, this is unacceptable.")
 #' 

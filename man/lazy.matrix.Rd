@@ -42,7 +42,7 @@ below the table.}
 \code{"!"}. See "Details" for more explanation. These apply only to LaTeX}
 
 \item{translate}{Toggles if inputs in \code{x} should be passed through 
-\code{latexTranslate}.  This should be set to \code{FALSE} if writing
+\code{\link[Hmisc]{latexTranslate}}.  This should be set to \code{FALSE} if writing
 custom code}
 
 \item{cat}{Logical. Determines if the output is returned as a character string

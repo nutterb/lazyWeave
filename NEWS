@@ -1,3 +1,7 @@
+=== Version 3.0.3 ===
+
+- Correct documentation issues at the request of CRAN.
+
 === Version 3.0.0 === 
 BACK COMPATIBILITY ISSUES
 - When loading the package, the new default for lazyReportFormat is 'markdown'.

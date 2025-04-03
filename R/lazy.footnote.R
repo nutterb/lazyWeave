@@ -8,7 +8,7 @@
 #' 
 #' @param text Text for the footnote
 #' @param number Footnote number
-#' @param translate Determines if \code{\link{latexTranslate}}
+#' @param translate Determines if \code{\link[Hmisc]{latexTranslate}}
 #'  is applied to \code{text}.
 #' @param name For HTML, a reference name to the endnote
 #' @param ref For HTML, a reference name to go back to the text (from the endnote).
@@ -16,8 +16,8 @@
 #' @param size For HTML, the text size to use for the endnote
 #' 
 #' @details Be warned that this is not a perfect function on the LaTeX side.
-#'   If you use special characters that require that \code{latexTranslate} be 
-#'   turned off, you'll also need to turn of \code{latexTranslate} in
+#'   If you use special characters that require that \code{\link[Hmisc]{latexTranslate}} be 
+#'   turned off, you'll also need to turn of \code{\link[Hmisc]{latexTranslate}} in
 #'    \code{lazy.write}.  I'm including this as is for ease of use, but it 
 #'    does have some kinks to work out.
 #'    

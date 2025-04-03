@@ -19,7 +19,7 @@ lazy.footnote(
 
 \item{number}{Footnote number}
 
-\item{translate}{Determines if \code{\link{latexTranslate}}
+\item{translate}{Determines if \code{\link[Hmisc]{latexTranslate}}
 is applied to \code{text}.}
 
 \item{name}{For HTML, a reference name to the endnote}
@@ -37,8 +37,8 @@ established between the text and the endnote for user convenience
 }
 \details{
 Be warned that this is not a perfect function on the LaTeX side.
-  If you use special characters that require that \code{latexTranslate} be 
-  turned off, you'll also need to turn of \code{latexTranslate} in
+  If you use special characters that require that \code{\link[Hmisc]{latexTranslate}} be 
+  turned off, you'll also need to turn of \code{\link[Hmisc]{latexTranslate}} in
    \code{lazy.write}.  I'm including this as is for ease of use, but it 
    does have some kinks to work out.
    

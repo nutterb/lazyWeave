@@ -14,7 +14,7 @@
 #' @param sep Character.  Denotes the separation string for the items in 
 #'   \code{...} when they are pasted together
 #' @param translate Toggles if inputs in \code{x} should be passed through 
-#'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
+#'   \code{\link[Hmisc]{latexTranslate}}.  This should be set to \code{FALSE} if writing
 #'   custom code.
 #' @param font HTML font for the paragraph. Defaults to the HTML option 
 #'   (see \code{\link{setHtmlOptions}}).

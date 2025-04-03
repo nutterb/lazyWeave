@@ -19,7 +19,7 @@
 #'   \code{"ht", "t", "b", "p", "H"} and can be supplemented with 
 #'   \code{"!"}. See "Details" for more explanation. These apply only to LaTeX
 #' @param translate Toggles if inputs in \code{x} should be passed through 
-#'   \code{latexTranslate}.  This should be set to \code{FALSE} if writing
+#'   \code{\link[Hmisc]{latexTranslate}}.  This should be set to \code{FALSE} if writing
 #'   custom code
 #' @param cat Logical. Determines if the output is returned as a character string
 #'   or returned via the \code{cat} function (printed to console).  The default

@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.org/nutterb/lazyWeave.png?branch=master)](https://travis-ci.org/nutterb/lazyWeave)  
 [![DOI](https://zenodo.org/badge/6246/nutterb/lazyWeave.png)](http://dx.doi.org/10.5281/zenodo.12618)  
-![](http://cranlogs.r-pkg.org/badges/lazyWeave)
 
 lazyWeave
 =====================
